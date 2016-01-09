@@ -1,0 +1,4 @@
+DVN数据文件缩略图需要使用ImageMagick为PDF生成图片，在linux中可以使用
+yum install ImageMagick ImageMagick-devel进行安装，安装后可以使
+用convert pdf:a.pdf -thumbnail 64x64 -flatten -strip png:b.png
+测试效果

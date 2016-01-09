@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+    <h:head>
+    </h:head>
+
+    <h:body>
+        <f:metadata>
+            <f:viewParam name="guestbookId" value="#{guestbookResponsesPage.guestbookId}"/>
+            <f:viewParam name="dataverseId" value="#{guestbookResponsesPage.dataverseId}"/>
+            <f:viewAction action="#{guestbookResponsesPage.init}"/>
+            <f:viewAction action="#{dataverseHeaderFragment.initBreadcrumbs(guestbookResponsesPage.dataverse, 'Guestbook Responses')}"/>
+        </f:metadata>
+        <ui:composition template="/dataverse_template.xhtml">
+            <ui:param name="pageTitle" value="#{bundle['dataset.guestbookResponses.pageTitle']}"/>
+
+            <ui:define name="body">
+                <h:form id="manageGuestbooksForm">
+                    <div class="row">
+                        <div class="form-group clearfix">
+                            <label for="guestbookNameStatic" class="col-sm-2 control-label">
+                                <span>#{bundle['dataset.manageGuestbooks.tab.action.btn.view.dialog.datasetGuestbook']}</span>
+                            </label>
+                            <div class="col-sm-9">
+                                #{guestbookResponsesPage.guestbook.name}
+                            </div>
+                        </div>
+                    </div>
+                    <p:dataTable id="responsesGuestbook" value="#{guestbookResponsesPage.responses}" var="response">
+                        <p:column sortBy="name" headerText="#{bundle['dataset.guestbooksResponses.dataset']}">
+                            <h:outputText value="#{response.dataset.releasedVersion.title}"/>
+                        </p:column>
+                        <p:column sortBy="name" headerText="#{bundle['dataset.guestbooksResponses.date']}">
+                            #{response.responseTime.month+1}/#{response.responseTime.date}/#{response.responseTime.year+1900}
+                        </p:column>
+                        <p:column sortBy="name" headerText="#{bundle['dataset.guestbooksResponses.type']}">
+                            #{response.downloadtype}
+                        </p:column>
+                        <p:column sortBy="name" headerText="#{bundle['dataset.guestbooksResponses.file']}">
+                            #{response.dataFile.displayName}
+                        </p:column>
+                        <p:column sortBy="name" headerText="User">
+                            <h:outputText value="#{response.name} (#{response.institution}), #{response.position}"/>
+                        </p:column>
+                        <p:column headerText="Custom Questions"  >
+                            <ui:repeat value="#{response.customQuestionResponses}" var="customQResponse"><b>#{customQResponse.customQuestion.questionString}: </b>#{customQResponse.response} <br></br></ui:repeat>
+                        </p:column>                        
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

@@ -1,0 +1,16 @@
+数据恢复分三步完成：
+（1）使用dataverse_restore.sh恢复数据库、logs、文件和使用日志
+操作：将dataverse_restore.sh放置需要恢复的数据目录下，例如“backup_20151124083640”目录下
+     使用root用户运行dataverse_restore.sh
+
+（2）在elasticsearch中对使用日志进行索引
+操作：（1）需要为python3安装elasticsearch客户端，
+          安装命令pip3 install elasticsearch==1.7.0
+     （2）将dvn_usage_log_index.py,elasticsearch-statistics-mapping.json,
+          usage_restore.sh放置在同一个目录中，运行如下命令索引使用日志：
+./usage_restore.sh /usr/local/glassfish4/glassfish/domains/domain1/logs/usage  usage.log.err
+          其中第一个参数是日志的存放路径，第二个参数是索引失败的日志数据
+     
+（3）在dataverse的superuser.xhtml管理界面重建solr索引
+操作：使用dataverseAdmin账户登录系统
+     进入http://${host}/superuser.xhtml页面，点击“Index All”

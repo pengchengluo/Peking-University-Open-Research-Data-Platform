@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:iqbs="http://xmlns.jcp.org/jsf/composite/iqbs">
+
+    <h:head>
+    </h:head>
+
+    <h:body>
+        <f:view locale="#{dataverseLocale.locale.language}">
+            <f:metadata>
+                <f:viewParam name="groupId" value="#{manageUserGroupPage.groupId}"/>
+                <f:viewAction action="#{manageUserGroupPage.init}"/>
+                <f:viewAction action="#{dataverseHeaderFragment.initBreadcrumbs(manageUserGroupPage.dvObject, bundle['dataverse.permissions.groups.title'])}"/>
+            </f:metadata>
+        </f:view>
+        <ui:composition template="/dataverse_template.xhtml">
+            <ui:param name="pageTitle" value="#{bundle['dataverse.permissions.groups.title']} - #{manageUserGroupPage.dvObject.getDisplayName(dataverseLocale.locale)}"/>
+            <ui:param name="dataverse" value="#{manageUserGroupPage.dvObject.dataverseContext}"/>
+            <ui:param name="showMessagePanel" value="false"/>
+            <ui:define name="body">
+                <div class="panel panel-default">
+                    <div data-toggle="collapse" data-target="#panelCollapseGroupInfor" class="panel-heading text-info">
+                        #{bundle['dataverse.permissions.groups.information']}<span class="glyphicon glyphicon-chevron-down"/>
+                    </div>
+                    <div id="panelCollapseGroupInfor" class="collapse">
+                        <div class="panel-body">
+                            <div>
+                                <p:fragment id="groupInforMessages">
+                                    <div class="messagePanel">
+                                        <iqbs:messages  collapsible="true"/>
+                                    </div>
+                                </p:fragment>
+                            </div>
+                            <div>
+                                <h:form id="groupInfor" styleClass="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label" for="groupDisplayName">#{bundle['dataverse.permissions.groups.tabHeader.displayName']}</label>
+                                        <div class="col-sm-6">
+                                            <p:inputText id="groupDisplayName" value="#{manageUserGroupPage.explicitGroup.displayName}"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label" for="groupDescription">#{bundle['dataverse.permissions.groups.tabHeader.description']}</label>
+                                        <div class="col-sm-6">
+                                            <p:inputTextarea cols="22" rows="5" id="groupDescription" value="#{manageUserGroupPage.explicitGroup.description}"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-6 col-sm-offset-4">
+                                            <p:commandButton value="#{bundle['saveChanges']}" action="#{manageUserGroupPage.save}"
+                                                             update=":#{p:component('groupInfor')} :#{p:component('groupInforMessages')}" />
+                                        </div>
+                                    </div>
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+                </div>         
+                <div class="panel panel-default">
+                    <div data-toggle="collapse" data-target="#panelCollapseGroupInGroup" class="panel-heading text-info">
+                        #{bundle['dataverse.permissions.groups.groupmember']}<span class="glyphicon glyphicon-chevron-down"/>
+                    </div>
+                    <div id="panelCollapseGroupInGroup" class="collapse">
+                        <div class="panel-body">
+                            <div>
+                                <p:dataTable var="avaliableGroup" value="#{manageUserGroupPage.avaliableGroups}" emptyMessage="#{bundle.notfound}">
+                                    <p:column width="20%" headerText="#{bundle['dataverse.permissions.groups.tabHeader.displayName']}" class="text-center">
+                                        <h:outputText value="#{avaliableGroup.displayName}"/>
+                                    </p:column>
+                                    <p:column width="20%" headerText="#{bundle['dataverse.permissions.groups.tabHeader.description']}" class="text-center">
+                                        <h:outputText value="#{avaliableGroup.description}"/>
+                                    </p:column>
+                                    <p:column width="20%" headerText="#{bundle['dataverse.permissions.groups.tabHeader.alias']}" class="text-center">
+                                        <h:outputText value="#{avaliableGroup.alias}"/>
+                                    </p:column>
+                                    <p:column width="20%" headerText="#{bundle['dataverse.permissions.groups.tabHeader.identifier']}" class="text-center">
+                                        <h:outputText value="#{avaliableGroup.identifier}"/>
+                                    </p:column>
+                                    <p:column width="20%" headerText="#{bundle['dataverse.permissions.usersOrGroups.tabHeader.action']}" class="text-center">
+                                        <h:form>
+                                            <p:commandButton value="#{bundle['dataverse.permissions.groups.addBtn']}" actionListener="#{manageUserGroupPage.addMember(avaliableGroup)}" update=":#{p:component('groups')} :#{p:component('groupMessages')}"/>
+                                        </h:form>
+                                    </p:column>
+                                </p:dataTable>
+                            </div>
+                        </div>
+
+                        <div class="panel-body">
+                            <div>
+                                <p:fragment id="groupMessages">
+                                    <div class="messagePanel">
+                                        <iqbs:messages  collapsible="true"/>
+                                    </div>
+                                </p:fragment>
+                            </div>
+                            <div>
+                                <p:dataTable id="groups" var="group" value="#{manageUserGroupPage.groups}" paginator="true" rows="10"
+                                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                             rowsPerPageTemplate="10,20,50" currentPageReportTemplate="Member: {startRecord}-{endRecord}"
+                                             pageLinks="10" emptyMessage="#{bundle.notfound}">
+                                    <f:facet name="header">
+                                        <strong>#{manageUserGroupPage.explicitGroup.displayName} #{bundle['dataverse.permissions.groups.groupmember']}</strong>
+                                    </f:facet>
+                                    <p:column width="20%" headerText="#{bundle['dataverse.permissions.groups.tabHeader.displayName']}" class="text-center">
+                                        <h:outputText value="#{group.displayName}"/>
+                                    </p:column>
+                                    <p:column width="20%" headerText="#{bundle['dataverse.permissions.groups.tabHeader.description']}" class="text-center">
+                                        <h:outputText value="#{group.description}"/>
+                                    </p:column>
+                                    <p:column width="20%" headerText="#{bundle['dataverse.permissions.groups.tabHeader.alias']}" class="text-center">
+                                        <h:outputText value="#{group.alias}"/>
+                                    </p:column>
+                                    <p:column width="20%" headerText="#{bundle['dataverse.permissions.groups.tabHeader.identifier']}" class="text-center">
+                                        <h:outputText value="#{group.identifier}"/>
+                                    </p:column>
+                                    <p:column width="20%" headerText="#{bundle['dataverse.permissions.usersOrGroups.tabHeader.action']}" class="text-center">
+                                        <h:form>
+                                            <p:commandButton value="#{bundle['dataverse.permissions.groups.removeBtn']}" actionListener="#{manageUserGroupPage.deleteMember(group)}" update=":#{p:component('groups')} :#{p:component('groupMessages')}"/>
+                                        </h:form>
+                                    </p:column>
+                                </p:dataTable>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div data-toggle="collapse" data-target="#panelCollapseAuthUsersInGroup" class="panel-heading text-info">
+                        #{bundle['dataverse.permissions.groups.usermember']}<span class="glyphicon glyphicon-chevron-up"/>
+                    </div>
+                    <div id="panelCollapseAuthUsersInGroup" class="collapse in">
+                        <div class="panel-body">
+                            <div>
+                                <h:form>
+                                    <p:panelGrid columns="3">
+                                        #{bundle['identifier']}
+                                        <p:inputText value="#{manageUserGroupPage.searchIdentifier}"  styleClass="form-control"/>
+                                        <p:commandButton value="#{bundle['search']}" actionListener="#{manageUserGroupPage.search}" update=":#{p:component('searchUsers')}"/>  
+                                    </p:panelGrid>
+                                </h:form>
+                            </div>
+                            <div>
+                                <p:dataTable id="searchUsers" var="user" value="#{manageUserGroupPage.searchUsers}" emptyMessage="#{bundle.notfound}">
+                                    <f:facet name="header">
+                                        #{bundle['dataverse.permissions.groups.searchUser']}
+                                    </f:facet>
+                                    <p:column width="20%" headerText="#{bundle['user.username']}" class="text-center">
+                                        <h:outputText value="#{user.lastName} #{user.firstName}"/>
+                                    </p:column>
+                                    <p:column width="20%" headerText="#{bundle['identifier']}" class="text-center">
+                                        <h:outputText value="#{user.identifier}"/>
+                                    </p:column>
+                                    <p:column width="20%" headerText="#{bundle['email']}" class="text-center">
+                                        <h:outputText value="#{user.email}"/>
+                                    </p:column>
+                                    <p:column width="20%" headerText="#{bundle['affiliation']}" class="text-center">
+                                        <h:outputText value="#{user.affiliation}"/>
+                                    </p:column>
+                                    <p:column width="20%" headerText="#{bundle['dataverse.permissions.usersOrGroups.tabHeader.action']}" class="text-center">
+                                        <h:form>
+                                            <p:commandButton value="#{bundle['dataverse.permissions.groups.addBtn']}" actionListener="#{manageUserGroupPage.addMember(user)}" update=":#{p:component('authUsers')} :#{p:component('roleMessages')}"/>
+                                        </h:form>
+                                    </p:column>
+                                </p:dataTable>
+                            </div>
+                        </div>
+
+                        <p:fragment id="requestUsers">
+                            <div class="panel-body" jsf:rendered="#{manageUserGroupPage.explicitGroup.joinGroupRequesters.size()>0}">
+                                <div>
+                                    <p:dataTable  var="user" value="#{manageUserGroupPage.explicitGroup.joinGroupRequesters}" emptyMessage="#{bundle.notfound}">
+                                        <f:facet name="header">
+                                            #{bundle['dataverse.permissions.groups.request']}
+                                        </f:facet>
+                                        <p:column width="20%" headerText="#{bundle['user.username']}" class="text-center">
+                                            <h:form>
+                                                <p:commandLink type="button" id="createGroup" styleClass="btn btn-default"
+                                                               title="#{bundle['dataverse.permissions.user.viewDetail']}" actionListener="#{manageUserGroupPage.viewUserDetail(user)}"
+                                                               update=":#{p:component('explicitGroupNewDialog')}" oncomplete="explicitGroupForm.show();handleResizeDialog('explicitGroupNewDialog');bind_bsui_components();">
+                                                    <h:outputText value="#{user.lastName} #{user.firstName}"/>
+                                                </p:commandLink>
+                                            </h:form>
+                                        </p:column>
+                                        <p:column width="20%" headerText="#{bundle['identifier']}" class="text-center">
+                                            <h:outputText value="#{user.identifier}"/>
+                                        </p:column>
+                                        <p:column width="20%" headerText="#{bundle['email']}" class="text-center">
+                                            <h:outputText value="#{user.email}"/>
+                                        </p:column>
+                                        <p:column width="20%" headerText="#{bundle['affiliation']}" class="text-center">
+                                            <h:outputText value="#{user.affiliation}"/>
+                                        </p:column>
+                                        <p:column width="20%" headerText="#{bundle['dataverse.permissions.usersOrGroups.tabHeader.action']}" class="text-center">
+                                            <h:form>
+                                                <div class="btn-group" role="group" aria-label="access">
+                                                    <p:commandLink type="button" styleClass="btn btn-default"
+                                                                   actionListener="#{manageUserGroupPage.grantJoinGroupToRequests(user)}"
+                                                                   update=":#{p:component('authUsers')} :#{p:component('roleMessages')} :#{p:component('requestUsers')}">
+                                                        <span class="glyphicon glyphicon-ok"/> #{bundle['dataverse.permissionsFiles.assignDialog.grantBtn']}
+                                                    </p:commandLink>
+                                                    <h:link outcome="#" type="button" styleClass="btn btn-default" onclick="rejectDialog_#{user.id}.show();">
+                                                        <span class="glyphicon glyphicon-ban-circle"/> #{bundle['dataverse.permissionsFiles.assignDialog.rejectBtn']}
+                                                    </h:link>
+                                                </div>
+                                                <div class="col-md-4 col-md-offset-4">
+                                                    <p:dialog header="#{bundle['dataverse.permissionsFiles.assignDialog.rejectReason']}" widgetVar="rejectDialog_#{user.id}" modal="true">
+                                                        <div>
+                                                            <div class="col-md-12">
+                                                                <p:selectOneRadio id="customRadio" value="#{manageUserGroupPage.rejectReason}" layout="pageDirection">
+                                                                    <f:selectItem itemLabel="信息不完整，请补充完整" itemValue="信息不完整，请补充完整" />
+                                                                    <f:selectItem itemLabel="信息不真实，请填写真实信息" itemValue="信息不真实，请填写真实信息" />
+                                                                    <f:selectItem itemLabel="身份不符合" itemValue="身份不符合" />
+                                                                    <f:selectItem itemLabel="非机构邮箱或工作邮箱:.edu,.org,.gov.cn" itemValue="非机构邮箱或工作邮箱:.edu,.org,.gov.cn" />
+                                                                    <f:selectItem itemLabel="其它" itemValue="other"></f:selectItem>
+                                                                </p:selectOneRadio>
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <p:inputText size="50" value="#{manageUserGroupPage.otherRejectReason}" placeholder="#{bundle['dataverse.permissionsFiles.assignDialog.rejectReason.other.tip']}" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="button-block">
+                                                            <p:commandLink type="button" onclick="rejectDialog_#{user.id}.hide()" class="btn btn-default pull-right"
+                                                                           actionListener="#{manageUserGroupPage.rejectJoinGroupToRequests(user)}"
+                                                                           update=":#{p:component('authUsers')} :#{p:component('roleMessages')} :#{p:component('requestUsers')}">#{bundle.continue}</p:commandLink>
+                                                            <h:link type="button" onclick="rejectDialog_#{user.id}.hide()" outcome="#" class="btn btn-default pull-right">#{bundle.close}</h:link>
+                                                        </div>
+                                                    </p:dialog>
+                                                </div>
+                                            </h:form>
+                                        </p:column>
+                                    </p:dataTable>
+                                </div>
+                                <div>
+                                    <p:dialog id="explicitGroupNewDialog" header="#{bundle['account.info']}" widgetVar="explicitGroupForm" modal="true">
+                                        <ui:include src="userinfo/user_infor_display.xhtml" rendered="#{!empty manageUserGroupPage.builtinUser}">
+                                            <ui:param name="user" value="#{manageUserGroupPage.builtinUser}"/>
+                                        </ui:include>
+                                        <ui:include src="userinfo/user_infor_display.xhtml" rendered="#{!empty manageUserGroupPage.pkuIAAAUser}">
+                                            <ui:param name="user" value="#{manageUserGroupPage.pkuIAAAUser}"/>
+                                        </ui:include>
+                                    </p:dialog>
+                                </div>
+                            </div>
+                        </p:fragment>
+
+                        <div class="panel-body">
+                            <div>
+                                <p:fragment id="roleMessages">
+                                    <div class="messagePanel">
+                                        <iqbs:messages  collapsible="true"/>
+                                    </div>
+                                </p:fragment>
+                            </div>
+                            <div>
+                                <h:form>
+                                    <div class="btn-group pull-right">
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                            #{bundle['log.search.result.download']}<span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu pull-right text-left" role="menu">
+                                            <li>
+                                                <h:commandLink value="Excel" action="#{manageUserGroupPage.downloadAuthenticatedUsers()}"/>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </h:form>
+                                <p:dataTable id="authUsers" var="user" value="#{manageUserGroupPage.authenticatedUsers}" paginator="true" rows="10"
+                                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                             rowsPerPageTemplate="10,20,50" currentPageReportTemplate="Member: {startRecord}-{endRecord}"
+                                             pageLinks="10" emptyMessage="#{bundle.notfound}">
+                                    <f:facet name="header">
+                                        <strong>#{bundle['dataverse.permissions.groups.contained']}</strong>
+                                    </f:facet>
+                                    <p:column width="20%" headerText="#{bundle['user.username']}">
+                                        <h:outputText value="#{user.lastName} #{user.firstName}"/>
+                                    </p:column>
+                                    <p:column width="20%" headerText="#{bundle['identifier']}">
+                                        <h:outputText value="#{user.identifier}"/>
+                                    </p:column>
+                                    <p:column width="20%" headerText="#{bundle['email']}">
+                                        <h:outputText value="#{user.email}"/>
+                                    </p:column>
+                                    <p:column width="20%" headerText="#{bundle['affiliation']}">
+                                        <h:outputText value="#{user.affiliation}"/>
+                                    </p:column>
+                                    <p:column width="20%" headerText="#{bundle['dataverse.permissions.usersOrGroups.tabHeader.action']}">
+                                        <h:form>
+                                            <p:commandButton value="#{bundle['dataverse.permissions.groups.removeBtn']}" actionListener="#{manageUserGroupPage.deleteMember(user)}" update=":#{p:component('authUsers')} :#{p:component('roleMessages')}"/>
+                                        </h:form>
+                                    </p:column>
+                                    <f:facet name="footer">
+                                        <h:outputFormat value="#{bundle['dataverse.permissions.groups.totalinfo']}">
+                                            <f:param value="#{manageUserGroupPage.authenticatedUsers.size()}"/>
+                                        </h:outputFormat>
+                                    </f:facet>
+                                </p:dataTable>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:pt="http://java.sun.com/jsf/passthrough"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:o="http://omnifaces.org/ui"
+      xmlns:iqbs="http://xmlns.jcp.org/jsf/composite/iqbs">
+
+    <h:head>
+    </h:head>
+
+    <h:body>
+        <ui:composition template="/dataverse_template.xhtml">
+            <ui:param name="pageTitle" value="用户指南"/>
+            <ui:define name="body">
+                <div>
+                    <div class="preview" id="wmd-preview">
+                        <style type="text/css">
+                            .anchor{
+                                display: block;
+                                height: 115px;
+                                margin-top: -115px;
+                                visibility: hidden;
+                            }
+                        </style>
+                        <div class="preview">
+                            <h2 id="e79baee5bd95">目录</h2>
+                            <p>一、 <a href="#Nutshell">系统概要</a></p>
+                            <ul>
+                                <li><p><a href="#Nutshell-PurposeFeature">基本功能与特色</a></p></li>
+                                <li><p><a href="#Nutshell-Concept">核心概念</a></p></li>
+                                <li><p><a href="#Nutshell-Feedback">咨询与反馈</a></p></li>
+                            </ul>
+                            <p>二、<a href="#Reuse">利用他人的数据</a></p>
+                            <ul>
+                                <li><p><a href="#Reuse-BrowseSearch">浏览和搜索</a></p></li>
+                                <li><p><a href="#Reuse-CiteDown">引用和下载</a></p></li>
+                                <li><p><a href="#Reuse-Profiling">完善账户信息</a></p></li>
+                                <li><p><a href="#Reuse-ApplyPermission">申请数据权限</a></p></li>
+                                <li><p><a href="#Reuse-Analysis">在线分析浏览数据</a></p></li>
+                            </ul>
+                            <p>三、<a href="#Share">分享自己的数据</a></p>
+                            <ul>
+                                <li><p><a href="#Share-Create">创建数据空间和数据集</a></p></li>
+                                <li><p><a href="#Share-Edit">编辑数据空间和数据集</a></p></li>
+                                <li><p><a href="#Share-Publish">公开发布数据</a></p></li>
+                                <li><p><a href="#Share-Permission">控制访问权限</a></p></li>
+                            </ul>
+                            <!-- * [访问留言管理](#Share-Guestbook) -->
+                            <ul>
+                                <li><p><a href="#Share-Usage">查询使用统计</a></p></li>
+                            </ul>
+                            <p><a href="#Appendix-HTML">附录：在描述信息中使用 HTML 标签</a></p>
+                            <hr/>
+                            <p><a class="anchor" name="Nutshell" target="_blank"></a></p>
+                            <h2 id="e4b880e38081e7b3bbe7bb9fe6a682e8a681">一、系统概要</h2>
+                            <hr/>
+                            <p><a class="anchor" name="Nutshell-PurposeFeature" target="_blank"></a></p>
+                            <h3 id="e59fbae69cace58a9fe883bde4b88ee789b9e889b2">基本功能与特色</h3>
+                            <p><strong>北京大学开放研究数据平台</strong>（以下简称“北大数据平台”）系服务于校内及全社会的各学科研究者开展研究数据的保存、分享与再利用活动的信息网络平台。</p>
+                            <p>北大数据平台基于哈佛大学 <a href="http://dataverse.org/" target="_blank">Dataverse</a> 框架二次开发而成。平台注重安全性与规范性两方面特色。</p>
+                            <h4 id="e5ae89e585a8e680a7">安全性</h4>
+                            <ul>
+                                <li><p>强调用户信息的真实性，部分数据必须填报真实信息并经管理者审核批准后方可使用。</p></li>
+                                <li><p>提供多层级、群组化的访问控制功能，便捷、灵活而细致地保护数据贡献方与再利用方的相关权益。</p></li>
+                                <li><p>由专业技术团队负责平台软硬件的日常维护和数据备份，确保数据长期保存。</p></li>
+                            </ul>
+                            <h4 id="e8a784e88c83e680a7">规范性</h4>
+                            <ul>
+                                <li><p>采用 <a href="https://www.datacite.org/faq#n145" target="_blank">DataCite</a> 提供的 <a href="https://www.datacite.org/faq#n147" target="_blank">DOI</a> 作为数据集的资源唯一标识符。</p></li>
+                                <li><p>采用 <a href="http://guides.dataverse.org/en/latest/developers/unf/index.html" target="_blank">UNF 数字指纹</a>管理数据集和文件的版本，支持历史数据的引证。</p></li>
+                                <li><p>可识别部分常用的社会科学统计软件文件格式，提供在线的数据可视化分析服务。</p></li>
+                                <li><p>设计有中英文用户界面（功能一致），并可同时保存中英文两套元数据信息。</p></li>
+                            </ul>
+                            <p>推荐用户使用 <a href="https://www.google.com/chrome/browser/desktop/index.html?standalone=1" target="_blank">谷歌浏览器 (Chrome)</a>、<a href="http://www.firefox.com.cn/" target="_blank">火狐浏览器 (Firefox)</a>、<a href="https://www.microsoft.com/en-us/windows/microsoft-edge" target="_blank">Microsoft Edge</a> 或 <a href="http://windows.microsoft.com/zh-cn/internet-explorer/download-ie" target="_blank">Internet Explorer (IE) 浏览器</a> 9 以上版本访问北大数据平台网站。</p>
+                            <hr/>
+                            <p><a class="anchor" name="Nutshell-Concept" target="_blank"></a></p>
+                            <h3 id="e6a0b8e5bf83e6a682e5bfb5">核心概念</h3>
+                            <p><a class="anchor" name="Nutshell-RD" target="_blank"></a></p>
+                            <h4 id="e7a094e7a9b6e695b0e68daeefbc88research20dataefbc89e4b88ee695b0e68daee69687e4bbb6efbc88data20fileefbc89">研究数据（Research data）与数据文件（Data file）</h4>
+                            <p><strong>研究数据</strong>指科研人员通过观察、探测、实验、建模、仿真和调查等形式收集的、用于验证研究发现的、能够直接或间接产出学术成果的完整事实材料及其数字化产品，例如：文档、数据文件、问卷、模型、算法、软件或代码、图片、音视频资料等。</p>
+                            <p>北大数据平台只保存数字化的研究数据产品，主要形态为包含数据信息的电子文件，即<strong>数据文件</strong>。数据文件包括通常意义上含有一条或多条数据记录的电子表格或数据库文件，也包括相关的源代码、流程图、说明文档等文件。</p>
+                            <p><a class="anchor" name="Nutshell-DV" target="_blank"></a></p>
+                            <h4 id="e695b0e68daee7a9bae997b4efbc88dataverseefbc89">数据空间（Dataverse）</h4>
+                            <p><strong>数据空间</strong>是北大数据平台中的基本数据单位之一，可以包含任意数量的<a href="#Nutshell-DS">数据集</a>，或包含其他数据空间。数据空间可由一人或多人管理，面向可控的用户群开放研究数据的使用权。一个数据空间通常对应一个大型研究项目，或相关的研究项目集群，也可以对应一家研究机构、一位研究者或一门研究型专业课程。</p>
+                            <p>“北京大学开放研究数据平台数据空间”为北大数据平台的<strong>根数据空间</strong>节点，仅包含由用户创建的各个数据空间。</p>
+                            <p>英文 <a href="http://dataverse.org/" target="_blank">Dataverse</a> 也是哈佛大学的开放数据平台框架软件的名字。若无特别说明，本文中的 Dataverse 一律泛指基于该框架的北大数据平台上由用户创建的数据空间。</p>
+                            <p>在北大数据平台的浏览与搜索结果中，数据空间带有<strong>橙色</strong>边框，图标为<strong>以短线段相连的两个圆圈</strong>。</p>
+                            <p><a class="anchor" name="Nutshell-DS" target="_blank"></a></p>
+                            <h4 id="e695b0e68daee99b86efbc88datasetefbc89">数据集（Dataset）</h4>
+                            <p><strong>数据集</strong>是北大数据平台中的基本数据单位之一，必须从属于一个<a href="#Nutshell-DV">数据空间</a>。数据集可以包含一个或多个数据文件，可由一人或多人管理，并面向可控的用户群（不超过所属数据空间的用户群）开放研究数据的使用权。一个数据集通常对应一个具体的研究项目，或大型研究项目的一个阶段。</p>
+                            <p>用户的数据集不能直接在“北京大学开放研究数据平台数据空间”即平台根数据空间中创建；必须先创建自己的数据空间，再在其中继续创建数据集。</p>
+                            <p>在北大数据平台的浏览与搜索结果中，数据集带有<strong>蓝色</strong>边框，图标为<strong>一张写满字的纸片</strong>。</p>
+                            <hr/>
+                            <p><a class="anchor" name="Nutshell-Feedback" target="_blank"></a></p>
+                            <h3 id="e592a8e8afa2e4b88ee58f8de9a688">咨询与反馈</h3>
+                            <p><a href="http://lib.pku.edu.cn/" target="_blank">北京大学图书馆</a>承建并维护北大数据平台。</p>
+                            <p>欢迎来信咨询、反馈意见或建议：<a href="mailto:opendata@lib.pku.edu.cn?subject=%E5%8C%97%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B9%B3%E5%8F%B0%E5%8F%8D%E9%A6%88&amp;body=%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%E5%91%98%EF%BC%9A%E6%82%A8%E5%A5%BD%EF%BC%81" target="_blank">opendata@lib.pku.edu.cn</a></p>
+                            <p>登录后也可点击页面上方的“联系”发送邮件给管理员。</p>
+                            <hr/>
+                            <p><a class="anchor" name="Reuse" target="_blank"></a></p>
+                            <h2 id="e4ba8ce38081e588a9e794a8e4bb96e4babae79a84e695b0e68dae">二、利用他人的数据</h2>
+                            <p>可能您还没有打算使用北大数据平台发布自己的数据，但至少可以从利用他人的数据开始，了解平台的基本构成和用户界面，注册账号并完善用户信息，为借助北大数据平台提升您的研究工作做好第一步准备。</p>
+                            <p>平台网页右上角提供了切换中英文用户界面的链接。用户界面语种的选择，不影响平台的功能，也不影响数据的中英文内容信息。只要选择自己容易阅读的语种即可。</p>
+                            <hr/>
+                            <p><a class="anchor" name="Reuse-BrowseSearch" target="_blank"></a></p>
+                            <h3 id="e6b58fe8a788e5928ce6909ce7b4a2">浏览和搜索</h3>
+                            <h4 id="e6b58fe8a788">浏览</h4>
+                            <p>北大数据平台的<a href="http://opendata.pku.edu.cn" target="_blank">首页</a>下方展示着一系列“<strong>精品数据空间</strong>”。</p>
+                            <p>点击其中任何一个，即进入该数据空间的信息视图。在此可阅读该空间的说明介绍文字，浏览（或进一步搜索）空间内的数据集。</p>
+                            <p>可以使用<strong>排序</strong>和<strong>翻页</strong>功能，迅速浏览数据空间内的所有数据集。</p>
+                            <p>或者点击平台首页上方蓝色背景中的“<strong>浏览平台数据</strong>”链接，浏览（或进一步搜索）北大数据平台上的全部数据空间和数据集。</p>
+                            <p>在数据空间和数据集清单的左侧，平台提供了多种筛选工具，可以限定是否显示数据空间、是否显示数据集、是否显示文件（默认未选中），以及根据分类、单位、发布时间、作者、学科、关键词、提交日期等元数据项目进行快速筛选。</p>
+                            <p>数据空间、数据集、文件等可能在同一列浏览与搜索结果清单中出现，但不难区分：<strong>数据空间为橙色边框</strong>，双圈相连图标；<strong>数据集为蓝色边框</strong>，写字纸片图标；<strong>数据文件为灰色边框</strong>，图标多种多样。</p>
+                            <h4 id="e7ae80e58d95e6909ce7b4a2">简单搜索</h4>
+                            <p>简单搜索方式会在数据空间、数据集、数据文件的<strong>所有</strong>元数据字段范围内展开搜索，并返回相关的搜索结果。</p>
+                            <p>有三个位置可以找到简单搜索的输入框。</p>
+                            <ul>
+                                <li><p>北大数据平台的<a href="http://opendata.pku.edu.cn" target="_blank">首页</a>，向下大约翻页一次出现的长长的搜索框。</p></li>
+                                <li><p>在任何搜索结果的上方，都可以在输入框中输入搜索词，随时再次进行简单搜索。</p></li>
+                                <li><p>在任何页面的顶端，点击放大镜图标展开的输入框，都可以做简单搜索。</p></li>
+                            </ul>
+                            <h4 id="e9ab98e7baa7e6909ce7b4a2">高级搜索</h4>
+                            <p>执行过一次简单搜索后，在搜索结果页面，搜索框的右侧会出现“<a href="http://opendata.pku.edu.cn/dataverse/pku/search" target="_blank">高级搜索</a>”的链接。点击后进入高级搜索界面。</p>
+                            <p>高级搜索界面提供在数据空间、数据集或文件的<strong>个别</strong>元数据字段中根据指定的搜索词执行的搜索功能。字段之间的逻辑关系为**“与”（and）**，即返回的每一条搜索结果都应匹配所有填写了内容的搜索输入框。</p>
+                            <p><strong>【请注意】</strong> 数据集的可搜索元数据分别有两套，即中文的“<strong>引用元数据</strong>”和英文的“<strong>Citation metadata</strong>”。</p>
+                            <h4 id="e69fa5e79c8be59084e7baa7e4bfa1e681afe9a1b5e99da2">查看各级信息页面</h4>
+                            <p>从浏览或搜索结果中点击任意<strong>数据空间</strong>，在打开的信息页面中可以找到有关该数据空间的说明文字，以及所包含的下级数据空间和数据集的列表。</p>
+                            <p>从浏览或搜索结果中点击任意<strong>数据集</strong>，，在打开的信息页面中可以找到有关该数据集的描述、学科、关键词等信息，以及所包含的数据文件列表、使用许可和版本沿革。</p>
+                            <hr/>
+                            <p><a class="anchor" name="Reuse-CiteDown" target="_blank"></a></p>
+                            <h3 id="e5bc95e794a8e5928ce4b88be8bdbd">引用和下载</h3>
+                            <h4 id="e5bc95e794a8e695b0e68daee99b86">引用数据集</h4>
+                            <p>在查看数据集的信息页面时，数据集标题下方浅蓝色背景的一段文字为该数据集的引文格式，包含多种元数据信息。</p>
+                            <ul>
+                                <li><p>作者</p></li>
+                                <li><p>发布年份</p></li>
+                                <li><p>标题</p></li>
+                                <li><p>DOI</p></li>
+                                <li><p>数据发布平台</p></li>
+                                <li><p>版本号</p></li>
+                                <li><p>UNF 数字指纹</p></li>
+                            </ul>
+                            <p>需要引用时，请按照您应遵守的学术写作规范重新编排上述信息的顺序和格式。</p>
+                            <h4 id="e4b88be8bdbde5bc95e794a8e69687e4bbb6">下载引用文件</h4>
+                            <p>在查看数据集的信息页面时，浅蓝色背景的引文右侧有一个“<strong>下载引用</strong>”按钮。点击后，下拉菜单提供 <strong>EndNote XML</strong> 和 <strong>RIS 格式</strong>两种常见的参考文献管理软件引文著录格式。请选择自己适用的格式下载。</p>
+                            <p>部分采用专用格式的数据文件，点击<img src="/resources/handbook_images/1450919203853.jpg" name="images/1450919203853.jpg" alt="专用格式数据文件下载" title="1450919203853.jpg"/>按钮后，会出现下拉菜单，包含一个子菜单，其中也提供 <strong>RIS 格式</strong>和 <strong>EndNote XML</strong> 两种引文著录文件的下载，如下图所示。<br/>
+                                <img src="/resources/handbook_images/1450919280249.jpg" name="images/1450919280249.jpg" alt="数据文件下载引用子菜单" title="1450919280249.jpg"/></p>
+                            <h4 id="e4b88be8bdbde695b0e68daee69687e4bbb6">下载数据文件</h4>
+                            <p>数据集的信息页面下方，可以找到数据文件的列表。</p>
+                            <p>其中部分文件右侧可见<img src="/resources/handbook_images/1450919203853.jpg" name="images/1450919203853.jpg" alt="专用格式数据文件下载" title="1450919203853.jpg"/>按钮。其中有些采用专用格式的数据文件可能提供多种可下载的变异格式，然则点击“下载”按钮后会出现下拉菜单，如下图所示。<br/>
+                                <img src="/resources/handbook_images/1450919751455.jpg" name="images/1450919751455.jpg" alt="专用格式数据文件变异格式" title="1450919751455.jpg"/></p>
+                            <p>开始下载前，系统还会提示<strong>访问条款</strong>。如果您理解并愿意接受条款，点击“接受”按钮后即可开始下载该文件。</p>
+                            <p>有部分文件可能见不到“下载”按钮，而附有红色锁具图标，代表文件<strong>受限</strong>。</p>
+                            <ul>
+                                <li><p>受限的文件可能只允许北大数据平台的注册或认证用户下载，而您还没<a href="#Reuse-Profiling">登录北大数据平台</a>。</p></li>
+                                <li><p>受限的文件可能还需要<a href="#Reuse-ApplyPermission">向管理员申请访问许可</a>后才能下载，而您暂未申请，或申请未获批准。</p></li>
+                            </ul>
+                            <p>如果您在搜索和浏览时选择了显示数据文件的筛选项，结果列表中的某些数据文件的右侧可以见到一个<span style="color:#a94442">砖红色</span>的锁形图标，这表示该文件的使用权是“<strong>受限</strong>”的，即便注册并登录到北大数据平台，也需要申请访问许可并获批后才能使用。</p>
+                            <p><strong>【提示】</strong> 说明文档类的外围数据文件，往往无需登录即可下载使用。然而，无论是否登录，您都应当遵守<strong>平台用户使用协议</strong>，以及您在下载之前点击接受了的访问条款，避免滥用任何数据文件。</p>
+                            <p><strong>【文件校验】</strong> 系统显示每一个数据文件的 <a href="https://zh.wikipedia.org/wiki/MD5#.E5.BC.B1.E7.82.B9" target="_blank">MD5</a> 校验值，帮助用户检验下载文件的完整度。对于外围数据文件来说，这也是辨别修订版本的依据之一。下载文件后，Windows 用户可使用微软提供的 <a href="https://support.microsoft.com/zh-cn/kb/841290" target="_blank">File Checksum Integrity Verifier</a> 小工具检查文件的完整性，Linux/Unix 用户则可使用 <a href="http://linux.about.com/library/cmd/blcmdl1_md5sum.htm" target="_blank">md5sum</a> 等命令，苹果电脑 Mac OS X 用户可<a href="http://www.tip4mac.com/2012/02/check-md5-sha1-by-using-terminal-in-mac-os-x/" target="_blank">使用 Terminal 终端下的 md5 命令</a>进行校验。</p>
+                            <hr/>
+                            <p><a class="anchor" name="Reuse-Profiling" target="_blank"></a></p>
+                            <h3 id="e5ae8ce59684e8b4a6e688b7e4bfa1e681af">完善账户信息</h3>
+                            <p>北大数据平台可供匿名访客浏览并利用部分完全开放的数据，但如需利用其他数据或发布自己的数据，就必须登录到平台中。</p>
+                            <p>点击任意页面顶端偏右的“<a href="http://opendata.pku.edu.cn/loginpage.xhtml" target="_blank">登录</a>”链接可以打开登录入口。</p>
+                            <ul>
+                                <li><p>北大教职员工及学生点击“北京大学用户登录”标签，即可输入校园卡号及密码，登录到北大数据平台。如果是第一次这样登录，相当于成为<strong>认证用户</strong>。<br/>
+                                        <strong>【Beta 测试阶段】</strong> 北大数据平台暂时只支持本校的认证用户创建和发布数据。今后会择机向注册用户开放权限。</p></li>
+                                <li><p>北大师生或校外用户也可提供电子邮箱地址，成为北大数据平台的<strong>注册用户</strong>。<br/><strong>【强烈建议】</strong> 请尽量使用机构邮箱进行注册，因为部分数据的申请和审核要求用户信息中有真实的机构邮箱以确认身份。</p></li>
+                            </ul>
+                            <p>无论注册用户还是认证用户，还可按账户信息的完善程度分为<strong>基本用户</strong>和<strong>高级用户</strong>两级。</p>
+                            <p>基本用户只需填写电子邮箱和少量身份信息；高级用户需提交更多详细而真实的身份信息及多种联系方式。北大认证用户在起初都是基本用户。高级用户具有更多基本使用权，并更容易<a href="#Reuse-ApplyPermission">申请获批使用他人的数据</a>，因此建议成为高级用户。</p>
+                            <p>要成为高级用户，有两种办法，结果是等效的。</p>
+                            <ol>
+                                <li><p>在注册用户时，选择“高级用户”并填写必要的账户信息。</p></li>
+                                <li><p>在<a href="http://opendata.pku.edu.cn/dataverseuser.xhtml?selectTab=accountInfo" target="_blank">账户信息</a>中点击“<strong>设置</strong>”按钮中的<strong>修改账户信息</strong>，选择<strong>用户类型</strong>为“<strong>高级用户</strong>”然后补填空缺的身份信息和联系方式（带红色星号的栏目必填），最后点击“<strong>保存更改</strong>”按钮，从而升级为高级用户。</p></li>
+                            </ol>
+                            <p>您所填报的账户信息，应当真实并且全面，这对您能否获得所申请的数据文件的访问许可至关重要。强烈建议您填报真实的姓名、单位/机构名称、身份、专业、研究领域，以及（高级用户的）职称、导师（如果您还是学生）和联系方式。</p>
+                            <p>高级用户无法（也没有必要）降级为基本用户，也不能删除自己的登录账户，但可以修改已填报的账户信息。</p>
+                            <p><strong>【安全提示】</strong> 如果您在公用电脑上登录北大数据平台，离开前请务必退出登录状态，即点击页面右上方自己的姓名，再点击下拉菜单中的“<strong>注销</strong>”命令。</p>
+                            <hr/>
+                            <p><a class="anchor" name="Reuse-ApplyPermission" target="_blank"></a></p>
+                            <h3 id="e794b3e8afb7e695b0e68daee69d83e99990">申请数据权限</h3>
+                            <p>如果您已登录到北大数据平台，在数据文件列表中却找不到所需文件的下载按钮，表明您尚未加入管理员设置的用户组，不具备特定数据的使用权。</p>
+                            <p>作为数据的利用者，您可以主动向数据管理者申请加入用户组，获得数据的使用权。</p>
+                            <ol>
+                                <li><p>请尝试在数据文件列表的上方点击“申请加入用户组下载文件”文字之下的“<strong>申请</strong>”按钮。</p></li>
+                                <li><p>有很多价值较高的数据空间的管理者都做出限定，只有<strong>高级用户</strong>才能申请下载文件。如果您只是基本用户，平台会提示您<a href="#Reuse-Profiling">完善信息</a>。</p></li>
+                                <li><p>如果申请顺利提交，页面中会浮现提示，表明您已经成功发送了申请。</p></li>
+                                <li><p>数据的管理者也会接到通知，然后在后台管理页面审核您的申请。
+                                    </p><ul>
+                                        <li><p>如果审核通过，管理者批准您使用数据，您的邮箱将收到通知邮件。然后就可以回到先前不能下载的数据文件那里，点击新出现的“下载”按钮了。</p></li>
+                                        <li><p>如果您的申请被管理者拒绝，您也会收到相应的通知邮件。</p></li>
+                                    </ul>
+                                </li>
+                            </ol>
+                            <p>真实而全面的账户信息有助于申请获得批准，但数据管理者有权决定批准或不批准您的申请。北大数据平台不干涉数据管理者的自由决定权。</p>
+                            <p>有的数据空间或数据集对申请者的账户信息做了特殊要求。</p>
+                            <ul>
+                                <li><p>可能要求填报您所在的机构、组织、单位的<strong>公务电子邮箱</strong>，而非个人邮箱（或将个人邮箱填入高级用户的“其他邮箱”一栏）。</p></li>
+                                <li><p>如果您无法提供机构邮箱，有的数据空间也接受通过电子邮件向管理者发送<strong>工作证件</strong>的电子复本的审核途径，详见相应数据空间的说明信息。</p></li>
+                            </ul>
+                            <hr/>
+                            <p><a class="anchor" name="Reuse-Analysis" target="_blank"></a></p>
+                            <h3 id="e59ca8e7babfe58886e69e90e6b58fe8a788e695b0e68dae">在线分析浏览数据</h3>
+                            <p>部分数据文件采用了平台系统可识别的专用格式，如 <a href="http://www-01.ibm.com/software/cn/analytics/spss/" target="_blank">SPSS</a> 统计数据格式等。平台不仅为这类格式提供<a href="#Reuse-CiteDown">下载数据文件单独的引文著录文件和多种变异数据文件格式</a>，而且提供便捷的在线分析浏览功能。</p>
+                            <p>凡是符合规格的数据文件，如果您已经<a href="#Reuse-ApplyPermission">申请取得了访问权</a>，那么在浏览或搜索界面（文件列表）中，不仅可以见到“下载”按钮，还能见到一个<img src="/resources/handbook_images/1450922192345.jpg" name="images/1450922192345.jpg" alt="专用格式数据文件在线浏览" title="1450922192345.jpg"/>按钮，点击后同样提示访问条款，您理解并接受后才会打开在线分析浏览的界面。</p>
+                            <hr/>
+                            <p><a class="anchor" name="Share" target="_blank"></a></p>
+                            <h2 id="e4b889e38081e58886e4baabe887aae5b7b1e79a84e695b0e68dae">三、分享自己的数据</h2>
+                            <p>如果您或您的团队在研究过程中取得了有价值的数据，希望在可靠的设备上<strong>长期保存</strong>，以及在一定范围内与学术社群<strong>分享</strong>，或在团队内部设立<strong>数据共建</strong>机制，北大数据平台可供保存、分享、发布和协作贡献您的研究数据。</p>
+                            <p><strong>【Beta 测试阶段】</strong> 北大数据平台暂时只支持本校的认证用户创建和发布数据。今后会择机向注册用户开放权限。</p>
+                            <hr/>
+                            <p><a class="anchor" name="Share-Create" target="_blank"></a></p>
+                            <h3 id="e5889be5bbbae695b0e68daee7a9bae997b4e5928ce695b0e68daee99b86">创建数据空间和数据集</h3>
+                            <p>首先请<a href="http://opendata.pku.edu.cn/loginpage.xhtml" target="_blank">登录</a>到北大数据平台。</p>
+                            <p><a class="anchor" name="Share-Create-DV" target="_blank"></a></p>
+                            <h4 id="e5889be5bbbae695b0e68daee7a9bae997b4">创建数据空间</h4>
+                            <p>登录后，如果您在页面右侧见不到一个“<strong>+ 添加数据</strong>”的按钮，请点击页面右上方您的姓名，再点击下拉菜单“<strong>相关数据</strong>”命令。</p>
+                            <p>点击“<strong>+ 添加数据</strong>”按钮，在下拉菜单中点击“<a href="http://opendata.pku.edu.cn/dataverse.xhtml?ownerId=1" target="_blank">新建数据空间</a>”命令，开始填表创建您自己的一级数据空间。</p>
+                            <p>填表注意事项如下。</p>
+                            <ul>
+                                <li><p>带红色星号的栏目必填。</p></li>
+                                <li><p>表格中的部分资料信息需要分别按<strong>中英文双语</strong>填写。用户使用中文或英文界面查看数据空间页面时，会分别显示中文或英文的资料信息。</p></li>
+                                <li><p><strong>描述</strong>：对数据空间的说明文字。支持使用部分 HTML 标签，具体请参看<a href="#Appendix-HTML">附录：在描述信息中使用 HTML 标签</a></p></li>
+                                <li><p><strong>标识符</strong>：数据空间的网址路径，可以包含拉丁字母、阿拉伯数字、短横线 - 或下划线 _ 等符号，但不可包含其他符号。请选择易于识记的字符组合。标识符今后可以修改，但这可能影响您已经分发给他人的链接，因此建议从一开始就做出稳妥而长久的命名。</p></li>
+                                <li><p><strong>是否为权限根节点</strong>：如果选中，则该数据空间的上级数据空间的管理者不能控制该数据空间的使用权限。这种设置适用于不同数据空间之间仅具有外在形式上的层级关系而在权限管理上需要保持独立性的情况。</p></li>
+                                <li><p><strong>电子邮件</strong>：可以填写不同于您账户信息的邮箱地址，作为专用于该数据空间事务联络的邮箱，而且可以填写多个地址。</p></li>
+                                <li><p><strong>元数据元素</strong>：这里有多个选项，能控制将来在该数据空间内创建的数据集的元数据都有哪些。
+                                    </p><ul>
+                                        <li><p><strong>来自根Dataverse的元数据元素</strong>：如果选择该项，该数据空间会继承上一级数据空间（即北大数据平台的<strong>根数据空间</strong>）的元数据方案。</p></li>
+                                        <li><p><strong>引用元数据</strong> / <strong>Citation Metadata</strong>：中英文两套基本的元数据，必不可少，但可以点击其后“<strong>设置字段的展示和要求</strong>”来修改每一套元数据具体提供哪些字段，以及哪些字段必须填写，哪些字段不必须填写。每一套元数据修改好了请点击下方的“<strong>完成</strong>”按钮。</p></li>
+                                        <li><p><strong>社会科学与人文学元数据</strong> / <strong>Social Science and Humanities Metadata</strong>：中英文两套专用于社会科学或人文学的调查数据的补充性元数据方案，可选可不选，并与基本的引用元数据类似，可以点击其后“<strong>设置字段的展示和要求</strong>”来修改每一套元数据的字段设置。</p></li>
+                                    </ul>
+                                </li>
+                                <li><p><strong>浏览/搜索筛选项</strong>：决定让哪些筛选项在用户浏览或搜索该数据空间时出现。如果取消“<strong>与平台根数据空间一致</strong>”的选项，您可以自己选择具体哪个筛选项出现或不出现——在左边的列表中点击某个需要的筛选项，再点击<strong>→</strong>按钮，即可将其添加进来；在右边的列表中点击某个不需要的筛选项，再点击<strong>←</strong>按钮，即可将其移除掉；在点击列表内项目时按住键盘 Ctrl 键（Mac 用户按住 ⌘ 键）可以同时选中多个筛选项，再一起执行添加或移除的操作。</p></li>
+                            </ul>
+                            <p>填完表，点击页面下方的“<strong>创建数据空间</strong>”按钮，完成创建。</p>
+                            <p>您的一级数据空间包含于<a href="http://opendata.pku.edu.cn/dataverse/pku" target="_blank">北京大学开放研究数据平台数据空间</a>即北大<strong>根数据空间</strong>。</p>
+                            <p>当您拥有自己的一级数据空间之后，假如还需要构造较为复杂的数据集体系，可以在其中创建二级数据空间、三级数据空间，等等。请注意，创建自己的下级数据空间时，<strong>来自根Dataverse的元数据元素</strong>的选项会有所变动，变为选择是否继承您的上级数据空间，而不再是继承根数据空间。</p>
+                            <p><strong>【提示】</strong> 新创建的数据空间处于“未公布”状态，只有您自己可以访问数据空间。必须<a href="#Share-Publish">公开发布</a>后才有可能让其他用户浏览、下载、利用您的数据空间。</p>
+                            <p><a class="anchor" name="Share-Create-DS" target="_blank"></a></p>
+                            <h4 id="e5889be5bbbae695b0e68daee99b86">创建数据集</h4>
+                            <p>任何数据集都必须属于一个<strong>由用户创建</strong>的数据空间（北大<strong>根数据空间</strong>不能直接创建数据集）。</p>
+                            <p>登录后，首先请通过浏览或搜索的方式，或点击页面右上方您的姓名，再点击下拉菜单“<strong>相关数据</strong>”命令，找到您要创建的数据集所从属的数据空间。点击这个数据空间，打开数据空间的信息页面。在此点击“<strong>+ 添加数据</strong>”按钮，在下拉菜单中点击“<strong>新建数据集</strong>”命令，开始填表创建您的数据集。</p>
+                            <p>填表注意事项如下。</p>
+                            <ul>
+                                <li><p>中英文元数据字段中凡是带红色星号的必填。</p></li>
+                                <li><p>数据集的元数据方案由所属的数据空间决定，不同的数据空间可能提供不同的数据集元数据字段。</p></li>
+                                <li><p><strong>作者</strong>、<strong>联系人</strong>、<strong>描述文本</strong>等字段可以填写多个，只要点击右侧的加号 + 按钮。</p></li>
+                                <li><p><strong>文件</strong>：您可以现在或以后编辑时向该数据集添加数据文件，即从本地电脑上传文件。文件上传后就可以在此修改文件名、描述、标签，如果是图片文件还可以设置缩略图，以及为数据文件<a href="#Share-Permission">设置访问权限</a>。<br/><strong>【安全建议】</strong> 为避免在创建数据集过程中因停留时间过长而丢失填表内容，建议您填写好元数据后就先点击页面下方的“<strong>添加数据集</strong>”按钮，保存填表内容并完成创建，以后再通过<a href="#Share-Edit-DS">编辑数据集</a>的功能上传和管理数据文件。</p></li>
+                            </ul>
+                            <p>如果所属的数据空间备有<a href="#Share-Edit-DV-Template">数据集模板</a>，可以在此选择其一，直接套用模板所包含的元数据字段内容，从而快速创建相似的数据集。</p>
+                            <p>填完表，点击页面下方的“<strong>添加数据集</strong>”按钮，完成创建。</p>
+                            <hr/>
+                            <p><a class="anchor" name="Share-Edit" target="_blank"></a></p>
+                            <h3 id="e7bc96e8be91e695b0e68daee7a9bae997b4e5928ce695b0e68daee99b86">编辑数据空间和数据集</h3>
+                            <p>创建好的数据空间和数据集，还可以编辑修改，继续完善或更新信息。</p>
+                            <h4 id="e7bc96e8be91e695b0e68daee7a9bae997b4">编辑数据空间</h4>
+                            <p>登录后，首先请通过浏览或搜索的方式，或点击页面右上方您的姓名，再点击下拉菜单“<strong>相关数据</strong>”命令，找到您要编辑的数据空间。点击这个数据空间，打开数据空间的信息页面。在此点击右侧的“<strong>编辑数据空间</strong>”按钮，下拉菜单中提供了多个命令涉及数据空间的定制修改。</p>
+                            <ul>
+                                <li><p><strong>一般信息</strong>：该命令打开的网页中会出现与<a href="#Share-Create-DV">创建数据空间</a>时所见相仿的表格，您只要动手修改并在最后点击页面下方的“<strong>保存更改</strong>”按钮即可完成数据空间一般信息的编辑。</p></li>
+                                <li><p><strong>小工具+主题</strong>：该命令打开的网页包含一组标签：主题、工具。一开始打开的<strong>主题</strong>列出了几项与数据空间的外观有关的设置。这些设置只是提示和装饰性的，有助于引起访客用户的注意，而与引用元数据无关。您可以上传标志图片，修改配色，添加一个额外的相关链接（填写链接文字与链接网址）等。<strong>widget 小工具</strong>提供在其他网站、网页中插入推广本站以及您的数据空间的 HTML 代码段。</p></li>
+                                <li><p><strong>数据集模板</strong>：<a class="anchor" name="Share-Edit-DV-Template" target="_blank"></a>利用该功能可以为您的一类数据集一次性准备预先填写好的一揽子数据集元数据内容，以后添加同类数据集的时候只要套用模板，即可快速添加具有相似元数据的数据集实例。您最常用的模板不妨<strong>设为默认</strong>，添加数据集时就会直接自动套用。<br/><strong>【请注意】</strong> 创建数据集模板时，只有<strong>模板名称</strong>是必填的，其他带红色星号的元数据字段并不是您创建<strong>模板</strong>时必须填写的，而是预先提示将来添加数据集<strong>实例</strong>时会有哪些元数据字段必填。</p></li>
+                            </ul>
+                            <p>下拉菜单中还有一些命令涉及<a href="#Share-Permission">访问控制的管理</a>，在此不作介绍。</p>
+                            <p><a class="anchor" name="Share-Edit-DS" target="_blank"></a></p>
+                            <h4 id="e7bc96e8be91e695b0e68daee99b86">编辑数据集</h4>
+                            <p>打开您有权编辑的数据集的页面，点击右侧“<strong>编辑数据集</strong>”按钮，下拉菜单中的“<strong>元数据</strong>”命令会打开类似之前<a href="#Share-Create-DS">创建数据集</a>时的表格（但不包含上传文件的界面），在此可以修改数据集的元数据信息。修改完成后，请务必点击页面下方的“<strong>保存更改</strong>”按钮。</p>
+                            <p>假如您不再需要整个数据集，可以使用下拉菜单中的“<strong>删除数据集</strong>”命令，确认（<strong>继续</strong>）后即可彻底删除。数据集的删除是不可恢复的。</p>
+                            <p>或者从上述下拉菜单中点击“<strong>文件（上传+编辑）</strong>”命令，修改、追加、删除属于该数据集的数据文件。该命令以及其他下拉菜单命令涉及<a href="#Share-Permission">访问权限控制</a>，在此不作介绍。</p>
+                            <p>数据集编辑修改后，新的内容并不会立刻发布，而是处在草稿状态，需要经过发布（或重新发布）才能为他人所用。</p>
+                            <hr/>
+                            <p><a class="anchor" name="Share-Publish" target="_blank"></a></p>
+                            <h3 id="e585ace5bc80e58f91e5b883e695b0e68dae">公开发布数据</h3>
+                            <p>新创建的数据空间、数据集都处于<img src="/resources/handbook_images/1450848232966.jpg" name="images/1450848232966.jpg" alt="“未公布”" title="1450848232966.jpg"/>状态。只有公开发布以后，才能被其他用户浏览或搜索到。</p>
+                            <p>要公开发布一个数据空间或数据集，首先其上一级数据空间应当是已公布状态。北大<strong>根数据空间</strong>永远保持公布状态，所以用户创建的一级数据空间随时可以公开发布。</p>
+                            <h4 id="e58f91e5b883e695b0e68daee7a9bae997b4">发布数据空间</h4>
+                            <p>打开未发布的数据空间页面后，点击<img src="/resources/handbook_images/1450847695827.jpg" name="images/1450847695827.jpg" alt="发布" title="1450847695827.jpg"/>按钮即可发布。</p>
+                            <p>数据空间一旦发布，不能撤销，但您可以<a href="#Share-Edit">编辑数据空间</a>，或者调整数据空间及其中数据集的<a href="#Share-Permission">访问权限</a>。</p>
+                            <h4 id="e58f91e5b883e695b0e68daee99b86">发布数据集</h4>
+                            <p>打开未发布的数据集页面后，点击<img src="/resources/handbook_images/1450847695827.jpg" name="images/1450847695827.jpg" alt="发布" title="1450847695827.jpg"/>按钮即可发布。</p>
+                            <p>如果数据集所属的数据空间仍未发布，平台会提示您是否连同数据空间一起发布。数据集一旦发布，不能撤销，但您可以调整数据集的<a href="#Share-Permission">访问权限</a>，或<a href="#Share-Edit-DS">编辑数据集</a>从而升级版本。修改、增添过文件的数据集版本，起初处在未发布的草稿状态，需要再次发布。</p>
+                            <hr/>
+                            <p><a class="anchor" name="Share-Permission" target="_blank"></a></p>
+                            <h3 id="e68ea7e588b6e8aebfe997aee69d83e99990">控制访问权限</h3>
+                            <p>数据的管理者可以在自己掌管的<a href="#Nutshell-DV">数据空间</a>中<a href="#Share-Permission-UG">设置用户组</a>，为数据空间和<a href="#Nutshell-DS">数据集</a>分别<a href="#Share-Permission-Role">分配用户角色</a>，并<a href="#Share-Permission-File">管理其中的受限文件</a>，规定和审批哪些用户可以如何操作并利用北大数据平台中的数据资源。</p>
+                            <p><a class="anchor" name="Share-Permission-UG" target="_blank"></a></p>
+                            <h4 id="e794a8e688b7e7bb84e7aea1e79086">用户组管理</h4>
+                            <p>在数据空间的信息页面，管理者可以点击<img src="/resources/handbook_images/1450853243701.jpg" name="images/1450853243701.jpg" alt="编辑数据空间" title="1450853243701.jpg"/>按钮，从下拉菜单中点击“<strong>权限</strong>”命令，打开数据空间的权限管理页面。在此可以管理该数据空间的用户组，以及<a href="#Share-Permission-Role">角色分配</a>方案。</p>
+                            <p>用户组的使用并不是绝对必须的，但通常至少需要一个用户组来接受用户申请，令获批加入其中的用户有权下载数据集中的受限数据文件。</p>
+                            <p>利用用户组的管理功能，还可以极大简化对数据利用者群体和数据贡献者团队的日常管理操作，避免出错。</p>
+                            <p>用户组列表当中默认包含 3 种不可修改的基本用户组。</p>
+                            <ul>
+                                <li><p><strong>Authenticated Users</strong> ——非匿名用户，包括注册用户和北大认证用户。</p></li>
+                                <li><p><strong>IAAA Users</strong> ——北京大学认证用户。</p></li>
+                                <li><p><strong>All Users</strong> ——所有用户，包括匿名用户和非匿名用户。</p></li>
+                            </ul>
+                            <p>您在进行角色分配、文件权限管理等操作时，也可以使用这些基本用户组，但由于范围过于广泛，您很可能还需要增设自定义的用户组。请点击用户组列表上方右侧的<img src="/resources/handbook_images/1450853413899.jpg" name="images/1450853413899.jpg" alt="创建用户组" title="1450853413899.jpg"/>按钮，然后填表创建新的用户组。</p>
+                            <p>填表注意事项如下。</p>
+                            <ul>
+                                <li><p>带红色星号的是必填项。</p></li>
+                                <li><p><strong>组标识符</strong>：一个内部的简短名称，所用字符有限制，而且标识符不可重名。</p></li>
+                                <li><p><strong>组名称</strong>：为用户组命名，所用字符没有什么限制，而且可以重名（但请自行注意重名可能带来的混淆）。</p></li>
+                                <li><p><strong>请求加入组的用户类型</strong>：限定是否必须高级用户才能申请加入用户组，抑或只要基本用户即可。</p></li>
+                                <li><p><strong>用户/组</strong>：现在就可以开始为该用户组指定成员。成员可以是若干个用户或用户组（即用户组可以嵌套用户组）。<br/><strong>【小技巧】</strong> 在您输入了用户名或组名的一部分时，稍等几秒，系统中如果有相关的用户或用户组，就会在输入框下方自动列出可选的用户或用户组，以便快速选择。该技巧适用于本平台中一切需要指定用户或用户组的填表项。</p></li>
+                            </ul>
+                            <p>填好表，点击<img src="/resources/handbook_images/1450854716278.jpg" name="images/1450854716278.jpg" alt="创建组" title="1450854716278.jpg"/>按钮，完成创建。</p>
+                            <p>然后在用户组列表中会出现新创建的用户组。在自定义用户组的右侧，点击相应的<img src="/resources/handbook_images/1450854795112.jpg" name="images/1450854795112.jpg" alt="编辑用户组" title="1450854795112.jpg"/>按钮，还可以继续修改<strong>用户组信息</strong>或增减成员（包括<strong>用户组</strong>和单个<strong>用户</strong>）。</p>
+                            <p>删除用户组并不会删除组中的用户，仅仅是删除了分组的定义。</p>
+                            <p><a class="anchor" name="Share-Permission-Role" target="_blank"></a></p>
+                            <h4 id="e794a8e688b7e8a792e889b2e58886e9858d">用户角色分配</h4>
+                            <p>无论数据空间还是数据集，其全部用户除了访客和数据利用者之外，至少还要有一位管理者，可能还有其他管理者或数据贡献者。这些<strong>用户角色</strong>分别由哪个或哪些用户充当，都可以具体设置。</p>
+                            <ul>
+                                <li><p>在<strong>数据空间</strong>的信息页面，管理者可以点击<img src="/resources/handbook_images/1450853243701.jpg" name="images/1450853243701.jpg" alt="编辑数据空间" title="1450853243701.jpg"/>按钮，从下拉菜单中点击“<strong>权限</strong>”命令，打开数据空间的权限管理页面。在此可以管理该数据空间的角色分配方案，以及<a href="#Share-Permission-UG">用户组</a>设置。此处<img src="/resources/handbook_images/1450855809459.jpg" name="images/1450855809459.jpg" alt="角色分配" title="1450855809459.jpg"/>的设置界面默认为折叠状态，点击后展开显示。</p></li>
+                                <li><p>在<strong>数据集</strong>的信息页面，管理者可以从<img src="/resources/handbook_images/1450849268046.jpg" name="images/1450849268046.jpg" alt="编辑数据集" title="1450849268046.jpg"/>的下拉菜单中的“<strong>权限</strong>”子菜单内使用“<strong>数据集</strong>”命令，打开数据集的权限管理页面。在此可以管理该数据集的角色分配方案。</p></li>
+                            </ul>
+                            <p>打开数据空间或数据集的角色分配界面，您可以从角色分配规则列表中删除已有的分配规则，也可以点击列表上方右侧的<img src="/resources/handbook_images/1450856030087.jpg" name="images/1450856030087.jpg" alt="角色分配给用户/组" title="1450856030087.jpg"/>按钮，填表创建新的角色分配规则。</p>
+                            <p>每一条角色分配规则就是若干单个用户或用户组与一种用户角色的对应关系。点击某一种角色的名称，表格右侧就会列出该角色的权限。</p>
+                            <p><strong>【小技巧】</strong> 在您输入了用户名或组名的一部分时，稍等几秒，系统中如果有相关的用户或用户组，就会在输入框下方自动列出可选的用户或用户组，以便快速选择。该技巧适用于本平台中一切需要指定用户或用户组的填表项。</p>
+                            <p>以下用户角色为数据空间和数据集共有的。</p>
+                            <ul>
+                                <li><p><strong>Admin</strong> ——管理者：拥有全部管理权限，尤其是人事管理权限。建议只分配给团队中极少数最可信的同伴。</p></li>
+                                <li><p><strong>Contributor</strong> ——数据贡献者：有权管理数据文件，但不能修改数据空间或对数据集做整体变更。</p></li>
+                                <li><p><strong>Curator</strong> ——数据维护者：有权管理数据空间、数据集和文件。</p></li>
+                                <li><p><strong>File Downloader</strong> ——文件下载者：只是可以下载数据文件。<br/><strong>【强烈建议】</strong> 最好至少为您的数据空间创建一个用户组并分配为该角色。</p></li>
+                                <li><p><strong>Member</strong> ——内部成员：有权查看仍处于未公布状态的数据空间或数据集。</p></li>
+                            </ul>
+                            <p>以下用户角色为数据空间特有的。</p>
+                            <ul>
+                                <li><p><strong>Dataset Creator</strong> ——数据集创建者。</p></li>
+                                <li><p><strong>Dataverse + Dataset Creator</strong> ——数据空间与数据集创建者。</p></li>
+                                <li><p><strong>Dataverse Creator</strong> ——数据空间创建者。</p></li>
+                            </ul>
+                            <p>点击<img src="/resources/handbook_images/1450850030637.jpg" name="images/1450850030637.jpg" alt="保存更改" title="1450850030637.jpg"/>即可新增自定义的角色分配规则。</p>
+                            <p>要删除某一条规则，请点击其右侧<img src="/resources/handbook_images/1450856478453.jpg" name="images/1450856478453.jpg" alt="删除分配的角色" title="1450856478453.jpg"/>按钮。这并不会删除某一类型的角色，更不会删除用户，而仅仅是取消掉了一条用户与角色之间的对应关系。继承自所在数据空间的规则无法在数据集的层面上删除。</p>
+                            <p><a class="anchor" name="Share-Permission-File" target="_blank"></a></p>
+                            <h4 id="e69687e4bbb6e69d83e99990e4b88ee8aebfe997aee69da1e6acbe">文件权限与访问条款</h4>
+                            <p>打开您有权管理的数据集的页面，页面下方会出现该数据集所提供的数据文件的列表——假如没有任何文件，请先上传数据文件，才能管理文件的访问权限。</p>
+                            <p>要开始管理文件的访问权限（或上传、删除文件），有两个入口。</p>
+                            <ul>
+                                <li><p>点击<img src="/resources/handbook_images/1450849268046.jpg" name="images/1450849268046.jpg" alt="编辑数据集" title="1450849268046.jpg"/>按钮，从下拉菜单中点击“<strong>文件（上传+编辑）</strong>”命令。</p></li>
+                                <li><p>向下翻页，在右侧找到文件列表上方的<img src="/resources/handbook_images/1450849474278.jpg" name="images/1450849474278.jpg" alt="上传+编辑文件" title="1450849474278.jpg"/>按钮。</p></li>
+                            </ul>
+                            <p>两个入口效果相同，任选其一，打开该数据集的文件管理页面。</p>
+                            <p>文件列表的左侧有一列<img src="/resources/handbook_images/1450849590951.jpg" name="images/1450849590951.jpg" alt="复选框" title="1450849590951.jpg"/>可供勾选文件。选中需要修改访问权限标志的文件，然后点击文件列表上方右侧的<img src="/resources/handbook_images/1450849656770.jpg" name="images/1450849656770.jpg" alt="受限" title="1450849656770.jpg"/>按钮，从下拉菜单中点击“<strong>受限</strong>”或“<strong>不受限</strong>”命令，即为所选中的文件设置基本的权限标志。</p>
+                            <p>凡设为“受限”的数据文件，会出现绿色打开状的锁具图标<img src="/resources/handbook_images/1450849902712.jpg" name="images/1450849902712.jpg" alt="受限但有权访问" title="1450849902712.jpg"/>表示该文件虽然带有受限标志，但您自己有权使用。</p>
+                            <p>如果某个数据集第一次出现有受限标志的数据文件，点击<img src="/resources/handbook_images/1450850030637.jpg" name="images/1450850030637.jpg" alt="保存更改" title="1450850030637.jpg"/>按钮时会提示您留下“<strong>访问条款</strong>”文本（用户下载文件时会出现并询问用户是否接受）。同时，您还可以选择是否需要“<strong>启用访问请求</strong>”——如果勾选了，则某位本来无权使用受限数据文件的用户可以提出<a href="#Reuse-ApplyPermission">申请该文件的使用权</a>，然后由您或其他数据管理者审核能否批准使用。</p>
+                            <p>每个数据集中的所有文件共用一套访问条款文本与访问请求选项，可以在<img src="/resources/handbook_images/1450849268046.jpg" name="images/1450849268046.jpg" alt="编辑数据集" title="1450849268046.jpg"/>的下拉菜单中点击“<strong>许可和条款</strong>”命令，然后编辑修改。在此处您还可以点击<img src="/resources/handbook_images/1450852633471.jpg" name="images/1450852633471.jpg" alt="附加信息" title="1450852633471.jpg"/>然后填写有关访问条款的更多高级项目。</p>
+                            <p>凡未设置受限标志的数据文件，任何用户只要能浏览或搜索到该文件，就能下载使用，甚至无需登录北大数据平台。</p>
+                            <p>一旦有数据文件设置了受限标志，就可以从<img src="/resources/handbook_images/1450849268046.jpg" name="images/1450849268046.jpg" alt="编辑数据集" title="1450849268046.jpg"/>的下拉菜单中的“<strong>权限</strong>”子菜单内使用“<strong>文件</strong>”命令，将受限文件与用户或用户组结合起来，赋予或移除单个或成组用户对某个文件的访问权限。</p>
+                            <p>有两个殊途同归的操作入口。</p>
+                            <ul>
+                                <li><p>在“用户/组”管理界面内点击右侧的<img src="/resources/handbook_images/1450857540702.jpg" name="images/1450857540702.jpg" alt="为用户/组授予访问权限" title="1450857540702.jpg"/>按钮。</p></li>
+                                <li><p>展开<img src="/resources/handbook_images/1450857595194.jpg" name="images/1450857595194.jpg" alt="文件" title="1450857595194.jpg"/>权限管理界面，然后点击<img src="/resources/handbook_images/1450857644850.jpg" name="images/1450857644850.jpg" alt="赋予访问权限" title="1450857644850.jpg"/>按钮。</p></li>
+                            </ul>
+                            <p><strong>【小技巧】</strong> 在您输入了用户名或组名的一部分时，稍等几秒，系统中如果有相关的用户或用户组，就会在输入框下方自动列出可选的用户或用户组，以便快速选择。该技巧适用于本平台中一切需要指定用户或用户组的填表项。</p>
+                            <p>已有的文件权限规则也可以调整或删除。这些操作并不会影响文件、用户或用户组本身。</p>
+                            <p><a class="anchor" name="Share-Permission-Grant" target="_blank"></a></p>
+                            <h4 id="e5aea1e6a0b8e794a8e688b7e794b3e8afb7">审核用户申请</h4>
+                            <p>用户<a href="#Reuse-ApplyPermission">申请数据使用权限</a>的实质是申请加入某个用户组。一旦用户成功发出申请，系统会向管理者发送电子邮件通知。</p>
+                            <p>管理者接到通知后，登录北大数据平台，点击页面右上方自己的姓名，再点击“<strong>通知</strong>”（后面的数字表示当前未读的通知数量），即可处理用户的申请。</p>
+                            <p>管理者收到的通知可能类似下图。<br/>
+                                <img src="/resources/handbook_images/1450859273389.jpg" name="images/1450859273389.jpg" alt="用户请求加入用户组" title="1450859273389.jpg"/></p>
+                            <p>点击数据空间英文名称的链接，进入该数据空间中接到用户申请权限的用户组的管理页面。向下翻页，找到<img src="/resources/handbook_images/1450859400559.jpg" name="images/1450859400559.jpg" alt="申请加入的成员列表" title="1450859400559.jpg"/>，可以看到当前有哪些用户提出了申请。</p>
+                            <p>根据列出的用户资料（点击用户名按钮可以查看详细资料），逐个点击每一个用户申请右侧的<img src="/resources/handbook_images/1450859457280.jpg" name="images/1450859457280.jpg" alt="同意或拒绝" title="1450859457280.jpg"/>按钮，决定是否同意加入。</p>
+                            <ul>
+                                <li><p>如果点击“<strong>同意</strong>”，该用户会立刻加入所申请的用户组。</p></li>
+                                <li><p>如果拒绝申请，请您同时选择拒绝的理由，然后点击<img src="/resources/handbook_images/1450859669804.jpg" name="images/1450859669804.jpg" alt="继续" title="1450859669804.jpg"/>按钮。</p></li>
+                            </ul>
+                            <p>两种选择都会让用户收到一封通知邮件，但如果搁置申请，不做处理，用户会一直得不到任何通知，当然也不会加入用户组——建议管理者及时处理用户的申请。</p>
+                            <p><a class="anchor" name="Share-Permission-Grant" target="_blank"></a></p>
+                            <!-- #### 访问留言管理 -->
+                            <hr/>
+                            <p><a class="anchor" name="Share-Usage" target="_blank"></a></p>
+                            <h3 id="e69fa5e8afa2e4bdbfe794a8e7bb9fe8aea1">查询使用统计</h3>
+                            <p>管理者可以在数据空间或数据集的信息页面找到<img src="/resources/handbook_images/1450860228152.jpg" name="images/1450860228152.jpg" alt="使用统计" title="1450860228152.jpg"/>按钮，从下拉菜单中点击“<strong>使用统计</strong>”命令，查询相应的统计报告。</p>
+                            <p>数据空间和数据集都提供“<strong>浏览统计</strong>”和“<strong>文件下载统计</strong>”。数据空间还特有“<strong>用户组申请统计</strong>”。</p>
+                            <p>管理者可以根据这些使用统计情况对数据的使用价值做出评估，或分析可能滥用数据的用户的分布特征等。</p>
+                            <hr/>
+                            <h2 id="e99984e5bd95">附录</h2>
+                            <hr/>
+                            <p><a class="anchor" name="Appendix-HTML" target="_blank"></a></p>
+                            <h3 id="e59ca8e68f8fe8bfb0e4bfa1e681afe4b8ade4bdbfe794a820html20e6a087e7adbe">在描述信息中使用 HTML 标签</h3>
+                            <p>数据管理者在编写描述信息时，可以嵌入表达文档格式的 <a href="https://zh.wikipedia.org/zh/HTML" target="_blank">HTML（超文本标记语言）</a>标签。</p>
+                            <h4 id="e4b8bee4be8b">举例</h4>
+                            <pre><code class="language-html hljs"><span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>数据概要<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">ul</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>研究项目：<span class="hljs-tag">&lt;<span class="hljs-title">strong</span>&gt;</span>数字化资源社会需求调查<span class="hljs-tag">&lt;/<span class="hljs-title">strong</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>项目主页：<span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"http://lib.pku.edu.cn"</span>&gt;</span>北大图书馆<span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>参考文献：John Doe. 2015. <span class="hljs-tag">&lt;<span class="hljs-title">em</span>&gt;</span>Statistics for Social Sciences<span class="hljs-tag">&lt;/<span class="hljs-title">em</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+</code></pre>
+                            <p>用户看到的效果如下图所示。<br/>
+                                <img src="/resources/handbook_images/HTML标签输出样例.png" name="images/HTML标签输出样例.png" alt="" title="HTML标签输出样例.png"/></p>
+                            <p>平台只允许使用一部分 HTML 标签。有的需要成对书写，有的不成对书写。</p>
+                            <h4 id="e4b88de68890e5afb9e4b9a6e58699e79a84e6a087e7adbe">不成对书写的标签</h4>
+                            <ul>
+                                <li><p>&lt;br&gt; 插入换行符</p></li>
+                                <li><p>&lt;hr&gt; 插入水平分隔符</p></li>
+                                <li><p>&lt;img&gt; 插入图片（参数 src 为图片的网址）</p></li>
+                            </ul>
+                            <h4 id="e68890e5afb9e4b9a6e58699e79a84e6a087e7adbe">成对书写的标签</h4>
+                            <ul>
+                                <li><p>&lt;h1&gt; &lt;h2&gt; &lt;h3&gt; 大中小三级标题</p></li>
+                                <li><p>&lt;a&gt; 链接（标签内的文字成为链接的文字或图片提示，参数 href 为链接的网址）</p></li>
+                                <li><p>&lt;p&gt; 自然段落</p></li>
+                                <li><p>&lt;blockquote&gt; 引用段落</p></li>
+                                <li><p>&lt;pre&gt; 预排版段落</p></li>
+                                <li><p>&lt;code&gt; 计算机代码段落</p></li>
+                                <li><p>&lt;strong&gt; 标记重点文字（<strong>加粗</strong>显示）</p></li>
+                                <li><p>&lt;em&gt; 标记强调文字（<em>斜体</em>显示）</p></li>
+                                <li><p>&lt;strike&gt; 标记删除文字（<strike>中划线</strike>显示）</p></li>
+                                <li><p>&lt;sub&gt; 标记下标文字</p></li>
+                                <li><p>&lt;sup&gt; 标记上标文字</p></li>
+                            </ul>
+                            <h4 id="e68890e5afb9e4b9a6e58699e79a84e6a087e7adbeefbc9ae794a8e4ba8ee7949fe68890e69c89e5ba8fe68896e697a0e5ba8fe58897e8a1a8">成对书写的标签：用于生成有序或无序列表</h4>
+                            <ul>
+                                <li><p>&lt;ul&gt; 生成无序列表（内含列表项或下一级列表）</p></li>
+                                <li><p>&lt;ol&gt; 生成有序列表（内含列表项或下一级列表）</p></li>
+                                <li><p>&lt;li&gt; 插入一个列表项</p></li>
+                            </ul>
+                            <h4 id="e68890e5afb9e4b9a6e58699e79a84e6a087e7adbeefbc9ae794a8e4ba8ee7949fe68890e5ae9ae4b989e58897e8a1a8">成对书写的标签：用于生成<strong>定义</strong>列表</h4>
+                            <ul>
+                                <li><p>&lt;dl&gt; 生成定义列表</p></li>
+                                <li><p>&lt;dt&gt; 标记定义的术语</p></li>
+                                <li><p>&lt;dd&gt; 标记定义的描述</p></li>
+                            </ul>
+                            <p>以上简要描述，并不足以解说清楚 HTML 标签的用法。推荐您参考 <a href="http://w3school.com.cn/html/index.asp" target="_blank">W3School 提供的 HTML 教程</a>。</p>
+                            <hr/>
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

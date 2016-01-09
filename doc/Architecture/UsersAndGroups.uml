@@ -1,0 +1,187 @@
+@startuml
+
+'uncomment for higher dpi 
+'skinparam dpi 300
+
+package existingCode {
+  class Role< DB >
+  class DvObject< DB >
+  class RoleAssignment< DB >
+
+  note as n1
+    A role can be assigned
+    at the DvObject where it 
+    is defined, or at any of
+    that DvObject's descendants
+  end note
+}
+
+package "assignees" {
+
+  interface RoleAssignee {
+    + identifier:String
+    + displayInfo() : TBD
+  }
+
+  class User {
+  }
+
+  class AuthenticatedUser< DB > {
+
+  }
+
+  class IpGroup {
+    range: IpRange[]
+  }
+
+  class GuestUser< Singleton > {
+    {static} get: GuestUser
+  }
+
+  class ApiKey< DB > {
+    + key:String
+    + title: String
+  }
+
+  interface Group {
+    + name: String
+    + description : String
+    + data: Blob
+    + provider: AuthenticationProvider
+    + contains( u:User )
+  }
+
+  class ExplicitGroup< DB > {
+    # includesGuest: boolean
+    + add( a:RoleAssignee )
+    + remove( a:RoleAssignee )
+    + list: RoleAssignee[]
+  }
+
+  class GroupRow< DB > {
+    + id:Long
+    + alias:String
+    + creatorId: String
+    + ... common fields ...
+    + data:BLOB
+  }
+
+  class GroupManager< @Bean > {
+    + registerGroup( Group )
+    + getGroup( alias ): Group
+    + getGroup( groupRow ): Group
+    + registerGroupCreator( groupCreator )
+  }
+
+  class AuthenticatedUsers
+  class AllUsers
+
+  class ShibGroup {
+    headerMatchers: Map<String, Regex>
+  }
+
+}
+
+RoleAssignee <|-- User
+RoleAssignee <|-- Group
+User <|-- AuthenticatedUser
+User <|-- GuestUser
+Group <|-- ExplicitGroup
+Group <|-- AuthenticatedUsers
+Group <|-- AllUsers
+Group <|-- ShibGroup
+Group <|-- IpGroup
+
+AuthenticatedUser "1" *- "0..*" ApiKey
+
+Role -> DvObject: Defined at
+RoleAssignment -up-> "1" DvObject: At
+RoleAssignment -up-> "1" Role: Assigns
+RoleAssignment --> "1" RoleAssignee: To
+
+ExplicitGroup ..> RoleAssignee: "Contains"
+ExplicitGroup o--> AuthenticatedUser
+ExplicitGroup o--> GroupRow
+ExplicitGroup "0..*" <--* "1" DvObject : Defines
+
+package authenticationprovider {
+  
+  class AuthenticationManager<Singleton> {
+    authenticationProviders: Collection<AuthenticationProvider>
+
+    registerProvider( p:AuthenticationProvider )
+    getRoleAssignee( idtf:String ) : RoleAssignee
+    getRoleAssignee( req:HttpRequest ) : RoleAssignee
+  }
+
+  interface AuthenticationProvider {
+    + info : RoleAssigneeProviderInfo
+    isQueryable(): Boolean
+    acceptsRoleAssigneeIdentifier( idtf:String ): bool
+    getRoleAssignee( idtf:String ) : RoleAssignee
+    getRoleAssignee( req:HttpRequest ) : RoleAssignee
+  }
+
+  interface GroupCreator {
+    + createGroup : Group
+  }
+
+  interface UserLister {
+    + listUsers() : List<User>
+    + findUsers( queryString ) : List<User>
+  }
+
+  class AuthenticationProviderInfo {
+    + name
+    + description
+    + icon?
+    + ...
+  }
+
+  class LocalAuthenticationProvider 
+  class ShibAuthenticationProvider
+  class IpAddressAuthenticationProvider
+  class LdapAuthenticationProvider < future >
+  class OAuthAuthenticationProvider < future >
+
+  AuthenticationManager *-->  "1..*" AuthenticationProvider
+  AuthenticationProvider <|.. OAuthAuthenticationProvider
+
+  AuthenticationProvider <|-- UserLister   
+
+  UserLister   <|-- LocalAuthenticationProvider
+  GroupCreator <|-- LocalAuthenticationProvider
+  UserLister   <|-- LdapAuthenticationProvider
+  GroupCreator <|-- LdapAuthenticationProvider
+
+  GroupCreator <|-- ShibAuthenticationProvider
+  GroupCreator <|-- IpAddressAuthenticationProvider
+
+  AuthenticationProvider *-> AuthenticationProviderInfo
+
+}
+
+Group <.. AuthenticationProvider : "Creates"
+AuthenticatedUser  <.. AuthenticationProvider : "Creates/Updates"
+
+package somewhere_else_in_dataverse {
+  class AccessRequest< DB > {
+    from: AuthenticatedUser
+    dvo: DvObject
+    metadata : TBD
+  }
+
+  interface Command {
+    issuedBy: User
+    effects: DvObject[]
+  }
+
+}
+ 
+AccessRequest ..> AuthenticatedUser : "From"
+AccessRequest ..> DvObject : "about"
+
+Command "0..*" ..> "1" User : Issued By
+Command ..> "1..*" DvObject : effects
+
+@enduml

@@ -1,0 +1,78 @@
+package edu.harvard.iq.dataverse;
+
+import edu.harvard.iq.dataverse.authorization.users.AuthenticatedUser;
+import java.io.Serializable;
+import java.sql.Timestamp;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+
+import javax.persistence.Id;
+import javax.persistence.IdClass;
+
+import javax.persistence.JoinColumn;
+
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+/**
+ * Records the last time a {@link User} handled a {@link DatasetVersion}.
+ * @author skraffmiller
+ */
+@Entity
+public class DatasetVersionUser implements Serializable {
+    
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+
+    @ManyToOne
+    @JoinColumn(name = "authenticatedUser_id")
+    private AuthenticatedUser authenticatedUser;
+
+    public AuthenticatedUser getAuthenticatedUser() {
+        return authenticatedUser;
+    }
+
+    public void setAuthenticatedUser(AuthenticatedUser authenticatedUser) {
+        this.authenticatedUser = authenticatedUser;
+    }
+    
+    @ManyToOne
+    @JoinColumn(name = "datasetversion_id")
+    private DatasetVersion datasetVersion;
+
+    @Column( nullable=false )
+    private Timestamp lastUpdateDate;
+
+
+    public Timestamp getLastUpdateDate() {
+        return lastUpdateDate;
+    }
+
+    public void setLastUpdateDate(Timestamp lastUpdateDate) {
+        this.lastUpdateDate = lastUpdateDate;
+    }
+    
+    public DatasetVersion getDatasetVersion() {
+        return datasetVersion;
+    }
+
+    public void setDatasetVersion(DatasetVersion datasetVersion) {
+        this.datasetVersion = datasetVersion;
+    }
+
+   
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="ehcache.xsd"
+         updateCheck="true"
+         monitoring="autodetect"
+         dynamicConfig="true">
+
+    <defaultCache maxEntriesLocalHeap="100" eternal="false" timeToIdleSeconds="1200" timeToLiveSeconds="1200">
+    </defaultCache>
+    <cache name="eternal" maxEntriesLocalHeap="100" eternal="true" memoryStoreEvictionPolicy="LFU"/>
+    <cache name="middle" maxEntriesLocalHeap="100" eternal="false" timeToIdleSeconds="600" timeToLiveSeconds="600" memoryStoreEvictionPolicy="LFU"/>
+</ehcache>

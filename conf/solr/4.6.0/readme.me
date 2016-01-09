@@ -1,0 +1,39 @@
+Please see the dev guide for what to do with Solr config file(s).
+
+schema.xml.4.6.0.dist is the original schema.xml file that came from the 4.6.0 Solr distribution. It's only included so you can diff the files to see what has changed.
+
+需要为solrconfig.xml添加配置以提高搜索效果，将dataverse、dataset、file的标题或者名称的权重提高。
+为<requestHandler name="/spell">添加
+  <str name="defType">edismax</str>
+  <str name="qf">
+    title^10 title_zh^10 name^10 name_zh^10 text^0.5
+  </str>
+形如：
+  <requestHandler name="/spell" class="solr.SearchHandler" startup="lazy">
+    <lst name="defaults">
+      <str name="df">text</str>
+      <!-- Solr will use suggestions from both the 'default' spellchecker
+           and from the 'wordbreak' spellchecker and combine them.
+           collations (re-written queries) can include a combination of
+           corrections from both spellcheckers -->
+      <str name="spellcheck.dictionary">default</str>
+      <str name="spellcheck.dictionary">wordbreak</str>
+      <str name="spellcheck">on</str>
+      <str name="spellcheck.extendedResults">true</str>       
+      <str name="spellcheck.count">10</str>
+      <str name="spellcheck.alternativeTermCount">5</str>
+      <str name="spellcheck.maxResultsForSuggest">5</str>       
+      <str name="spellcheck.collate">true</str>
+      <str name="spellcheck.collateExtendedResults">true</str>  
+      <str name="spellcheck.maxCollationTries">10</str>
+      <str name="spellcheck.maxCollations">5</str>
+
+      <str name="defType">edismax</str>
+	  <str name="qf">
+          title^10 title_zh^10 name^10 name_zh^10 text^0.5
+      </str>	  
+    </lst>
+    <arr name="last-components">
+      <str>spellcheck</str>
+    </arr>
+  </requestHandler>

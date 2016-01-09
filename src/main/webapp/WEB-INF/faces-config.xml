@@ -1,0 +1,27 @@
+<faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+        http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+              version="2.2">
+    <application>   
+        <resource-bundle>
+            <base-name>Bundle</base-name>
+            <var>bundle</var>
+        </resource-bundle>     
+        <locale-config>
+            <default-locale>en</default-locale>
+            <supported-locale>zh_CN</supported-locale>
+        </locale-config>
+    </application>
+    <render-kit>
+        <renderer>
+            <component-family>org.primefaces.component</component-family>
+            <renderer-type>org.primefaces.component.FileUploadRenderer</renderer-type>
+            <renderer-class>edu.harvard.iq.dataverse.FileUploadRenderer</renderer-class>
+        </renderer>
+    </render-kit>
+    <validator>
+        <validator-id>requiredCheckboxValidator</validator-id>
+        <validator-class>edu.harvard.iq.dataverse.util.RequiredCheckboxValidator</validator-class>
+    </validator>    
+</faces-config>

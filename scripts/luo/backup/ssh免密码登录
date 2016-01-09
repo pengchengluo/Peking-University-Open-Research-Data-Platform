@@ -1,0 +1,12 @@
+dataverse备份需要使用到ssh免密码登录，按照以下进行配置
+
+A主机免密码登录B主机
+在A主机中：
+ssh-keygen -t dsa -P ''
+cat id_dsa.pub >> authorized_keys
+scp authorized_keys luopc@B主机:/home/luopc/.ssh/
+在B主机中：
+cd ~
+chmod 700 .ssh
+cd ~/.ssh
+chmod 600 authorized_keys

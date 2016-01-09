@@ -1,0 +1,6 @@
+（1）跳转到dataset用户注册页面链接为：
+dataverseuser.xhtml?editMode=CREATE&registerUserType=ADVANCE&redirectDatasetId=10.5072/FK2/UKFBBC
+其中10.5072/FK2/UKFBBC为dataset的DOI号
+（2）跳转到dataverse用户注册页面链接为：
+dataverseuser.xhtml?editMode=CREATE&registerUserType=ADVANCE&redirectDataverseId=isss
+其中isss为dataset的别名

@@ -1,0 +1,311 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:jsf="http://xmlns.jcp.org/jsf">
+    <div class="form-horizontal" jsf:rendered="#{!empty user}">
+        <!-- User type -->
+        <div class="col-sm-4">
+            <label for="userType" class="col-sm-4 control-label">
+                <span data-toggle="tooltip" data-placement="auto right" class="tooltiplabel text-info" data-original-title="#{bundle['user.userType.tip']}">
+                    #{bundle['user.userType']}
+                </span>
+            </label>
+            <div class="col-sm-8">
+                <p jsf:rendered="#{user.userType == 'ADVANCE'}" class="form-control-static">#{bundle['user.userType.advance']}</p>
+                <p jsf:rendered="#{user.userType == 'ORDINARY'}" class="form-control-static">#{bundle['user.userType.ordinary']}</p>
+            </div>
+        </div>
+
+        <!-- Username -->
+        <div class="col-sm-4">
+            <label for="userNameEmail" class="col-sm-4 control-label">
+                <span data-toggle="tooltip" data-placement="auto right" class="tooltiplabel text-info" data-original-title="#{bundle['user.username.illegal.tip']}">
+                    #{bundle['user.username']}
+                </span>
+            </label>
+            <div class="col-sm-8">
+                <p class="form-control-static">#{user.userName}</p>
+            </div>
+        </div>
+
+        <!-- Email -->
+        <div class="col-sm-4">
+            <label for="email" class="col-sm-4 control-label">
+                <span data-toggle="tooltip" data-placement="auto right" class="tooltiplabel text-info" data-original-title="#{bundle['user.email.tip']}">
+                    #{bundle.email}
+                </span>
+            </label>
+            <div class="col-sm-8">
+                <p class="form-control-static">#{user.email}</p>
+            </div>
+        </div>
+
+        <!-- Last Name -->
+        <div class="col-sm-4">
+            <label for="lastName" class="col-sm-4 control-label">
+                <span data-toggle="tooltip" data-placement="auto right" class="tooltiplabel text-info" data-original-title="#{bundle['user.lastName.tip']}">
+                    #{bundle['user.lastName']}
+                </span>
+            </label>
+            <div class="col-sm-8">
+                <p class="form-control-static">#{user.lastName}</p>
+            </div>
+        </div>
+
+        <!-- First Name -->
+        <div class="col-sm-4">
+            <label for="firstName" class="col-sm-4 control-label">
+                <span data-toggle="tooltip" data-placement="auto right" class="tooltiplabel text-info" data-original-title="#{bundle['user.firstName.tip']}">
+                    #{bundle['user.firstName']}
+                </span>
+            </label>
+            <div class="col-sm-8">
+                <p class="form-control-static">#{user.firstName}</p>
+            </div>
+        </div>
+
+        <!-- Affiliation -->
+        <div class="col-sm-4">
+            <label for="affiliation" class="col-sm-4 control-label">
+                <span data-toggle="tooltip" data-placement="auto right" class="tooltiplabel text-info" data-original-title="#{bundle['user.affiliation.tip']}">
+                    #{bundle.affiliation}
+                </span>
+            </label>
+            <div class="col-sm-8">
+                <p class="form-control-static">#{user.affiliation}</p>
+            </div>
+        </div>
+
+        <!-- Department -->
+        <div class="col-sm-4">
+            <label for="department" class="col-sm-4 control-label">
+                <span data-toggle="tooltip" data-placement="auto right" class="tooltiplabel text-info" data-original-title="#{bundle['user.department.tip']}">
+                    #{bundle.department}
+                </span>
+            </label>
+            <div class="col-sm-8">
+                <p class="form-control-static">#{user.department}</p>
+            </div>
+        </div>
+
+        <!-- Position -->
+        <div class="col-sm-4">
+            <label for="position" class="col-sm-4 control-label">
+                <span data-toggle="tooltip" data-placement="auto right" class="tooltiplabel text-info" data-original-title="#{bundle['user.position.tip']}">
+                    #{bundle['user.position']}
+                </span>
+            </label>
+            <div class="col-sm-8">
+                <p class="form-control-static" jsf:rendered="#{user.position == 'student'}">#{bundle['user.position.student']}</p>
+                <p class="form-control-static" jsf:rendered="#{user.position == 'faculty'}">#{bundle['user.position.faculty']}</p>
+                <p class="form-control-static" jsf:rendered="#{user.position == 'researcher'}">#{bundle['user.position.researcher']}</p>
+                <p class="form-control-static" jsf:rendered="#{user.position == 'government_organization'}">#{bundle['user.position.governmentOrganization']}</p>
+                <p class="form-control-static" jsf:rendered="#{user.position == 'international_organization'}">#{bundle['user.position.internationalOrganization']}</p>
+                <p class="form-control-static" jsf:rendered="#{user.position == 'research_institutions'}">#{bundle['user.position.researchInstitutions']}</p>
+                <p class="form-control-static" jsf:rendered="#{user.position == 'corporation'}">#{bundle['user.position.corporation']}</p>
+                <p class="form-control-static" jsf:rendered="#{user.position == 'nongovernmental_organization'}">#{bundle['user.position.nongovernmentalOrganization']}</p>
+                <p class="form-control-static" jsf:rendered="#{user.position == 'other'}">#{bundle['user.position.other']}</p>
+            </div>
+        </div>
+
+        <!-- Speciality -->
+        <div class="col-sm-4">
+            <label for="speciality" class="col-sm-4 control-label">
+                <span data-toggle="tooltip" data-placement="auto right" class="tooltiplabel text-info" data-original-title="#{bundle['user.speciality.tip']}">
+                    #{bundle['user.speciality']}
+                </span>
+            </label>
+            <div class="col-sm-8">
+                <p class="form-control-static">#{user.speciality}</p>
+            </div>
+        </div>
+
+        <!-- Research Interest -->
+        <div class="col-sm-4">
+            <label for="researchInterest" class="col-sm-4 control-label">
+                <span data-toggle="tooltip" data-placement="auto right" class="tooltiplabel text-info" data-original-title="#{bundle['user.researchinterest.tip']}">
+                    #{bundle['user.researchinterest']}
+                </span>
+            </label>
+            <div class="col-sm-8">
+                <p class="form-control-static">#{user.researchInterest}</p>
+            </div>
+        </div>
+
+        <!-- Gender -->
+        <div class="col-sm-4" jsf:rendered="#{user.userType == 'ADVANCE'}">
+            <label for="gender" class="col-sm-4 control-label">
+                <span data-toggle="tooltip" data-placement="auto right" class="tooltiplabel text-info" data-original-title="#{bundle['user.gender.tip']}">
+                    #{bundle['user.gender']}
+                </span>
+            </label>
+            <div class="col-sm-8">
+                <p class="form-control-static" jsf:rendered="#{user.gender == 'male'}">#{bundle['user.gender.male']}</p>
+                <p class="form-control-static" jsf:rendered="#{user.gender == 'female'}">#{bundle['user.gender.female']}</p>
+            </div>
+        </div>
+
+        <!-- Education -->
+        <div class="col-sm-4" jsf:rendered="#{user.userType == 'ADVANCE'}">
+            <label for="education" class="col-sm-4 control-label">
+                <span data-toggle="tooltip" data-placement="auto right" class="tooltiplabel text-info" data-original-title="#{bundle['user.education.tip']}">
+                    #{bundle['user.education']}
+                </span>
+            </label>
+            <div class="col-sm-8">
+                <p class="form-control-static" jsf:rendered="#{user.education == 'bachelor'}">#{bundle['user.education.bachelor']}</p>
+                <p class="form-control-static" jsf:rendered="#{user.education == 'master'}">#{bundle['user.education.master']}</p>
+                <p class="form-control-static" jsf:rendered="#{user.education == 'doctor'}">#{bundle['user.education.doctor']}</p>
+                <p class="form-control-static" jsf:rendered="#{user.education == 'other'}">#{bundle['user.education.other']}</p>
+            </div>
+        </div>
+
+        <!-- Professional Title -->
+        <div class="col-sm-4" jsf:rendered="#{user.userType == 'ADVANCE'}">
+            <label for="professionalTitle" class="col-sm-4 control-label">
+                <span data-toggle="tooltip" data-placement="auto right" class="tooltiplabel text-info" data-original-title="#{bundle['user.professionalTitle.tip']}">
+                    #{bundle['user.professionalTitle']}
+                </span>
+            </label>
+            <div class="col-sm-8">
+                <p class="form-control-static">#{user.professionalTitle}</p>
+            </div>
+        </div>
+
+        <!-- Supervisor -->
+        <div class="col-sm-4" jsf:rendered="#{user.userType == 'ADVANCE'}">
+            <label for="supervisor" class="col-sm-4 control-label">
+                <span data-toggle="tooltip" data-placement="auto right" class="tooltiplabel text-info" data-original-title="#{bundle['user.supervisor.tip']}">
+                    #{bundle['user.supervisor']}
+                </span>
+            </label>
+            <div class="col-sm-8">
+                <p class="form-control-static">#{user.supervisor}</p>
+            </div>
+        </div>
+
+        <!-- Certificate Type -->
+        <div class="col-sm-4" jsf:rendered="#{user.userType == 'ADVANCE'}">
+            <label for="certificateType" class="col-sm-4 control-label">
+                <span data-toggle="tooltip" data-placement="auto right" class="tooltiplabel text-info" data-original-title="#{bundle['user.certificateType.tip']}">
+                    #{bundle['user.certificateType']}
+                </span>
+            </label>
+            <div class="col-sm-8">
+                <p class="form-control-static">#{user.certificateType}</p>
+            </div>
+        </div>
+        
+        <!-- Certificate Number -->
+        <div class="col-sm-4" jsf:rendered="#{user.userType == 'ADVANCE'}">
+            <label for="certificateNumber" class="col-sm-4 control-label">
+                <span data-toggle="tooltip" data-placement="auto right" class="tooltiplabel text-info" data-original-title="#{bundle['user.certificateNumber.tip']}">
+                    #{bundle['user.certificateNumber']}
+                </span>
+            </label>
+            <div class="col-sm-8">
+                <p class="form-control-static">#{user.certificateNumber}</p>
+            </div>
+        </div>
+
+        <!-- Office Phone -->
+        <div class="col-sm-4" jsf:rendered="#{user.userType == 'ADVANCE'}">
+            <label for="officePhone" class="col-sm-4 control-label">
+                <span data-toggle="tooltip" data-placement="auto right" class="tooltiplabel text-info" data-original-title="#{bundle['user.officePhone.tip']}">
+                    #{bundle['user.officePhone']}
+                </span>
+            </label>
+            <div class="col-sm-8">
+                <p class="form-control-static">#{user.officePhone}</p>
+            </div>
+        </div>
+
+        <!-- Cellphone -->
+        <div class="col-sm-4" jsf:rendered="#{user.userType == 'ADVANCE'}">
+            <label for="cellphone" class="col-sm-4 control-label">
+                <span data-toggle="tooltip" data-placement="auto right" class="tooltiplabel text-info" data-original-title="#{bundle['user.cellphone.tip']}">
+                    #{bundle['user.cellphone']}
+                </span>
+            </label>
+            <div class="col-sm-8">
+                <p class="form-control-static">#{user.cellphone}</p>
+            </div>
+        </div>
+
+        <!-- Other Email -->
+        <div class="col-sm-4" jsf:rendered="#{user.userType == 'ADVANCE'}">
+            <label for="otherEmail" class="col-sm-4 control-label">
+                <span data-toggle="tooltip" data-placement="auto right" class="tooltiplabel text-info" data-original-title="#{bundle['user.otherEmail.tip']}">
+                    #{bundle['user.otherEmail']}
+                </span>
+            </label>
+            <div class="col-sm-8">
+                <p class="form-control-static">#{user.otherEmail}</p>
+            </div>
+        </div>
+
+        <!-- Country -->
+        <div class="col-sm-4" jsf:rendered="#{user.userType == 'ADVANCE'}">
+            <label for="country" class="col-sm-4 control-label">
+                <span data-toggle="tooltip" data-placement="auto right" class="tooltiplabel text-info" data-original-title="#{bundle['user.country.tip']}">
+                    #{bundle['user.country']}
+                </span>
+            </label>
+            <div class="col-sm-8">
+                <p class="form-control-static">#{user.country}</p>
+            </div>
+        </div>
+
+        <!-- Province -->
+        <div class="col-sm-4" jsf:rendered="#{user.userType == 'ADVANCE'}">
+            <label for="province" class="col-sm-4 control-label">
+                <span data-toggle="tooltip" data-placement="auto right" class="tooltiplabel text-info" data-original-title="#{bundle['user.province.tip']}">
+                    #{bundle['user.province']}
+                </span>
+            </label>
+            <div class="col-sm-8">
+                <p class="form-control-static">#{user.province}</p>
+            </div>
+        </div>
+
+        <!-- City -->
+        <div class="col-sm-4" jsf:rendered="#{user.userType == 'ADVANCE'}">
+            <label for="city" class="col-sm-4 control-label">
+                <span data-toggle="tooltip" data-placement="auto right" class="tooltiplabel text-info" data-original-title="#{bundle['user.city.tip']}">
+                    #{bundle['user.city']}
+                </span>
+            </label>
+            <div class="col-sm-8">
+                <p class="form-control-static">#{user.city}</p>
+            </div>
+        </div>
+
+        <!-- Address -->
+        <div class="col-sm-4" jsf:rendered="#{user.userType == 'ADVANCE'}">
+            <label for="address" class="col-sm-4 control-label">
+                <span data-toggle="tooltip" data-placement="auto right" class="tooltiplabel text-info" data-original-title="#{bundle['user.address.tip']}">
+                    #{bundle['user.address']}
+                </span>
+            </label>
+            <div class="col-sm-8">
+                <p class="form-control-static">#{user.address}</p>
+            </div>
+        </div>
+
+        <!-- ZipCode -->
+        <div class="col-sm-4" jsf:rendered="#{user.userType == 'ADVANCE'}">
+            <label for="zipCode" class="col-sm-4 control-label">
+                <span data-toggle="tooltip" data-placement="auto right" class="tooltiplabel text-info" data-original-title="#{bundle['user.zipCode.tip']}">
+                    #{bundle['user.zipCode']}
+                </span>
+            </label>
+            <div class="col-sm-8">
+                <p class="form-control-static">#{user.zipCode}</p>
+            </div>
+        </div>
+    </div>
+    
+</ui:composition>

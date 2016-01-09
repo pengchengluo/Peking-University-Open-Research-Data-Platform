@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:pt="http://java.sun.com/jsf/passthrough"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:o="http://omnifaces.org/ui"
+      xmlns:iqbs="http://xmlns.jcp.org/jsf/composite/iqbs">
+
+    <h:head>
+    </h:head>
+
+    <h:body>
+        <ui:composition template="/dataverse_template.xhtml">
+            <ui:param name="pageTitle" value="#{bundle['header.about']}"/>
+            <ui:define name="body">
+                <div class="preview"><h1 id="e58c97e4baace5a4a7e5ada6e5bc80e694bee7a094e7a9b6e695b0e68daee5b9b3e58fb0e7ae80e4bb8b" style="margin-top: 0.5em; margin-top: 1.0em; margin-right: 0; margin-right: 0; margin-bottom: 0.5em; margin-bottom: .6em; margin-left: 0; margin-left: 0; font-family: inherit; font-weight: 500; line-height: 1.6; color: inherit; text-rendering: optimizelegibility; font-size: 38.5px;">北京大学开放研究数据平台简介</h1>
+                    <p style="margin-top: 0; margin-right: 0; margin-bottom: 1.1em; margin-left: 0; line-height: 1.6;">为了加快推进北京大学创建世界一流大学步伐，促进一流学科建设，推动北京大学研究数据的开放、交流与共享，由北京大学图书馆、国家自然科学基金-北京大学管理科学数据中心、北京大学科研部、北京大学社科部联合主办和推出“北京大学开放研究数据平台”。北京大学将全力打造功能完备、服务优质、具有国际影响力的开放数据平台，吸引国内外研究人员发布与使用数据，为基于数据的研究、决策提供国际一流的支撑平台。</p>
+                    <p style="margin-top: 0; margin-right: 0; margin-bottom: 1.1em; margin-left: 0; line-height: 1.6;">平台以“规范产权保护”为基础，以“倡导开放科学（Open Science）”为宗旨，鼓励研究数据的发布（Publish）、发现（Discover）、再利用(Reuse)和再生产(Reproduce)，促进研究数据引用(Citation)的实践和计量，并探索数据长期保存(Preservation)，培育和实现跨学科的协同创新。</p>
+                    <p style="margin-top: 0; margin-right: 0; margin-bottom: 1.1em; margin-left: 0; line-height: 1.6;">平台为研究者提供研究数据的管理、发布和存储服务，鼓励研究者开放和共享数据；为数据用户提供研究数据的浏览、检索和下载等服务，促进研究数据的传播、重用和规范引用。平台还加入针对性的数据支持功能，最大限度地提升用户体验，包括：数据在线浏览和统计分析、数据在线格式转换和子集拆分、数据可视化展示、数据变量搜索、数据关联出版物链接等功能。用户实名注册后，可以下载开放数据，或站内申请使用受限数据。平台的特色功能如下：</p>
+                    <ul style="padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; margin-top: 0; margin-right: 0; margin-bottom: 10px; margin-left: 35px;">
+                        <li><p style="margin-top: 0; margin-right: 0; margin-bottom: 1.1em; margin-left: 0; line-height: 1.6;">完整的数据提交、管理和发布功能；</p></li>
+                        <li><p style="margin-top: 0; margin-right: 0; margin-bottom: 1.1em; margin-left: 0; line-height: 1.6;">DOI永久标识符、规范的数据引用；</p></li>
+                        <li><p style="margin-top: 0; margin-right: 0; margin-bottom: 1.1em; margin-left: 0; line-height: 1.6;">灵活的访问控制、请求与审核机制；</p></li>
+                        <li><p style="margin-top: 0; margin-right: 0; margin-bottom: 1.1em; margin-left: 0; line-height: 1.6;">规范的版权保护、实名学术社区；</p></li>
+                        <li><p style="margin-top: 0; margin-right: 0; margin-bottom: 1.1em; margin-left: 0; line-height: 1.6;">版本存档、下载统计和跟踪；</p></li>
+                        <li><p style="margin-top: 0; margin-right: 0; margin-bottom: 1.1em; margin-left: 0; line-height: 1.6;">数据检索、浏览、授权下载和评论；</p></li>
+                        <li><p style="margin-top: 0; margin-right: 0; margin-bottom: 1.1em; margin-left: 0; line-height: 1.6;">数据在线分析和可视化、数字指纹；</p></li>
+                        <li><p style="margin-top: 0; margin-right: 0; margin-bottom: 1.1em; margin-left: 0; line-height: 1.6;">国际化平台、双语展示界面</p></li>
+                    </ul>
+                    <p style="margin-top: 0; margin-right: 0; margin-bottom: 1.1em; margin-left: 0; line-height: 1.6;">截至目前，平台已经收录了北京大学中国调查数据资料库（包括中国家庭追踪调查、中国健康与养老追踪调查、北京社会经济发展年度调查等），北京大学健康老龄与发展研究中心，北京大学可视化与可视分析研究组，北京大学生命科学学院生物信息学中心等跨学科的开放数据。其中汇聚了一批国内具有极高影响力的精品调查数据，如：</p>
+                    <ul style="padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; margin-top: 0; margin-right: 0; margin-bottom: 10px; margin-left: 35px;">
+                        <li><p style="margin-top: 0; margin-right: 0; margin-bottom: 1.1em; margin-left: 0; line-height: 1.6;">中国家庭追踪调查（CFPS）：该项目是由北京大学设计并实施的一项全国性家庭跟踪调查计划，希望通过对全国代表性样本村居、家庭、家庭成员的跟踪调查，历时性地反映中国社会的发展与变迁。CFPS基线调查样本覆盖全国25个省市161个区县的649个村居样本，其中抽取的1.5万个家户样本，及其样本家户中的全部家庭成员。自2010年基线调查后，CFPS计划每两年对调查对象进行一次追踪访问。</p></li>
+                        <li><p style="margin-top: 0; margin-right: 0; margin-bottom: 1.1em; margin-left: 0; line-height: 1.6;">中国健康与养老追踪调查（CHARLS）：该项目旨在收集一套代表中国45岁及以上中老年人家庭和个人的高质量微观数据，用以分析我国人口老龄化问题，推动老龄化问题的跨学科研究。CHARLS全国基线调查于2011年开展，覆盖150个区县，450个村居，约1万户家庭中的1.7万人，以后每两年追踪访问一次。</p></li>
+                        <li><p style="margin-top: 0; margin-right: 0; margin-bottom: 1.1em; margin-left: 0; line-height: 1.6;">中国老年健康影响因素跟踪调查（CLHLS）：该项目原名中国老人健康长寿影响因素跟踪调查，是由北京大学健康老龄与发展研究中心/国家发展研究院组织的老年人追踪调查，调查范围覆盖全国23个省区市，调查对象为65岁及以上老年人和35-64岁成年子女，调查问卷分为存活被访者问卷和死亡老人家属问卷两种。</p></li>
+                        <li><p style="margin-top: 0; margin-right: 0; margin-bottom: 1.1em; margin-left: 0; line-height: 1.6;">北京社会经济发展年度调查（BAS）：该项目是由北京大学中国国情研究中心独立设计与进行的一项年度调查研究，力图跟踪考察改革开放过程中北京市居民的生活、观念、信心和承受能力等各方面的变化，积累起时间序列性的经验资料，以便对社会变革中的重要问题进行尽可能客观的描述与研究。BAS调查对象界定为18-65岁具有北京市正式的非农业户口、居住在北京市城区、有固定住所的市民。该调查从1995年开始，每年进行一次。</p></li>
+                    </ul>
+                    <p style="margin-top: 0; margin-right: 0; margin-bottom: 1.1em; margin-left: 0; line-height: 1.6;">平台建设工作历时近两年。从2014年初开始，北京大学图书馆即对“研究数据管理平台”进行前期调研和平台选型，并基于哈佛大学开源软件Dataverse搭建测试数据平台，会同国家自然科学基金-北京大学管理科学数据中心，一起对平台功能完整性、开放性和可扩展性进行了评估。2015年4月，北京大学图书馆、国家自然科学基金-北京大学管理科学数据中心连续召开“合作启动会议”、“数据平台专家指导委员会会议”，双方成立联合工作组，确定合作框架，标志着平台建设正式启动。其后，北京大学图书馆、国家自然科学基金-北京大学管理科学数据中心在数据平台建设上进行了紧密合作，相继完成了一系列工作，包括：元数据方案制定和改造，正式加入Datacite数据中心获取正式DOI，根据本地化需求进行系统功能设计和二次开发、制定平台章程和用户使用协议、研究数据的收集/整理/发布。2015年12月25日，平台Beta版开始上线运行。</p>
+                    <p style="margin-top: 0; margin-right: 0; margin-bottom: 1.1em; margin-left: 0; line-height: 1.6;">平台不仅面向北大师生，也面向全国和国外，收录国内和国外、学界和非学界相关组织的优质科研数据。除了鼓励研究者自行提交之外，平台有针对性地向国内外学者或科研机构征集研究数据（以调查类数据为主），对数据进行管理或加工后，免费共享给数据使用者。所征集数据的机构或个人本着自愿的原则，认同平台的有关规定，和平台签署“数据资源共享合作协议”。欢迎感兴趣的学者或机构与我们联系:opendata@lib.pku.edu.cn。</p>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

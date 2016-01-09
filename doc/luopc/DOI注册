@@ -1,0 +1,7 @@
+DOI注册需要设置注册地址（doi.baseurlstring）、用户名（doi.username）、密码（doi.password）三个系统属性，例如
+doi.baseurlstring=https://test.datacite.org/mds
+doi.username={username}
+doi.password={password}
+此外，对于DataCite DOI注册需要确保注册地址的域名（例如opendata.pku.edu.cn）与DataCite账号中的域名一致(例如pku.edu.cn)，
+需要设置dataverse.siteUrl或者dataverse.fqdn系统属性，其中dataverse.siteUrl具有较高优先级，例如可设置为：
+dataverse.siteUrl=http://opendata.pku.edu.cn

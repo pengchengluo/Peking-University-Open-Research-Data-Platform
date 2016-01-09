@@ -1,0 +1,9 @@
+{
+    "alias":"member",
+    "name":"Member",
+    "description":"A person who can view both unpublished dataverses and datasets.",
+    "permissions":[
+        "ViewUnpublishedDataset",
+        "ViewUnpublishedDataverse" 
+    ]
+}

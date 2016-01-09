@@ -1,0 +1,87 @@
+<ui:composition xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:iqbs="http://xmlns.jcp.org/jsf/composite/iqbs">
+    <p:dialog id="userGroupDialog" styleClass="largePopUp" header="#{bundle['dataverse.permissions.usersOrGroups.assignDialog.header']}" widgetVar="userGroupsForm" modal="true">
+        <p:fragment id="assignRoleMessages">
+            <div class="container messagePanel">
+                <iqbs:messages collapsible="true" />
+            </div>
+        </p:fragment>
+        <p:fragment id="assignRoleContent">
+            <div class="form-horizontal">
+                <p class="help-block"><span class="glyphicon glyphicon-info-sign"/> #{bundle['dataverse.permissions.usersOrGroups.assignDialog.description']}</p>
+                <div class="form-group">
+                    <label for="userGroupAccessInput" class="col-sm-2 control-label">
+                        #{bundle['dataverse.permissions.usersOrGroups.assignDialog.userOrGroup']} <span class="glyphicon glyphicon-asterisk text-danger" title="#{bundle.requiredField}"/>
+                    </label>
+                    <div class="col-sm-9">
+                        <p:autoComplete id="userGroupNameAssign" placeholder="#{bundle['dataverse.permissions.usersOrGroups.assignDialog.userOrGroup.enterName']}"
+                                        multiple="true" scrollHeight="180" forceSelection="true"
+                                        minQueryLength="2" queryDelay="1000"
+                                        cache="true"                                        
+                                        emptyMessage="#{bundle['dataverse.permissions.usersOrGroups.assignDialog.userOrGroup.invalidMsg']}"
+                                        value="#{managePermissionsPage.roleAssignSelectedRoleAssignees}"
+                                        completeMethod="#{managePermissionsPage.completeRoleAssignee}"
+                                        required="#{param['DO_ASSIGN_VALIDATION']}" requiredMessage="#{bundle['dataverse.permissions.usersOrGroups.assignDialog.userOrGroup.requiredMsg']}"
+                                        var="roleAssignee" itemLabel="#{roleAssignee.displayInfo.title}" itemValue="#{roleAssignee}" converter="roleAssigneeConverter">
+                            <p:column>
+                                <h:outputText value="#{roleAssignee.displayInfo.title}"/> 
+                                <h:outputText value=" (#{roleAssignee.displayInfo.affiliation})" rendered="#{!empty roleAssignee.displayInfo.affiliation}"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{roleAssignee.identifier}"/>
+                            </p:column>
+                            <p:ajax process="@this" event="itemSelect" />
+                            <p:ajax process="@this" event="itemUnselect" />
+                        </p:autoComplete>
+                        <p:message for="userGroupNameAssign" display="text"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="assignRoleRadios" class="col-sm-2 control-label">
+                        #{bundle['dataverse.permissions.usersOrGroups.tabHeader.role']} <span class="glyphicon glyphicon-asterisk text-danger" title="#{bundle.requiredField}"/>
+                    </label>
+                    <div class="col-sm-9 form-group">
+                        <div class="col-sm-5">
+                            <p:fragment id="availableRoles">
+                                <p:selectOneRadio id="assignRoleRadios" layout="pageDirection"
+                                                  value="#{managePermissionsPage.selectedRoleId}"
+                                                  required="#{param['DO_ASSIGN_VALIDATION']}"
+                                                  requiredMessage="#{bundle['dataverse.permissions.usersOrGroups.assignDialog.role.requiredMsg']}">
+                                    <f:selectItems value="#{managePermissionsPage.availableRoles}" var="role" itemValue="#{role.id}" itemLabel="#{role.name}"/>
+                                    <p:ajax update="roleDetails" process="@this"/>
+                                </p:selectOneRadio>
+                                <p:message for="assignRoleRadios" display="text"/>
+                            </p:fragment>
+                        </div>
+                        <div class="col-sm-6 bg-muted">
+                            <p:fragment id="roleDetails">
+                                <div id="assignRolePermissionLabels">
+                                    <p class="help-block">#{bundle['dataverse.permissions.usersOrGroups.assignDialog.role.description']}</p>
+                                    <span class="highlightBold">#{managePermissionsPage.assignedRole.name}</span>
+                                    <div class="margin-bottom">
+                                        <ui:repeat value="#{managePermissionsPage.assignedRole.permissions().toArray()}" var="prm">
+                                            <span class="label label-default">#{prm}</span>
+                                        </ui:repeat>
+                                    </div>
+                                </div>
+                            </p:fragment>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="button-block">
+                <p:commandLink type="button" styleClass="btn btn-default" value="#{bundle.saveChanges}"
+                               update="assignRoleContent assignedRoles @([id$=Messages])"
+                               actionListener="#{managePermissionsPage.assignRole}" 
+                               oncomplete="if (args &amp;&amp; !args.validationFailed) userGroupsForm.hide();">
+                    <f:param name="DO_ASSIGN_VALIDATION" value="true"/>
+                </p:commandLink>
+                <button type="button" class="btn btn-default" onclick="userGroupsForm.hide()" value="Cancel">#{bundle.cancel}</button>
+            </div>
+        </p:fragment>
+    </p:dialog>
+</ui:composition>

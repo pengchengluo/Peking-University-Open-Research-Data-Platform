@@ -1,0 +1,98 @@
+#!/usr/bin/perl
+
+# TODO: 
+# the script still has the namespaces "1902.1" and "10.7910" hard-coded, 
+# to identifies the "local" studies. 
+
+my $url = shift @ARGV;
+
+use DBI;
+
+my $username = "xxxxx";
+my $password = 'xxxxx';
+my $database = "xxxxx";
+
+my $dbh = DBI->connect("DBI:Pg:dbname=$database;host=$host",$username,$password); 
+
+unless ( -d "ddi" )
+{
+    mkdir "ddi"; 
+}
+
+my $sth;
+
+$sth = $dbh->prepare(qq {SELECT s.id, s.authority, s.studyid, v.alias FROM study s, vdc v WHERE s.owner_id = v.id});
+
+$sth->execute();
+
+my $sid; 
+
+$studycounter = 0; 
+$extraversioncounter = 0; 
+$versioncounter = 0; 
+
+while ( @foo = $sth->fetchrow() )
+{
+    $sid = $foo[0];
+    $authority = $foo[1];
+    $studyid = $foo[2];
+    $dvalias = $foo[3];
+    
+    unless ($authority eq "1902.1" || $authority =~/^10\.7910/ ) {
+	next;
+    }
+
+    unless ( -d "ddi/$dvalias" )
+    {
+	mkdir "ddi/$dvalias"; 
+    }
+
+    my $sth1; 
+
+    $sth1 = $dbh->prepare(qq {SELECT versionnumber,versionstate FROM studyversion v WHERE study_id=$sid}); 
+    $sth1->execute();
+
+    my $vn; 
+
+    $localcounter = 0; 
+
+    while ( @bar = $sth1->fetchrow() )
+    {
+	$vn = $bar[0];
+	$vstate = $bar[1];
+
+	if ($vstate eq "RELEASED")
+	{
+	    print $dvalias . "\t" . $sid . "\t" . $authority . "/" . $studyid . "/export_ddi.xml\n";
+	}
+	else
+	{
+	    print STDERR "executing: wget -O ddi/" . $dvalias . "/" . $sid . "-" . $vn . ".xml '" . $url . "?studyId=" . $sid . "&versionNumber=" . $vn . "'\n";
+	    system "wget -O ddi/" . $dvalias . "/" . $sid . "-" . $vn . ".xml '" . $url . "?studyId=" . $sid . "&versionNumber=" . $vn . "'\n";
+	    $versioncounter++; 
+	    $localcounter++;
+	}
+    }
+
+    $sth1->finish; 
+    $studycounter++; 
+    $extraversioncounter++ if $localcounter;
+
+    unless ($studycounter % 1000) 
+    {
+	print STDERR "\n" . $studycounter . " studies processed.\n";
+	print STDERR $extraversioncounter . " had versions other than released;\n";
+	print STDERR "Total " . $versioncounter . " versions processed.\n";
+    }
+} 
+
+$sth->finish;
+
+$dbh->disconnect; 
+
+exit 0; 
+
+
+
+
+  

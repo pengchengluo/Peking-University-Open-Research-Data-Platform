@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      lang="en">
+    
+    <f:view locale="#{dataverseLocale.locale.language}">
+    <h:head>
+        <title><h:outputText value="#{pageTitle}"/></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta http-equiv="Content-Language" content="en"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="description" content="#{bundle['head.meta.description']}"/>
+        <link type="image/png" rel="icon" href="/resources/images/favicondataverse.png"/>
+        <link type="image/png" rel="image_src" href="/resources/images/dataverseproject.png"/>
+    </h:head>
+
+    <h:body>
+        <f:facet name="last">
+            <h:outputStylesheet library="bs" name="css/bootstrap.css" />
+            <h:outputStylesheet library="bs" name="css/bootstrap-theme.min.css" />
+            <h:outputStylesheet library="css" name="ie-compat.css" />
+            <h:outputStylesheet library="css" name="owl.carousel.css" />
+            <h:outputStylesheet library="css" name="fontcustom.css" />
+            <h:outputStylesheet library="css" name="socicon.css" />
+            <h:outputStylesheet library="css" name="structure.css" />
+        </f:facet>
+        <f:loadBundle basename="Bundle" var="bundle"/>
+        <a href="#content" class="sr-only">#{bundle['body.skip']}</a>
+        <ui:include src="dataverse_header.xhtml">            
+            <ui:param name="dataverse" value="#{dataverse != null ? dataverse : dataverseServiceBean.findRootDataverse()}"/>
+            <ui:param name="showDataverseHeader" value="#{showDataverseHeader != null ? showDataverseHeader : true}"/>
+            <ui:param name="showMessagePanel" value="#{showMessagePanel != null ? showMessagePanel : true}"/>
+            <ui:param name="loginRedirectPage" value="#{loginRedirectPage != null ? '?redirectPage='.concat(loginRedirectPage) : dataverseHeaderFragment.loginRedirectPage}"/>
+            <ui:param name="hideDataverseHeader" value="#{hideDataverseHeader}"/>
+        </ui:include>
+        <div class="container" id="content">
+            <ui:insert name="body">Default Body</ui:insert>
+        </div>
+        <div class="container clearfix" id="footer">
+            <div class="pull-left">
+                <h:outputText value="#{bundle['footer.dataScienceIQSS']}" escape="false"/> &#160;|&#160; #{bundle['footer.dataverseProjectOn']} <a href="https://twitter.com/dataverseorg" target="_blank" title="#{bundle['footer.dataverseProjectOn']} #{bundle['footer.Twitter']}"><span class="socicon socicon-twitter" title="#{bundle['footer.dataverseProjectOn']} #{bundle['footer.Twitter']}"/></a> &#160;|&#160; #{bundle['footer.codeAvailable']} <a href="https://github.com/IQSS/dataverse" target="_blank" title="#{bundle['footer.dataverseOnGitHub']}"><span class="socicon socicon-github" title="#{bundle['footer.dataverseOnGitHub']}"/></a><br/>
+                <h:outputText value="#{bundle['footer.copyright']}" escape="false"/> <ui:fragment rendered="#{!empty systemConfig.applicationPrivacyPolicyUrl}">&#160;|&#160; <h:outputLink value="#{systemConfig.applicationPrivacyPolicyUrl}" target="_blank">#{bundle['footer.privacyPolicy']}</h:outputLink></ui:fragment>
+            </div>
+            <div class="pull-right clearfix">
+                <div class="poweredbylogo pull-left">
+                    <span>#{bundle['footer.poweredby']}</span> 
+                    <a href="http://dataverse.org/" title="#{bundle['footer.dataverseProject']}" target="_blank"><img src="/resources/images/dataverseproject_logo.jpg" alt="#{bundle['footer.dataverseProject']}" /></a>
+                </div>
+                <div class="version pull-right">v. #{dataverseServiceBean.applicationVersion}</div>
+            </div>
+        </div>
+        <p:ajaxStatus id="ajaxStatusPanel">
+            <f:facet name="start">
+                <h:graphicImage value="/resources/images/ajax-loading.gif" />
+            </f:facet>
+            <f:facet name="complete">
+                <!-- DO NOTHING -->
+            </f:facet>
+        </p:ajaxStatus>
+        <ui:include src="contactFormFragment.xhtml">
+            <ui:param name="formTitle" value="#{bundle['contact.header']}"/>
+            <ui:param name="formTo" value="#{bundle['contact.to']}"/>
+        </ui:include>
+        <p:dialog id="statusInfo" header="#{settingsServiceBean.get(':StatusMessageHeader')}" widgetVar="statusInfo" modal="true">
+            <p><h:outputText value="#{settingsServiceBean.get(':StatusMessageText')}" escape="false"/></p>
+            <div class="button-block">
+                <button type="button" onclick="statusInfo.hide()" class="btn btn-default" value="#{bundle.close}">
+                    #{bundle.close}
+                </button>
+            </div>
+        </p:dialog>
+        <h:outputScript library="bs" name="js/bootstrap.min.js" />
+        <h:outputScript library="bs" name="js/bootstrap-hover-dropdown.min.js" />
+        <h:outputScript library="js" name="ie-compat.js" />
+        <h:outputScript library="js" name="dv_rebind_bootstrap_ui.js" />
+        <h:outputScript library="js" name="owl.carousel.js" />
+        <h:outputScript library="js" name="jquery.matchHeight.js" />
+        <h:outputScript library="js" name="jquery.sharrre.js" />
+        <script>
+            
+            $(document).ready(function() {
+                // Navbar Search Toggle
+                $(document).on('click', '#navbar-search-toggle', function (e) {
+                    $(this).parent("li").hide();
+                    $("form.navbar-form[role='search']").show();
+                });
+                $('body').click(function(e) {
+                    if (!$(e.target).closest("form.navbar-form[role='search']").length) {
+                        $("form.navbar-form[role='search']").hide();
+                        $("#navbar-search-toggle").parent("li").show();
+                    };
+                });
+                
+                // Rebind bootstrap UI components
+                bind_bsui_components();
+            });
+            
+            /*
+            * Custom Popover with HTML code snippet
+            */
+            function popoverHTML() {
+                var popoverTemplateHTML = ['<div class="popover">',
+                    '<div class="arrow"></div>',
+                    '<h3 class="popover-title"></h3>',
+                    '<div class="popover-content">',
+                    '</div>',
+                    '</div>'].join('');
+
+                var popoverContentHTML = ['<code>',
+                    '<h:outputText value="#{bundle.htmlAllowedTags}" escape="true"/>',
+                    '</code>'].join('');
+ 
+                $('body').popover({
+                    selector: 'span.popoverHTML',
+                    title: '<h:outputText value="#{bundle.htmlAllowedTitle}"/>',
+                    trigger: 'hover',
+                    content : popoverContentHTML,
+                    template: popoverTemplateHTML,
+                    placement: "bottom",
+                    container: "#content",
+                    html: true
+                });
+            }
+        </script>
+        <ui:include src="google-analytics-snippet.xhtml"></ui:include>                         
+
+    </h:body>
+    </f:view>
+</html>

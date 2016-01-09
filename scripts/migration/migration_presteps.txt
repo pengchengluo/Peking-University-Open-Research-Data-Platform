@@ -1,0 +1,113 @@
+----------------------------------------------
+-- Preparing the DDIs of production studies: 
+----------------------------------------------
+The DDIs of the released (published) studies are already exported and available
+on disk (but do make sure they are all exported properly, and re-run export-all 
+if necessary). The DDIs for the non-released versions need to be re-exported
+using the DVN DDI export servlet. 
+
+1. The following script goes through the list of the studies in the prod. db, 
+and does the following 2 things:
+
+For non-released versions, issues a call to the export servlet and saves the 
+DDI in ddi/<DV alias>/<STUDY ID>-<VERSION NUMBER>.xml
+
+It also generates a "packing list" of the DDI files for the released versions,
+on the standard output. (this will be packed in the next step)
+
+
+./versions_source_ "http://<DVN 3.6 HOSTNAME>/dvn/ddi" > DDI_released_packlist.txt
+
+2. To pack the released DDIs:
+(this step needs to be run on a system that has access to the production filesystem!)
+
+cat DDI_released_packlist.txt | ./versions_source_step2_
+
+This will copy all the published version DDIs, identified in the previous step, 
+into /tmp/ddi, as
+/tmp/ddi/<DV alias>/<STUDY ID>.xml
+
+The contents of /tmp/ddi/* should now be packaged and mixed with the non-released 
+ddis saved in step 1.
+
+
+
+
+----------------------------------------------
+-- On 3.6 database, run the following to create copies of needed tables
+----------------------------------------------
+
+-- users / groups
+-- ignore network admin (assumes id of 1)
+create table _dvn3_vdcuser as select * from vdcuser where id != 1;
+create table _dvn3_usergroup as select * from usergroup;
+create table _dvn3_vdcuser_usergroup as select * from vdcuser_usergroup;
+
+-- dataverse networks / dataverses
+-- ignore the root network
+create table _dvn3_vdcnetwork as select * from vdcnetwork where id != 0;
+create table _dvn3_vdc as select * from vdc;
+
+-- studies (for reference)
+create table _dvn3_study as select * from study
+-- where owner_id in (select id from _dvn3_vdc)
+;
+
+create table _dvn3_studyversion as select * from studyversion
+-- where study_id in (select id from _dvn3_study)
+;
+
+create table _dvn3_versioncontributor as select * from versioncontributor
+-- where studyversion_id in (select id from _dvn3_studyversion)
+;
+
+-- collections (for reference)
+create table _dvn3_vdccollection as select * from vdccollection;
+
+-- permissions
+create table _dvn3_vdcrole as select * from vdcrole;
+create table _dvn3_vdc_usergroup as select * from vdc_usergroup;
+
+create table _dvn3_study_vdcuser as select * from study_vdcuser;
+create table _dvn3_study_usergroup as select * from study_usergroup;
+
+create table _dvn3_studyfile_vdcuser as select * from studyfile_vdcuser;
+create table _dvn3_studyfile_usergroup as select * from studyfile_usergroup;
+
+-- links
+create table _dvn3_coll_studies as select * from coll_studies;
+create table _dvn3_vdc_linked_collections as select * from vdc_linked_collections;
+
+
+----------------------------------------------
+-- run pg_dump to extract temp tables
+----------------------------------------------
+
+pg_dump -h localhost -U postgres <3.6 database name> -t _dvn3_* -f /tmp/dvn3_data.sql
+
+----------------------------------------------
+-- import temp tables into 4.0 db
+----------------------------------------------
+
+psql -h localhost -U postgres <4.0 database name> -f /tmp/dvn3_data.sql
+
+----------------------------------------------
+-- Run offsets on _dvn3_tables in the 4.0 DB
+----------------------------------------------
+
+-- offsets
+update _dvn3_vdcnetwork set id = id + (select max(id) from dvobject);
+update _dvn3_vdc set id = id + (select max(id) from _dvn3_vdcnetwork);
+update _dvn3_vdcrole set vdc_id = vdc_id + (select max(id) from _dvn3_vdcnetwork);
+update _dvn3_vdc_usergroup set vdcs_id = vdcs_id + (select max(id) from _dvn3_vdcnetwork);
+update _dvn3_vdc_linked_collections set vdc_id = vdc_id + (select max(id) from _dvn3_vdcnetwork);
+update _dvn3_study set owner_id = owner_id + (select max(id) from _dvn3_vdcnetwork);
+update _dvn3_vdccollection set owner_id = owner_id + (select max(id) from _dvn3_vdcnetwork);
+
+-- note: need to determine what offset to use, based on the file scripts
+--update _dvn3_studyfile_vdcuser set studyfiles_id = studyfiles_id +100000;
+--update _dvn3_studyfile_usergroup set studyfiles_id = studyfiles_id + 100000;
+
+
+
+

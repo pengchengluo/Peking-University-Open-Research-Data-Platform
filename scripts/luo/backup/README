@@ -1,0 +1,9 @@
+要求：
+（1）目录/home/postgres/存在，且postgres用户具有读写权限
+（2）使用postgres用户运行dataverse_backup.sh
+（3）为postgres用户配置ssh免登陆到远程备份主机
+
+dataverse_backup.sh功能：
+在/home/postgres/目录下按照时间创建备份目录
+对数据库、文件、logo、使用日志进行备份
+将备份数据传输到远程备份主机

@@ -1,0 +1,8 @@
+{
+    "id":"pkuiaaa",
+    "factoryAlias":"PKUIAAAAuthenticationProvider",
+    "title":"Peking University IAAA", 
+    "subtitle":"Peking University IAAA Authentication provider",
+    "factoryData":"",
+    "enabled":true
+}

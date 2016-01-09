@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:iqbs="http://xmlns.jcp.org/jsf/composite/iqbs"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <h:head>
+    </h:head>
+
+    <h:body>
+        <ui:composition template="/dataverse_template.xhtml">
+            <f:view locale="#{dataverseLocale.locale.language}">
+                <ui:param name="pageTitle" value="#{bundle.log} - #{usageLogStatisPage.dvObject.getDisplayName(dataverseLocale.locale)}"/>
+                <ui:param name="dataverse" value="#{usageLogStatisPage.dvObject.dataverseContext}"/>
+                <ui:param name="dataset" value="#{usageLogStatisPage.dvObject.instanceofDataset ? usageLogStatisPage.dvObject : null}"/>
+                <ui:param name="version" value="#{usageLogStatisPage.dvObject.instanceofDataset ? usageLogStatisPage.dvObject.latestVersion : null}"/>
+                <ui:param name="showMessagePanel" value="false"/>
+            </f:view>
+            <ui:define name="body">
+                <f:metadata>
+                    <f:viewParam name="id" value="#{usageLogStatisPage.id}"/>
+                    <f:viewAction action="#{usageLogStatisPage.init}"/>
+                    <f:viewAction action="#{dataverseHeaderFragment.initBreadcrumbs(usageLogStatisPage.dvObject,bundle.log)}"/>
+                </f:metadata>
+                <div class="col-md-12">
+                    <p:tabView id="tabView" dynamic="true">
+                        <p:tab title="#{usageLogStatisPage.dvObject.instanceofDataverse ? bundle['log.dataverse.view.statis'] : bundle['log.dataset.view.statis']}">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div data-toggle="collapse" data-target="#panelCollapseViewQuery" class="panel-heading text-info">
+                                        #{bundle['log.search.filter']}<span class="glyphicon glyphicon-chevron-up"/>
+                                    </div>
+                                    <div id="panelCollapseViewQuery" class="collapse in">
+                                        <div class="panel-body">
+                                            <h:form id="dataverseForm" styleClass="form-horizontal">
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label" for="ipForDvObj">#{bundle['log.search.filter.ip']}</label>
+                                                    <div class="col-sm-6">
+                                                        <p:inputText id="ipForDvObj" value="#{usageLogStatisPage.queryForDvObj.ip}"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label" for="userIdForDvObj">#{bundle['log.search.filter.userId']}</label>
+                                                    <div class="col-sm-6">
+                                                        <p:inputText id="userIdForDvObj" value="#{usageLogStatisPage.queryForDvObj.userId}"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label" for="startTimeForDvObj">#{bundle['log.search.filter.startTime']}</label>
+                                                    <div class="col-sm-6">
+                                                        <p:calendar id="startTimeForDvObj" value="#{usageLogStatisPage.queryForDvObj.startTime}" 
+                                                                    navigator="true" pattern="yyyy-MM-dd HH:mm:ss"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label" for="endTimeForDvObj">#{bundle['log.search.filter.endTime']}</label>
+                                                    <div class="col-sm-6">
+                                                        <p:calendar id="endTimeForDvObj" value="#{usageLogStatisPage.queryForDvObj.endTime}" 
+                                                                    navigator="true" pattern="yyyy-MM-dd HH:mm:ss"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label" for="sizeForDvObj">#{bundle['log.search.numberOfRecordPerPage']}</label>
+                                                    <div class="col-sm-6">
+                                                        <p:selectOneMenu id="sizeForDvObj" value="#{usageLogStatisPage.queryForDvObj.size}">
+                                                            <f:selectItem itemValue="5" itemLabel="5"/>
+                                                            <f:selectItem itemValue="10" itemLabel="10"/>
+                                                            <f:selectItem itemValue="20" itemLabel="20"/>
+                                                            <f:selectItem itemValue="30" itemLabel="30"/>
+                                                            <f:selectItem itemValue="40" itemLabel="40"/>
+                                                            <f:selectItem itemValue="50" itemLabel="50"/>
+                                                        </p:selectOneMenu>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-sm-6 col-sm-offset-4">
+                                                        <p:commandButton value="#{bundle['dataverse.search.btn.find']}" actionListener="#{usageLogStatisPage.dvObjectViewStatis(1)}"
+                                                                         update=":#{p:component('searchHits')} :#{p:component('viewStatis')} :#{p:component('pageForm')} :#{p:component('viewLogForDvObj_total')}" />
+                                                    </div>
+                                                </div>
+                                            </h:form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div data-toggle="collapse" data-target="#panelCollapseViewStatis" class="panel-heading text-info">
+                                        #{bundle['log.search.distribute']}<span class="glyphicon glyphicon-chevron-up"/>
+                                    </div>
+                                    <div id="panelCollapseViewStatis" class="collapse in">
+                                        <div class="panel-body">
+                                            <p:lineChart id="viewStatis" value="#{usageLogStatisPage.viewStatisForDvObj}" legendPosition="e"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div data-toggle="collapse" data-target="#panelCollapseSearchHits" class="panel-heading text-info">
+                                        #{bundle['log.search.result']}<span class="glyphicon glyphicon-chevron-up"/>
+                                    </div>
+                                    <div id="panelCollapseSearchHits" class="collapse in">
+                                        <div class="panel-body">
+                                            <div class="col-md-12">
+                                                <h:outputFormat id="viewLogForDvObj_total" value="#{bundle['log.search.result.information']}">
+                                                    <f:param value='#{usageLogStatisPage.viewLogForDvObj.total}'/>
+                                                </h:outputFormat>
+                                            </div>
+                                            <div class="col-md-12 btn-group">       
+                                                <h:form id="pageForm">
+                                                    <c:if test="#{usageLogStatisPage.viewLogForDvObj.pages > 0}">                                                        
+                                                        <p:commandLink class="btn btn-default" disabled="#{usageLogStatisPage.viewLogForDvObj.currentPage == 1 ? 'true':'false'}" actionListener="#{usageLogStatisPage.dvObjectViewStatis(1)}"
+                                                                       value="#{bundle['log.search.page.first']}" update=":#{p:component('searchHits')} :#{p:component('pageForm')}"/>
+                                                        <p:commandLink class="btn btn-default" disabled="#{usageLogStatisPage.viewLogForDvObj.currentPage == 1 ? 'true':'false'}" actionListener="#{usageLogStatisPage.dvObjectViewStatis(usageLogStatisPage.viewLogForDvObj.currentPage-1)}"
+                                                                       value="#{bundle['log.search.page.previous']}" update=":#{p:component('searchHits')} :#{p:component('pageForm')}"/>
+                                                        <ui:repeat value="#{usageLogStatisPage.viewLogForDvObj.getPageInterval(5)}" var="page">
+                                                            <p:commandLink class="btn btn-default" disabled="#{page == usageLogStatisPage.viewLogForDvObj.currentPage ? 'true':'false'}"
+                                                                           actionListener="#{usageLogStatisPage.dvObjectViewStatis(page)}"
+                                                                           value="#{page}" update=":#{p:component('searchHits')} :#{p:component('pageForm')}"/>
+                                                        </ui:repeat>                                                       
+                                                        <p:commandLink class="btn btn-default" disabled="#{usageLogStatisPage.viewLogForDvObj.currentPage == usageLogStatisPage.viewLogForDvObj.pages ? 'true':'false'}" actionListener="#{usageLogStatisPage.dvObjectViewStatis(usageLogStatisPage.viewLogForDvObj.currentPage+1)}"
+                                                                       value="#{bundle['log.search.page.next']}" update=":#{p:component('searchHits')} :#{p:component('pageForm')}"/>
+                                                        <p:commandLink class="btn btn-default" disabled="#{usageLogStatisPage.viewLogForDvObj.currentPage == usageLogStatisPage.viewLogForDvObj.pages ? 'true':'false'}" actionListener="#{usageLogStatisPage.dvObjectViewStatis(usageLogStatisPage.viewLogForDvObj.pages)}"
+                                                                       value="#{bundle['log.search.page.last']}" update=":#{p:component('searchHits')} :#{p:component('pageForm')}"/>
+                                                    </c:if>
+                                                </h:form>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <p:dataTable id="searchHits" var="log"  value="#{usageLogStatisPage.viewLogForDvObj.eventLogs}" emptyMessage="#{bundle.notfound}">
+                                                    <p:column width="20%" class="text-center">
+                                                        <f:facet name="header"><h:outputText value="#{bundle['log.attribute.date']}"/></f:facet>
+                                                        <h:outputText value="#{log.date}">
+                                                            <f:convertDateTime timeZone="GMT+8" pattern="YYYY-MM-dd HH:mm:ss"/>
+                                                        </h:outputText>
+                                                    </p:column>
+                                                    <p:column width="20%" class="text-center">
+                                                        <f:facet name="header"><h:outputText value="#{bundle['log.attribute.ip']}"/></f:facet>
+                                                        <h:outputText value="#{log.ip}"/>
+                                                    </p:column>
+                                                    <p:column width="20%" class="text-center">
+                                                        <f:facet name="header"><h:outputText value="#{bundle['log.attribute.country']}"/></f:facet>
+                                                        <h:outputText value="#{log.country}"/>
+                                                    </p:column>
+                                                    <p:column width="20%" class="text-center">
+                                                        <f:facet name="header"><h:outputText value="#{bundle['log.attribute.city']}"/></f:facet>
+                                                        <h:outputText value="#{log.city}"/>
+                                                    </p:column>
+                                                    <p:column width="20%" class="text-center">
+                                                        <f:facet name="header"><h:outputText value="#{bundle['log.attribute.userId']}"/></f:facet>
+                                                        <h:outputText value="#{log.userId}"/>
+                                                    </p:column>
+                                                </p:dataTable>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </p:tab>
+
+                        <p:tab title="#{bundle['log.filedownload.statis']}">
+                            <div class="panel-group" jsf:rendered="#{not usageLogStatisPage.hasDataFile}">
+                                <p:outputLabel value="#{bundle['log.filedownload.nodatafile']}"/>
+                            </div>
+                            <div class="panel-group" jsf:rendered="#{usageLogStatisPage.hasDataFile}">
+                                <div class="panel panel-default">
+                                    <div data-toggle="collapse" data-target="#panelCollapseFileDownloadQuery" class="panel-heading text-info">
+                                        #{bundle['log.search.filter']}<span class="glyphicon glyphicon-chevron-up"/>
+                                    </div>
+                                    <div id="panelCollapseFileDownloadQuery" class="collapse in">
+                                        <div class="row">
+                                            <h:form id="fileDownloadForm" styleClass="form-horizontal">
+                                                <div class="form-group" jsf:rendered="#{usageLogStatisPage.dvObject.instanceofDataverse}">
+                                                    <label class="col-sm-4 control-label"  for="selectedDataset">#{bundle['log.search.filter.dataset']}</label>
+                                                    <div class="col-sm-6">
+                                                        <p:selectOneMenu id="selectedDataset" value="#{usageLogStatisPage.selectedDatasetId}"
+                                                                         valueChangeListener="#{usageLogStatisPage.changeSelectedDataset}">
+                                                            <f:selectItem itemLabel="#{bundle['log.search.filter.dataset.all']}" itemValue="0"/>
+                                                            <f:selectItems value="#{usageLogStatisPage.datasets}" var="d"
+                                                                           itemLabel="#{d.getDisplayName(dataverseLocale.locale)}" itemValue="#{d.id}"/>
+                                                            <f:ajax execute="@this" render=":#{p:component('selectedFile')}"/>
+                                                        </p:selectOneMenu>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label"  for="selectedFile">#{bundle['log.search.filter.datafile']}</label>
+                                                    <div class="col-sm-6">
+                                                        <p:selectOneMenu id="selectedFile" value="#{usageLogStatisPage.selectedDataFileId}">
+                                                            <f:selectItem itemLabel="#{bundle['log.search.filter.datafile.all']}" itemValue="0"/>
+                                                            <f:selectItems value="#{usageLogStatisPage.fileMetadatas}" var="fileMetadata"
+                                                                           itemLabel="#{fileMetadata.label}" itemValue="#{fileMetadata.dataFile.id}"/>
+                                                        </p:selectOneMenu>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label" for="ipForFile">#{bundle['log.search.filter.ip']}</label>
+                                                    <div class="col-sm-6">
+                                                        <p:inputText id="ipForFile" value="#{usageLogStatisPage.queryForFile.ip}"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label" for="userIdForFile">#{bundle['log.search.filter.userId']}</label>
+                                                    <div class="col-sm-6">
+                                                        <p:inputText id="userIdForFile" value="#{usageLogStatisPage.queryForFile.userId}"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label" for="userNameForFile">#{bundle['log.search.filter.userName']}</label>
+                                                    <div class="col-sm-6">
+                                                        <p:inputText id="userNameForFile" value="#{usageLogStatisPage.queryForFile.userName}"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label" for="affiliationForFile">#{bundle['log.search.filter.affiliation']}</label>
+                                                    <div class="col-sm-6">
+                                                        <p:inputText id="affiliationForFile" value="#{usageLogStatisPage.queryForFile.affiliation}"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label" for="positionForFile">#{bundle['log.search.filter.position']}</label>
+                                                    <div class="col-sm-6">
+                                                        <p:inputText id="positionForFile" value="#{usageLogStatisPage.queryForFile.position}"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label" for="startTimeForFile">#{bundle['log.search.filter.startTime']}</label>
+                                                    <div class="col-sm-6">
+                                                        <p:calendar id="startTimeForFile" value="#{usageLogStatisPage.queryForFile.startTime}" 
+                                                                    navigator="true" pattern="yyyy-MM-dd HH:mm:ss"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label" for="endTimeForFile">#{bundle['log.search.filter.endTime']}</label>
+                                                    <div class="col-sm-6">
+                                                        <p:calendar id="endTimeForFile" value="#{usageLogStatisPage.queryForFile.endTime}" 
+                                                                    navigator="true" pattern="yyyy-MM-dd HH:mm:ss"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label" for="sizeForFile">#{bundle['log.search.numberOfRecordPerPage']}</label>
+                                                    <div class="col-sm-6">
+                                                        <p:selectOneMenu id="sizeForFile" value="#{usageLogStatisPage.queryForFile.size}">
+                                                            <f:selectItem itemValue="5" itemLabel="5"/>
+                                                            <f:selectItem itemValue="10" itemLabel="10"/>
+                                                            <f:selectItem itemValue="20" itemLabel="20"/>
+                                                            <f:selectItem itemValue="30" itemLabel="30"/>
+                                                            <f:selectItem itemValue="40" itemLabel="40"/>
+                                                            <f:selectItem itemValue="50" itemLabel="50"/>
+                                                        </p:selectOneMenu>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-sm-6 col-sm-offset-4">
+                                                        <p:commandButton value="#{bundle['dataverse.search.btn.find']}" actionListener="#{usageLogStatisPage.fileDownloadStatis(1)}"
+                                                                         update=":#{p:component('searchHitsForFile')} :#{p:component('fileDownloadStatis')}
+                                                                         :#{p:component('pageFormForFile')} :#{p:component('searchLogForFile_total')}
+                                                                         :#{p:component('downloadForFile')}" />
+                                                    </div>
+                                                </div>
+                                            </h:form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div data-toggle="collapse" data-target="#panelCollapseFileDownload" class="panel-heading text-info">
+                                        #{bundle['log.search.distribute']}<span class="glyphicon glyphicon-chevron-up"/>
+                                    </div>
+                                    <div id="panelCollapseFileDownload" class="collapse in">
+                                        <div class="panel-body">
+                                            <p:lineChart id="fileDownloadStatis" value="#{usageLogStatisPage.statisForFile}" legendPosition="e"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div data-toggle="collapse" data-target="#panelCollapseSearchHitsForFile" class="panel-heading text-info">
+                                        #{bundle['log.search.result']}<span class="glyphicon glyphicon-chevron-up"/>
+                                    </div>
+                                    <div id="panelCollapseSearchHitsForFile" class="collapse in">
+                                        <div class="panel-body">
+                                            <div class="col-md-12">
+                                                <h:outputFormat id="searchLogForFile_total" value="#{bundle['log.search.result.information']}">
+                                                    <f:param value='#{usageLogStatisPage.logForFile.total}'/>
+                                                </h:outputFormat>
+                                            </div>
+                                            <div class="col-md-8 btn-group">
+                                                <h:form id="pageFormForFile">
+                                                    <c:if test="#{usageLogStatisPage.logForFile.pages > 0}">                                                        
+                                                        <p:commandLink class="btn btn-default" disabled="#{usageLogStatisPage.logForFile.currentPage == 1 ? 'true':'false'}" actionListener="#{usageLogStatisPage.fileDownloadStatis(1)}"
+                                                                       value="#{bundle['log.search.page.first']}" update=":#{p:component('searchHitsForFile')} :#{p:component('pageFormForFile')}"/>
+                                                        <p:commandLink class="btn btn-default" disabled="#{usageLogStatisPage.logForFile.currentPage == 1 ? 'true':'false'}" actionListener="#{usageLogStatisPage.fileDownloadStatis(usageLogStatisPage.logForFile.currentPage-1)}"
+                                                                       value="#{bundle['log.search.page.previous']}" update=":#{p:component('searchHitsForFile')} :#{p:component('pageFormForFile')}"/>
+                                                        <ui:repeat value="#{usageLogStatisPage.logForFile.getPageInterval(5)}" var="page">
+                                                            <p:commandLink class="btn btn-default" disabled="#{page == usageLogStatisPage.logForFile.currentPage ? 'true':'false'}"
+                                                                           actionListener="#{usageLogStatisPage.fileDownloadStatis(page)}"
+                                                                           value="#{page}" update=":#{p:component('searchHitsForFile')} :#{p:component('pageFormForFile')}"/>
+                                                        </ui:repeat>
+
+                                                        <p:commandLink class="btn btn-default" disabled="#{usageLogStatisPage.logForFile.currentPage == usageLogStatisPage.logForFile.pages ? 'true':'false'}" actionListener="#{usageLogStatisPage.fileDownloadStatis(usageLogStatisPage.logForFile.currentPage+1)}"
+                                                                       value="#{bundle['log.search.page.next']}" update=":#{p:component('searchHitsForFile')} :#{p:component('pageFormForFile')}"/>
+                                                        <p:commandLink class="btn btn-default" disabled="#{usageLogStatisPage.logForFile.currentPage == usageLogStatisPage.logForFile.pages ? 'true':'false'}" actionListener="#{usageLogStatisPage.fileDownloadStatis(usageLogStatisPage.logForFile.pages)}"
+                                                                       value="#{bundle['log.search.page.last']}" update=":#{p:component('searchHitsForFile')} :#{p:component('pageFormForFile')}"/>
+                                                    </c:if>
+                                                </h:form>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <h:form id="downloadForFile">
+                                                    <div class="btn-group pull-right" jsf:rendered="#{usageLogStatisPage.logForFile.total > 0}">
+                                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                                            #{bundle['log.search.result.download']}<span class="caret"></span>
+                                                        </button>
+                                                        <ul class="dropdown-menu pull-right text-left" role="menu">
+                                                            <li>
+                                                                <h:commandLink value="CSV" action="#{usageLogStatisPage.downloadFileDownloadLog('csv')}"/>
+                                                            </li>
+                                                            <li>
+                                                                <h:commandLink value="Excel" action="#{usageLogStatisPage.downloadFileDownloadLog('xlsx')}"/>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </h:form>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <p:dataTable id="searchHitsForFile" var="log"  value="#{usageLogStatisPage.logForFile.eventLogs}" emptyMessage="#{bundle.notfound}">
+                                                    <p:column width="10%" class="text-center">
+                                                        <f:facet name="header"><h:outputText value="Date"/></f:facet>
+                                                        <h:outputText value="#{log.date}">
+                                                            <f:convertDateTime timeZone="GMT+8" pattern="YYYY-MM-dd HH:mm:ss"/>
+                                                        </h:outputText>
+                                                    </p:column>
+                                                    <p:column width="10%" class="text-center">
+                                                        <f:facet name="header"><h:outputText value="#{bundle['log.attribute.ip']}"/></f:facet>
+                                                        <h:outputText value="#{log.ip}"/>
+                                                    </p:column>
+                                                    <p:column width="10%" class="text-center">
+                                                        <f:facet name="header"><h:outputText value="#{bundle['log.attribute.country']}"/></f:facet>
+                                                        <h:outputText value="#{log.country}"/>
+                                                    </p:column>
+                                                    <p:column width="10%" class="text-center">
+                                                        <f:facet name="header"><h:outputText value="#{bundle['log.attribute.city']}"/></f:facet>
+                                                        <h:outputText value="#{log.city}"/>
+                                                    </p:column>
+                                                    <p:column width="10%" class="text-center">
+                                                        <f:facet name="header"><h:outputText value="#{bundle['log.attribute.userId']}"/></f:facet>
+                                                        <h:outputText value="#{log.userId}"/>
+                                                    </p:column>
+                                                    <p:column width="10%" class="text-center">
+                                                        <f:facet name="header"><h:outputText value="#{bundle['log.attribute.userName']}"/></f:facet>
+                                                        <h:outputText value="#{log.userName}"/>
+                                                    </p:column>
+                                                    <p:column width="10%" class="text-center">
+                                                        <f:facet name="header"><h:outputText value="#{bundle['log.attribute.affiliation']}"/></f:facet>
+                                                        <h:outputText value="#{log.affiliation}"/>
+                                                    </p:column>
+                                                    <p:column width="10%" class="text-center">
+                                                        <f:facet name="header"><h:outputText value="#{bundle['log.attribute.position']}"/></f:facet>
+                                                        <h:outputText value="#{log.position}"/>
+                                                    </p:column>
+                                                    <p:column width="10%" class="text-center">
+                                                        <f:facet name="header"><h:outputText value="#{bundle['log.search.filter.dataset']}"/></f:facet>
+                                                        <h:outputText value="#{usageLogStatisPage.fileId2Dataset.get(log.datafileId).getDisplayName(dataverseLocale.locale)}"/>
+                                                    </p:column>
+                                                    <p:column width="10%" class="text-center">
+                                                        <f:facet name="header"><h:outputText value="#{bundle['log.search.filter.datafile']}"/></f:facet>
+                                                        <h:outputText value="#{usageLogStatisPage.fileId2DataFile.get(log.datafileId).label}"/>
+                                                    </p:column>
+                                                </p:dataTable>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </p:tab>
+
+                        <p:tab title="#{bundle['log.requestjoingroup.statis']}" rendered="#{usageLogStatisPage.dvObject.instanceofDataverse}">
+                            <div class="panel-group" jsf:rendered="#{usageLogStatisPage.groups.isEmpty()}">
+                                <p:outputLabel value="#{bundle['log.requestjoingroup.nogroup']}"/>
+                            </div>
+                            <div class="panel-group" jsf:rendered="#{not usageLogStatisPage.groups.isEmpty()}">
+                                <div class="panel panel-default">
+                                    <div data-toggle="collapse" data-target="#panelCollapseFileDownloadGroupQuery" class="panel-heading text-info">
+                                        #{bundle['log.search.filter']}<span class="glyphicon glyphicon-chevron-up"/>
+                                    </div>
+                                    <div id="panelCollapseFileDownloadGroupQuery" class="collapse in">
+                                        <div class="row">
+                                            <h:form id="fileDownloadGroup" styleClass="form-horizontal">
+                                                <div class="form-group">
+                                                    <label class="col-md-4 control-label"  for="selectedGroup">#{bundle['log.search.filter.userGroup']}</label>
+                                                    <div class="col-md-6">
+                                                        <p:selectOneMenu id="selectedGroup" value="#{usageLogStatisPage.selectedGroupId}">
+                                                            <f:selectItem itemLabel="#{bundle['log.search.filter.userGroup.all']}" itemValue="0"/>
+                                                            <f:selectItems value="#{usageLogStatisPage.groups}" var="group"
+                                                                           itemLabel="#{group.displayName}" itemValue="#{group.id}"/>
+                                                        </p:selectOneMenu>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label" for="requestStatus">#{bundle['log.search.filter.requestStatus']}</label>
+                                                    <div class="col-sm-6">
+                                                        <p:selectOneMenu id="requestStatus" value="#{usageLogStatisPage.selectedEventType}">
+                                                            <f:selectItem itemLabel="#{bundle['log.search.filter.userGroup.status.all']}" itemValue="0"/>
+                                                            <f:selectItem itemLabel="#{bundle['log.search.filter.userGroup.status.request']}" itemValue="1"/>
+                                                            <f:selectItem itemLabel="#{bundle['log.search.filter.userGroup.status.reject']}" itemValue="2"/>
+                                                            <f:selectItem itemLabel="#{bundle['log.search.filter.userGroup.status.accept']}" itemValue="3"/>
+                                                        </p:selectOneMenu>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label" for="ipForGroup">#{bundle['log.search.filter.ip']}</label>
+                                                    <div class="col-sm-6">
+                                                        <p:inputText id="ipForGroup" value="#{usageLogStatisPage.queryForGroup.ip}"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label" for="userIdForGroup">#{bundle['log.search.filter.userId']}</label>
+                                                    <div class="col-sm-6">
+                                                        <p:inputText id="userIdForGroup" value="#{usageLogStatisPage.queryForGroup.userId}"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label" for="userNameForGroup">#{bundle['log.search.filter.userName']}</label>
+                                                    <div class="col-sm-6">
+                                                        <p:inputText id="userNameForGroup" value="#{usageLogStatisPage.queryForGroup.userName}"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label" for="affiliationForGroup">#{bundle['log.search.filter.affiliation']}</label>
+                                                    <div class="col-sm-6">
+                                                        <p:inputText id="affiliationForGroup" value="#{usageLogStatisPage.queryForGroup.affiliation}"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label" for="positionForGroup">#{bundle['log.search.filter.position']}</label>
+                                                    <div class="col-sm-6">
+                                                        <p:inputText id="positionForGroup" value="#{usageLogStatisPage.queryForGroup.position}"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label" for="startTimeForGroup">#{bundle['log.search.filter.startTime']}</label>
+                                                    <div class="col-sm-6">
+                                                        <p:calendar id="startTimeForGroup" value="#{usageLogStatisPage.queryForGroup.startTime}" 
+                                                                    navigator="true" pattern="yyyy-MM-dd HH:mm:ss"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label" for="endTimeForGroup">#{bundle['log.search.filter.endTime']}</label>
+                                                    <div class="col-sm-6">
+                                                        <p:calendar id="endTimeForGroup" value="#{usageLogStatisPage.queryForGroup.endTime}" 
+                                                                    navigator="true" pattern="yyyy-MM-dd HH:mm:ss"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label" for="sizeForGroup">#{bundle['log.search.numberOfRecordPerPage']}</label>
+                                                    <div class="col-sm-6">
+                                                        <p:selectOneMenu id="sizeForGroup" value="#{usageLogStatisPage.queryForGroup.size}">
+                                                            <f:selectItem itemValue="5" itemLabel="5"/>
+                                                            <f:selectItem itemValue="10" itemLabel="10"/>
+                                                            <f:selectItem itemValue="20" itemLabel="20"/>
+                                                            <f:selectItem itemValue="30" itemLabel="30"/>
+                                                            <f:selectItem itemValue="40" itemLabel="40"/>
+                                                            <f:selectItem itemValue="50" itemLabel="50"/>
+                                                        </p:selectOneMenu>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-sm-6 col-sm-offset-4">
+                                                        <p:commandButton value="#{bundle['dataverse.search.btn.find']}" actionListener="#{usageLogStatisPage.requestJoinGroupStatis(1)}"
+                                                                         update=":#{p:component('searchHitsForGroup')} :#{p:component('groupStatis')}
+                                                                         :#{p:component('pageFormForGroup')} :#{p:component('searchLogForGroup_total')}
+                                                                         :#{p:component('downloadForGroup')}" />
+                                                    </div>
+                                                </div>
+                                            </h:form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div data-toggle="collapse" data-target="#panelCollapseGroup" class="panel-heading text-info">
+                                        #{bundle['log.search.distribute']}<span class="glyphicon glyphicon-chevron-up"/>
+                                    </div>
+                                    <div id="panelCollapseGroup" class="collapse in">
+                                        <div class="panel-body">
+                                            <p:lineChart id="groupStatis" value="#{usageLogStatisPage.statisForGroup}" legendPosition="e"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div data-toggle="collapse" data-target="#panelCollapseSearchHitsForGroup" class="panel-heading text-info">
+                                        #{bundle['log.search.result']}<span class="glyphicon glyphicon-chevron-up"/>
+                                    </div>
+                                    <div id="panelCollapseSearchHitsForGroup" class="collapse in">
+                                        <div class="panel-body">
+                                            <div class="col-md-12">
+                                                <h:outputFormat id="searchLogForGroup_total" value="#{bundle['log.search.result.information']}">
+                                                    <f:param value='#{usageLogStatisPage.logForGroup.total}'/>
+                                                </h:outputFormat>
+                                            </div>
+                                            <div class="col-md-8 btn-group">
+                                                <h:form id="pageFormForGroup">
+                                                    <c:if test="#{usageLogStatisPage.logForGroup.pages > 0}">                                                        
+                                                        <p:commandLink class="btn btn-default" disabled="#{usageLogStatisPage.logForGroup.currentPage == 1 ? 'true':'false'}" actionListener="#{usageLogStatisPage.requestJoinGroupStatis(1)}"
+                                                                       value="#{bundle['log.search.page.first']}" update=":#{p:component('searchHitsForGroup')} :#{p:component('pageFormForGroup')}"/>
+                                                        <p:commandLink class="btn btn-default" disabled="#{usageLogStatisPage.logForGroup.currentPage == 1 ? 'true':'false'}" actionListener="#{usageLogStatisPage.requestJoinGroupStatis(usageLogStatisPage.logForGroup.currentPage-1)}"
+                                                                       value="#{bundle['log.search.page.previous']}" update=":#{p:component('searchHitsForGroup')} :#{p:component('pageFormForGroup')}"/>
+                                                        <ui:repeat value="#{usageLogStatisPage.logForGroup.getPageInterval(5)}" var="page">
+                                                            <p:commandLink class="btn btn-default" disabled="#{page == usageLogStatisPage.logForGroup.currentPage ? 'true':'false'}"
+                                                                           actionListener="#{usageLogStatisPage.requestJoinGroupStatis(page)}"
+                                                                           value="#{page}" update=":#{p:component('searchHitsForGroup')} :#{p:component('pageFormForGroup')}"/>
+                                                        </ui:repeat>
+                                                        <p:commandLink class="btn btn-default" disabled="#{usageLogStatisPage.logForGroup.currentPage == usageLogStatisPage.logForGroup.pages ? 'true':'false'}" actionListener="#{usageLogStatisPage.requestJoinGroupStatis(usageLogStatisPage.logForGroup.currentPage+1)}"
+                                                                       value="#{bundle['log.search.page.next']}" update=":#{p:component('searchHitsForGroup')} :#{p:component('pageFormForGroup')}"/>
+                                                        <p:commandLink class="btn btn-default" disabled="#{usageLogStatisPage.logForGroup.currentPage == usageLogStatisPage.logForGroup.pages ? 'true':'false'}" actionListener="#{usageLogStatisPage.requestJoinGroupStatis(usageLogStatisPage.logForGroup.pages)}"
+                                                                       value="#{bundle['log.search.page.last']}" update=":#{p:component('searchHitsForGroup')} :#{p:component('pageFormForGroup')}"/>
+                                                    </c:if>
+                                                </h:form>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <h:form id="downloadForGroup">
+                                                    <div class="btn-group pull-right" jsf:rendered="#{usageLogStatisPage.logForGroup.total > 0}">
+                                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                                            #{bundle['log.search.result.download']}<span class="caret"></span>
+                                                        </button>
+                                                        <ul class="dropdown-menu pull-right text-left" role="menu">
+                                                            <li>
+                                                                <h:commandLink value="CSV" action="#{usageLogStatisPage.downloadRequestJoinGroupLog('csv')}"/>
+                                                            </li>
+                                                            <li>
+                                                                <h:commandLink value="Excel" action="#{usageLogStatisPage.downloadRequestJoinGroupLog('xlsx')}"/>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </h:form>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <p:dataTable id="searchHitsForGroup" var="log"  value="#{usageLogStatisPage.logForGroup.eventLogs}" emptyMessage="#{bundle.notfound}">
+                                                    <p:column width="10%" class="text-center">
+                                                        <f:facet name="header"><h:outputText value="Date"/></f:facet>
+                                                        <h:outputText value="#{log.date}">
+                                                            <f:convertDateTime timeZone="GMT+8" pattern="YYYY-MM-dd HH:mm:ss"/>
+                                                        </h:outputText>
+                                                    </p:column>
+                                                    <p:column width="10%" class="text-center">
+                                                        <f:facet name="header"><h:outputText value="#{bundle['log.attribute.ip']}"/></f:facet>
+                                                        <h:outputText value="#{log.ip}"/>
+                                                    </p:column>
+                                                    <p:column width="10%" class="text-center">
+                                                        <f:facet name="header"><h:outputText value="#{bundle['log.attribute.country']}"/></f:facet>
+                                                        <h:outputText value="#{log.country}"/>
+                                                    </p:column>
+                                                    <p:column width="10%" class="text-center">
+                                                        <f:facet name="header"><h:outputText value="#{bundle['log.attribute.city']}"/></f:facet>
+                                                        <h:outputText value="#{log.city}"/>
+                                                    </p:column>
+                                                    <p:column width="10%" class="text-center">
+                                                        <f:facet name="header"><h:outputText value="#{bundle['log.attribute.userId']}"/></f:facet>
+                                                        <h:outputText value="#{log.userId}"/>
+                                                    </p:column>
+                                                    <p:column width="10%" class="text-center">
+                                                        <f:facet name="header"><h:outputText value="#{bundle['log.attribute.userName']}"/></f:facet>
+                                                        <h:outputText value="#{log.userName}"/>
+                                                    </p:column>
+                                                    <p:column width="10%" class="text-center">
+                                                        <f:facet name="header"><h:outputText value="#{bundle['log.attribute.affiliation']}"/></f:facet>
+                                                        <h:outputText value="#{log.affiliation}"/>
+                                                    </p:column>
+                                                    <p:column width="10%" class="text-center">
+                                                        <f:facet name="header"><h:outputText value="#{bundle['log.attribute.position']}"/></f:facet>
+                                                        <h:outputText value="#{log.position}"/>
+                                                    </p:column>
+                                                    <p:column width="10%" class="text-center">
+                                                        <f:facet name="header"><h:outputText value="#{bundle['log.attribute.eventType']}"/></f:facet>
+                                                        <h:outputText value="#{usageLogStatisPage.getDisplayString(log.eventType)}"/>
+                                                    </p:column>
+                                                    <p:column width="10%" class="text-center">
+                                                        <f:facet name="header"><h:outputText value="#{bundle['log.attribute.userGroup']}"/></f:facet>
+                                                        <h:outputText value="#{usageLogStatisPage.groupId2Group.get(log.groupId).displayName}"/>
+                                                    </p:column>
+                                                </p:dataTable>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </p:tab>
+                    </p:tabView>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

@@ -1,0 +1,341 @@
+#metadataBlock	name	dataverseAlias	displayName												
+	citation_zh		引用元数据												
+#datasetField	name	title	description	watermark	 fieldType	displayOrder	displayFormat	advancedSearchField	allowControlledVocabulary	allowmultiples	facetable	showabovefold	required	parent	metadatablock_id
+	title_zh	标题	数据集的标题.	请输入标题...	text	0		TRUE	FALSE	FALSE	FALSE	TRUE	TRUE		citation_zh
+	subtitle_zh	副标题	数据集的副标题.		text	1		FALSE	FALSE	FALSE	FALSE	FALSE	FALSE		citation_zh
+	alternativeTitle_zh	替代标题	数据集的替代标题.		text	2		FALSE	FALSE	FALSE	FALSE	FALSE	FALSE		citation_zh
+	otherId_zh	其它ID	此数据集在其他机构或系统中的唯一标识符.		none	3	:	FALSE	FALSE	TRUE	FALSE	FALSE	FALSE		citation_zh
+	otherIdAgency_zh	分配机构	分配机构.		text	4	#VALUE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	otherId_zh	citation_zh
+	otherIdValue_zh	ID数值	ID数值.		text	5	#VALUE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	otherId_zh	citation_zh
+	author_zh	作者	数据集的责任主体，可以是个人、团体或机构.		none	6		FALSE	FALSE	TRUE	FALSE	TRUE	FALSE		citation_zh
+	authorName_zh	名称	名称.	个人姓名或机构名称	text	7	#VALUE	TRUE	FALSE	FALSE	TRUE	TRUE	TRUE	author_zh	citation_zh
+	authorAffiliation_zh	所在机构	所在机构.		text	8	(#VALUE)	TRUE	FALSE	FALSE	TRUE	TRUE	FALSE	author_zh	citation_zh
+	authorIdentifierScheme_zh	学者ID类型	学者ID类型(ORCID, ISNI).		text	9	- #VALUE:	FALSE	TRUE	FALSE	FALSE	TRUE	FALSE	author_zh	citation_zh
+	authorIdentifier_zh	学者ID	学者ID.		text	10	#VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	author_zh	citation_zh
+	contributor_zh	贡献者	对数据集的采集、管理或其他方面有贡献的机构或个人.		none	11	:	FALSE	FALSE	TRUE	FALSE	FALSE	FALSE		citation_zh
+	contributorType_zh	贡献类型	贡献类型.  		text	12	#VALUE 	TRUE	TRUE	FALSE	TRUE	FALSE	FALSE	contributor_zh	citation_zh
+	contributorName_zh	名称	名称.	个人姓名或机构名称	text	13	#VALUE	TRUE	FALSE	FALSE	TRUE	FALSE	FALSE	contributor_zh	citation_zh
+	datasetContact_zh	联系人	联系人.		none	14		FALSE	FALSE	TRUE	FALSE	TRUE	FALSE		citation_zh
+	datasetContactName_zh	名称	名称.	个人姓名或机构名称	text	15	#VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	datasetContact_zh	citation_zh
+	datasetContactAffiliation_zh	所在机构	所在机构.		text	16	(#VALUE)	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	datasetContact_zh	citation_zh
+	datasetContactEmail_zh	电子邮件	电子邮件.		email	17	#EMAIL	FALSE	FALSE	FALSE	FALSE	TRUE	TRUE	datasetContact_zh	citation_zh
+	producer_zh	生产者	 对数据集负有资助或管理责任的个人或机构.		none	18		FALSE	FALSE	TRUE	FALSE	FALSE	FALSE		citation_zh
+	producerName_zh	名称	名称.	个人姓名或机构名称	text	19	#VALUE	TRUE	FALSE	FALSE	TRUE	FALSE	FALSE	producer_zh	citation_zh
+	producerAffiliation_zh	所在机构	所在机构.		text	20	(#VALUE)	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	producer_zh	citation_zh
+	producerAbbreviation_zh	简称	生产者简称. (ex. IQSS, ICPSR)		text	21	(#VALUE)	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	producer_zh	citation_zh
+	producerURL_zh	URL	生产者个人主页或机构主页. 请输入绝对路径，例如 http://www.my.org.  	请输入绝对路径，以http://开头	url	22	<a href="#VALUE">#VALUE</a>	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	producer_zh	citation_zh
+	producerLogoURL_zh	Logo URL	生产者logo图片URL	请输入绝对路径，以http://开头	url	23	<img src="#VALUE" alt="#NAME" class="metadata-logo"/><br/>	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	producer_zh	citation_zh
+	productionDate_zh	生产日期	生产日期	YYYY-MM-DD	date	24		TRUE	FALSE	FALSE	TRUE	FALSE	FALSE		citation_zh
+	productionPlace_zh	生产地点	生产地点		text	25		FALSE	FALSE	FALSE	FALSE	FALSE	FALSE		citation_zh
+	distributor_zh	发布者	由作者或生产者指定对数据集进行编辑、修改和发布的机构或个人		none	26		FALSE	FALSE	TRUE	FALSE	FALSE	FALSE		citation_zh
+	distributorName_zh	名称	发布者名称	个人姓名或机构名称	text	27	#VALUE	TRUE	FALSE	FALSE	TRUE	FALSE	FALSE	distributor_zh	citation_zh
+	distributorAffiliation_zh	机构	所在机构.		text	28	(#VALUE)	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	distributor_zh	citation_zh
+	distributorAbbreviation_zh	简称	简称		text	29	(#VALUE)	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	distributor_zh	citation_zh
+	distributorURL_zh	URL	发布者的个人主页或机构主页	请输入绝对路径，以http://开头	url	30	<a href="#VALUE">#VALUE</a>	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	distributor_zh	citation_zh
+	distributorLogoURL_zh	Logo URL	发布者logo图片URL	请输入绝对路径，以http://开头	url	31	<img src="#VALUE" alt="#NAME" class="metadata-logo"/><br/>	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	distributor_zh	citation_zh
+	distributionDate_zh	发布日期	发布日期	YYYY-MM-DD	date	32		TRUE	FALSE	FALSE	TRUE	FALSE	FALSE		citation_zh
+	depositor_zh	提交者	将数据集提交到平台的机构或个人		text	33		FALSE	FALSE	FALSE	FALSE	FALSE	FALSE		citation_zh
+	dateOfDeposit_zh	提交日期	提交日期	YYYY-MM-DD	date	34		FALSE	FALSE	FALSE	TRUE	FALSE	FALSE		citation_zh
+	dsDescription_zh	描述	描述数据集的产生目的、性质、范围等		none	35		FALSE	FALSE	TRUE	FALSE	TRUE	FALSE		citation_zh
+	dsDescriptionValue_zh	文本	文本内容		textbox	36	#VALUE	TRUE	FALSE	FALSE	FALSE	TRUE	TRUE	dsDescription_zh	citation_zh
+	dsDescriptionDate_zh	日期	填写描述日期，用于区分一个数据集的多个描述	YYYY-MM-DD	date	37	(#VALUE)	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	dsDescription_zh	citation_zh
+	subject_zh	学科	学科		text	38		TRUE	TRUE	TRUE	TRUE	TRUE	TRUE		citation_zh
+	keyword_zh	关键词	提炼数据集的重要和关键内容		none	39		FALSE	FALSE	TRUE	FALSE	TRUE	FALSE		citation_zh
+	keywordValue_zh	词项	关键词内容		text	40	#VALUE	TRUE	FALSE	FALSE	TRUE	TRUE	FALSE	keyword_zh	citation_zh
+	keywordVocabulary_zh	规范词表	规范的控制词表，例如LCSH，MeSH		text	41	(#VALUE)	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	keyword_zh	citation_zh
+	keywordVocabularyURI_zh	词表URL	词表URL	请输入绝对路径，以http://开头	url	42	<a href="#VALUE">#VALUE</a>	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	keyword_zh	citation_zh
+	topicClassification_zh	主题词	数据集涵盖的重要领域或者学科		none	43		FALSE	FALSE	TRUE	FALSE	FALSE	FALSE		citation_zh
+	topicClassValue_zh	词项	主题词内容		text	44	#VALUE	TRUE	FALSE	FALSE	TRUE	FALSE	FALSE	topicClassification_zh	citation_zh
+	topicClassVocab_zh	规范词表	规范的控制词表，例如LCSH，MeSH		text	45	(#VALUE)	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	topicClassification_zh	citation_zh
+	topicClassVocabURI_zh	词表URL	词表URL	Enter full URL, starting with http://	url	46	<a href="#VALUE">#VALUE</a>	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	topicClassification_zh	citation_zh
+	language_zh	语言	语言		text	47		TRUE	TRUE	TRUE	TRUE	FALSE	FALSE		citation_zh
+	kindOfData_zh	数据种类	数据种类		text	48		TRUE	FALSE	TRUE	TRUE	FALSE	FALSE		citation_zh
+	timePeriodCovered_zh	覆盖的时间段	覆盖的时间段		none	49	;	FALSE	FALSE	TRUE	FALSE	FALSE	FALSE		citation_zh
+	timePeriodCoveredStart_zh	开始	开始	YYYY-MM-DD	date	50	#NAME: #VALUE 	TRUE	FALSE	FALSE	TRUE	FALSE	FALSE	timePeriodCovered_zh	citation_zh
+	timePeriodCoveredEnd_zh	结束	结束	YYYY-MM-DD	date	51	#NAME: #VALUE 	TRUE	FALSE	FALSE	TRUE	FALSE	FALSE	timePeriodCovered_zh	citation_zh
+	dateOfCollection_zh	采集日期	采集日期		none	52	;	FALSE	FALSE	TRUE	FALSE	FALSE	FALSE		citation_zh
+	dateOfCollectionStart_zh	开始	开始	YYYY-MM-DD	date	53	#NAME: #VALUE 	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	dateOfCollection_zh	citation_zh
+	dateOfCollectionEnd_zh	结束	结束	YYYY-MM-DD	date	54	#NAME: #VALUE 	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	dateOfCollection_zh	citation_zh
+	grantNumber_zh	资助信息	资助信息		none	55	:	FALSE	FALSE	TRUE	FALSE	FALSE	FALSE		citation_zh
+	grantNumberAgency_zh	资助机构	资助机构		text	56	#VALUE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	grantNumber_zh	citation_zh
+	grantNumberValue_zh	资助编号	资助编号		text	57	#VALUE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	grantNumber_zh	citation_zh
+	software_zh	软件	软件		none	58	,	FALSE	FALSE	TRUE	FALSE	FALSE	FALSE		citation_zh
+	softwareName_zh	名称	名称		text	59	#VALUE	FALSE	TRUE	FALSE	FALSE	FALSE	FALSE	software_zh	citation_zh
+	softwareVersion_zh	版本	版本		text	60	#NAME: #VALUE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	software_zh	citation_zh
+	notesText_zh	备注	备注		textbox	61		FALSE	FALSE	FALSE	FALSE	TRUE	FALSE		citation_zh
+	series_zh	系列	系列		none	62	:	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE		citation_zh
+	seriesName_zh	名称	名称		text	63	#VALUE	TRUE	FALSE	FALSE	TRUE	FALSE	FALSE	series_zh	citation_zh
+	seriesInformation_zh	描述	系列的历史或特征描述		textbox	64	#VALUE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	series_zh	citation_zh
+	publication_zh	相关出版物	相关出版物		none	65		FALSE	FALSE	TRUE	FALSE	FALSE	FALSE		citation_zh
+	publicationRelationType_zh	相关类型	相关类型		text	66	#VALUE	TRUE	TRUE	FALSE	FALSE	FALSE	FALSE	publication_zh	citation_zh
+	publicationCitation_zh	引用信息	对该出版物的引用信息		textbox	67	#VALUE	TRUE	FALSE	FALSE	FALSE	FALSE	FALSE	publication_zh	citation_zh
+	publicationIDType_zh	ID类型	唯一标识符类型，例如DOI		text	68	#VALUE: 	TRUE	TRUE	FALSE	FALSE	FALSE	FALSE	publication_zh	citation_zh
+	publicationIDNumber_zh	ID数值	ID数值.		text	69	#VALUE	TRUE	FALSE	FALSE	FALSE	FALSE	FALSE	publication_zh	citation_zh
+	publicationURL_zh	URL	该出版物的访问链接	请输入绝对路径，以http://开头	url	70	<a href="#VALUE">#VALUE</a>	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	publication_zh	citation_zh
+	relatedDatasets_zh	相关数据集	相关数据集		none	71		FALSE	FALSE	TRUE	FALSE	FALSE	FALSE		citation_zh
+	relatedDatasetsRelationType_zh	相关类型	相关类型		text	72	#VALUE	TRUE	TRUE	FALSE	FALSE	FALSE	FALSE	relatedDatasets_zh	citation_zh
+	relatedDatasetsCitation_zh	引用信息	对该数据集的引用信息		textbox	73	#VALUE	TRUE	FALSE	FALSE	FALSE	FALSE	FALSE	relatedDatasets_zh	citation_zh
+	relatedDatasetsIDType_zh	ID类型	唯一标识符类型，例如DOI		text	74	#VALUE: 	TRUE	TRUE	FALSE	FALSE	FALSE	FALSE	relatedDatasets_zh	citation_zh
+	relatedDatasetsIDNumber_zh	ID数值	ID数值.		text	75	#VALUE	TRUE	FALSE	FALSE	FALSE	FALSE	FALSE	relatedDatasets_zh	citation_zh
+	relatedDatasetsURL_zh	URL	该数据集的访问链接	Enter full URL, starting with http://	url	76	<a href="#VALUE">#VALUE</a>	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	relatedDatasets_zh	citation_zh
+	relatedMaterial_zh	相关材料	其他任何相关材料		textbox	77		FALSE	FALSE	TRUE	FALSE	FALSE	FALSE		citation_zh
+#controlledVocabulary	DatasetField	Value	identifier	displayOrder											
+	subject_zh	艺术与人文	Dzh0	0											
+	subject_zh	天文和天体物理学	Dzh1	1											
+	subject_zh	商业与管理	Dzh2	2											
+	subject_zh	化学	Dzh3	3											
+	subject_zh	地球与环境科学	Dzh4	4											
+	subject_zh	工程	Dzh5	5											
+	subject_zh	医药、健康与生命科学	Dzh6	6											
+	subject_zh	计算机与信息科学	Dzh7	7											
+	subject_zh	法律	Dzh8	8											
+	subject_zh	数学科学	Dzh9	9											
+	subject_zh	物理学	Dzh10	10											
+	subject_zh	社会科学	Dzh11	11											
+	subject_zh	其它	Dzh12	12											
+	publicationIDType_zh	ark		0											
+	publicationIDType_zh	arXiv		1	arxiv										
+	publicationIDType_zh	bibcode		2											
+	publicationIDType_zh	doi		3											
+	publicationIDType_zh	ean13		4											
+	publicationIDType_zh	eissn		5											
+	publicationIDType_zh	handle		6											
+	publicationIDType_zh	isbn		7											
+	publicationIDType_zh	issn		8											
+	publicationIDType_zh	istc		9											
+	publicationIDType_zh	lissn		10											
+	publicationIDType_zh	lsid		11											
+	publicationIDType_zh	pmid		12											
+	publicationIDType_zh	purl		13											
+	publicationIDType_zh	upc		14											
+	publicationIDType_zh	url		15											
+	publicationIDType_zh	urn		16											
+	publicationRelationType_zh	IsderivedFrom		0											
+	publicationRelationType_zh	References		1											
+	publicationRelationType_zh	isCitedBy		2											
+	relatedDatasetsIDType_zh	ark		0											
+	relatedDatasetsIDType_zh	arXiv		1	arxiv										
+	relatedDatasetsIDType_zh	bibcode		2											
+	relatedDatasetsIDType_zh	doi		3											
+	relatedDatasetsIDType_zh	ean13		4											
+	relatedDatasetsIDType_zh	eissn		5											
+	relatedDatasetsIDType_zh	handle		6											
+	relatedDatasetsIDType_zh	isbn		7											
+	relatedDatasetsIDType_zh	issn		8											
+	relatedDatasetsIDType_zh	istc		9											
+	relatedDatasetsIDType_zh	lissn		10											
+	relatedDatasetsIDType_zh	lsid		11											
+	relatedDatasetsIDType_zh	pmid		12											
+	relatedDatasetsIDType_zh	purl		13											
+	relatedDatasetsIDType_zh	upc		14											
+	relatedDatasetsIDType_zh	url		15											
+	relatedDatasetsIDType_zh	urn		16											
+	relatedDatasetsRelationType_zh	IsderivedFrom		0											
+	relatedDatasetsRelationType_zh	IsSourceof		1											
+	relatedDatasetsRelationType_zh	IsContinuedBy		2											
+	relatedDatasetsRelationType_zh	Continues		3											
+	contributorType_zh	数据采集者（Data collector）		0											
+	contributorType_zh	数据监护者（Data curator）		1											
+	contributorType_zh	数据管理员（Data manager）		2											
+	contributorType_zh	编辑者		3											
+	contributorType_zh	资助者		4											
+	contributorType_zh	主办机构		5											
+	contributorType_zh	项目主管		6											
+	contributorType_zh	项目经理		7											
+	contributorType_zh	项目成员		8											
+	contributorType_zh	相关人员		9											
+	contributorType_zh	研究者		10											
+	contributorType_zh	研究组		11											
+	contributorType_zh	权利持有者		12											
+	contributorType_zh	赞助商		13											
+	contributorType_zh	监督人		14											
+	contributorType_zh	工作包负责人		15											
+	contributorType_zh	Other		16											
+	authorIdentifierScheme_zh	ORCID		0											
+	authorIdentifierScheme_zh	ISNI		1											
+	authorIdentifierScheme_zh	LCNA		2											
+	language_zh	阿布哈兹语		0											
+	language_zh	阿法尔语		1											
+	language_zh	南非荷兰语		2											
+	language_zh	阿肯语		3											
+	language_zh	阿尔巴尼亚语		4											
+	language_zh	阿姆哈拉语		5											
+	language_zh	阿拉伯语		6											
+	language_zh	阿拉贡语		7											
+	language_zh	亚美尼亚语		8											
+	language_zh	阿萨姆语		9											
+	language_zh	阿萨姆语		10											
+	language_zh	阿维斯陀语		11											
+	language_zh	艾玛拉语		12											
+	language_zh	阿塞拜疆语		13											
+	language_zh	班巴拉语		14											
+	language_zh	巴什基尔语		15											
+	language_zh	巴斯克语		16											
+	language_zh	白俄罗斯语		17											
+	language_zh	孟加拉语		18											
+	language_zh	比哈尔语		19											
+	language_zh	比斯拉马语		20											
+	language_zh	波斯尼亚语		21											
+	language_zh	布列塔尼语		22											
+	language_zh	保加利亚语		23											
+	language_zh	缅甸语		24											
+	language_zh	加泰罗尼亚语		25											
+	language_zh	查莫罗语		26											
+	language_zh	车臣语		27											
+	language_zh	齐切瓦语		28											
+	language_zh	中文		29											
+	language_zh	楚瓦什语		30											
+	language_zh	康沃尔语		31											
+	language_zh	科西嘉语		32											
+	language_zh	克里语		33											
+	language_zh	克罗地亚语		34											
+	language_zh	捷克斯洛伐克语		35											
+	language_zh	丹麦语		36											
+	language_zh	迪维希语		37											
+	language_zh	荷兰语		38											
+	language_zh	宗喀语		39											
+	language_zh	英语		40											
+	language_zh	世界语		41											
+	language_zh	爱沙尼亚语		42											
+	language_zh	埃维语		43											
+	language_zh	法罗语		44											
+	language_zh	斐济语		45											
+	language_zh	芬兰语		46											
+	language_zh	法语		47											
+	language_zh	普拉尔语		48											
+	language_zh	加利西亚语		49											
+	language_zh	格鲁吉亚语		50											
+	language_zh	德语		51											
+	language_zh	希腊语（现代）		52											
+	language_zh	瓜拉尼语		53											
+	language_zh	古吉拉特语		54											
+	language_zh	海地克里奥尔语		55											
+	language_zh	豪萨语		56											
+	language_zh	希伯来语（现代）		57											
+	language_zh	赫雷罗语		58											
+	language_zh	印地语		59											
+	language_zh	希里莫图语		60											
+	language_zh	匈牙利语		61											
+	language_zh	拉丁国际语		62											
+	language_zh	印度尼西亚语		63											
+	language_zh	国际语		64											
+	language_zh	爱尔兰语		65											
+	language_zh	伊格博语		66											
+	language_zh	依努庇克语		67											
+	language_zh	伊多语		68											
+	language_zh	冰岛语		69											
+	language_zh	意大利语		70											
+	language_zh	因纽特语		71											
+	language_zh	日语		72											
+	language_zh	爪哇语		73											
+	language_zh	格陵兰语		74											
+	language_zh	卡纳拉语		75											
+	language_zh	卡努里语		76											
+	language_zh	克什米尔语		77											
+	language_zh	哈萨克语		78											
+	language_zh	高棉语		79											
+	language_zh	基库尤语		80											
+	language_zh	卢旺达语		81											
+	language_zh	吉尔吉斯坦语		82											
+	language_zh	科米语		83											
+	language_zh	刚果语		84											
+	language_zh	韩国语		85											
+	language_zh	库尔德语		86											
+	language_zh	贡耶玛语		87											
+	language_zh	拉丁语		88											
+	language_zh	卢森堡语		89											
+	language_zh	干达语		90											
+	language_zh	林堡语		91											
+	language_zh	林格拉语		92											
+	language_zh	老挝语		93											
+	language_zh	立陶宛语		94											
+	language_zh	卢巴卡丹加语		95											
+	language_zh	拉托维亚语		96											
+	language_zh	马恩语		97											
+	language_zh	马其顿语		98											
+	language_zh	马尔加什共和国		99											
+	language_zh	马来人语		100											
+	language_zh	马拉亚兰语		101											
+	language_zh	马耳他语		102											
+	language_zh	毛利语		103											
+	language_zh	马拉塔语		104											
+	language_zh	马绍尔语		105											
+	language_zh	蒙古语		106											
+	language_zh	瑙鲁语		107											
+	language_zh	纳瓦霍语		108											
+	language_zh	北恩德贝勒语		109											
+	language_zh	尼泊尔语		110											
+	language_zh	恩同加语		111											
+	language_zh	挪威克默尔语		112											
+	language_zh	新挪威语		113											
+	language_zh	挪威语		114											
+	language_zh	彝语		115											
+	language_zh	南恩德贝勒语		116											
+	language_zh	奥克西坦语		117											
+	language_zh	奥吉布瓦语		118											
+	language_zh	古教会斯拉夫语,教会斯拉夫语,古保加利亚语		119											
+	language_zh	奥罗莫语		120											
+	language_zh	奥里亚语		121											
+	language_zh	南奥塞梯语		122											
+	language_zh	旁遮普语		123											
+	language_zh	巴利语		124											
+	language_zh	波斯语		125											
+	language_zh	波兰语		126											
+	language_zh	普什图语		127											
+	language_zh	葡萄牙语		128											
+	language_zh	凯楚阿语		129											
+	language_zh	罗曼什语		130											
+	language_zh	基隆迪语		131											
+	language_zh	罗马尼亚语		132											
+	language_zh	俄语		133											
+	language_zh	梵语		134											
+	language_zh	撒丁语		135											
+	language_zh	信德语		136											
+	language_zh	北部萨米语		137											
+	language_zh	萨摩亚语		138											
+	language_zh	桑戈语		139											
+	language_zh	塞尔维亚语		140											
+	language_zh	苏格兰盖尔语		141											
+	language_zh	修纳语		142											
+	language_zh	僧伽罗语		143											
+	language_zh	斯洛伐克语		144											
+	language_zh	斯洛文尼亚语		145											
+	language_zh	索马里语		146											
+	language_zh	索托语		147											
+	language_zh	西班牙语,卡斯提尔语		148											
+	language_zh	巽他语		149											
+	language_zh	斯瓦西里语		150											
+	language_zh	斯瓦蒂语		151											
+	language_zh	瑞典语		152											
+	language_zh	泰米尔语		153											
+	language_zh	泰卢固语		154											
+	language_zh	塔吉克语		155											
+	language_zh	泰语		156											
+	language_zh	提格里亚语		157											
+	language_zh	藏语		158											
+	language_zh	土库曼语		159											
+	language_zh	塔加拉族语		160											
+	language_zh	茨瓦纳语		161											
+	language_zh	汤加语		162											
+	language_zh	土耳其语		163											
+	language_zh	松加语		164											
+	language_zh	鞑靼语		165											
+	language_zh	契维语		166											
+	language_zh	塔希提语		167											
+	language_zh	维吾尔族		168											
+	language_zh	乌克兰语		169											
+	language_zh	乌尔都语		170											
+	language_zh	乌兹别克语		171											
+	language_zh	文达语		172											
+	language_zh	越南语		173											
+	language_zh	沃拉普克语		174											
+	language_zh	窝龙语		175											
+	language_zh	威尔士语		176											
+	language_zh	沃洛夫语		177											
+	language_zh	西方弗里斯兰语		178											
+	language_zh	科萨语		179											
+	language_zh	依地语		180											
+	language_zh	约鲁巴语		181											
+	language_zh	壮语		182											
+	language_zh	祖鲁语		183											
+	language_zh	其它		184											

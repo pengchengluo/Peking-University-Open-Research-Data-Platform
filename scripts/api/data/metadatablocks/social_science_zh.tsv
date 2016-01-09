@@ -1,0 +1,30 @@
+#metadataBlock	name	dataverseAlias	displayName												
+	socialscience_zh		社会科学与人文学元数据												
+#datasetField	name	title	description	watermark	 fieldType	displayOrder	displayFormat	advancedSearchField	allowControlledVocabulary	allowmultiples	facetable	showabovefold	required	parent	metadatablock_id
+	unitOfAnalysis_zh	分析单元	基本的分析或观察单元，例如以个人为分析单元		textbox	0		TRUE	FALSE	TRUE	TRUE	FALSE	FALSE		socialscience_zh
+	universe_zh	总体人群	数据覆盖的总体人群		textbox	1		TRUE	FALSE	TRUE	TRUE	FALSE	FALSE		socialscience_zh
+	timeMethod_zh	时间方法	时间方法或者时间维度，例如 panel, cross-sectional, trend, time- series.		text	2		TRUE	FALSE	FALSE	TRUE	FALSE	FALSE		socialscience_zh
+	dataCollector_zh	数据采集者	负责问卷管理、采访或数据填写	个人姓名或机构名称	text	3		FALSE	FALSE	FALSE	FALSE	FALSE	FALSE		socialscience_zh
+	collectorTraining_zh	采集者培训方法	采集者培训方法		text	4		FALSE	FALSE	FALSE	FALSE	FALSE	FALSE		socialscience_zh
+	frequencyOfDataCollection_zh	频率	如果在多个时间点采集，请说明频率		text	5		TRUE	FALSE	FALSE	TRUE	FALSE	FALSE		socialscience_zh
+	samplingProcedure_zh	抽样方法	样本类型和样本设计		textbox	6		FALSE	FALSE	FALSE	FALSE	FALSE	FALSE		socialscience_zh
+	targetSampleSize_zh	目标样本大小	目标样本大小		none	7		FALSE	FALSE	FALSE	FALSE	FALSE	FALSE		socialscience_zh
+	targetSampleActualSize_zh	实际样本大小	实际样本大小	Enter an integer...	int	8		FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	targetSampleSize_zh	socialscience_zh
+	targetSampleSizeFormula_zh	目标样本大小公式	目标样本大小公式		text	9		FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	targetSampleSize_zh	socialscience_zh
+	deviationsFromSampleDesign_zh	样本设计主要偏差	Show correspondence as well as discrepancies between the sampled units (obtained) and available statistics for the population (age, sex-ratio, marital status, etc.) as a whole.		text	10		FALSE	FALSE	FALSE	FALSE	FALSE	FALSE		socialscience_zh
+	collectionMode_zh	收集模式	used to collect the data; instrumentation characteristics (e.g., telephone interview, mail questionnaire, or other).		textbox	11		FALSE	FALSE	FALSE	FALSE	FALSE	FALSE		socialscience_zh
+	researchInstrument_zh	研究工具类型	Type of data collection instrument used. Structured indicates an instrument in which all respondents are asked the same questions/tests, possibly with precoded answers. If a small portion of such a questionnaire includes open-ended questions, provide appropriate comments. Semi-structured indicates that the research instrument contains mainly open-ended questions. Unstructured indicates that in-depth interviews were conducted.		text	12		FALSE	FALSE	FALSE	FALSE	FALSE	FALSE		socialscience_zh
+	dataCollectionSituation_zh	数据采集情况	Description of noteworthy aspects of the data collection situation. Includes information on factors such as cooperativeness of respondents, duration of interviews, number of call backs, or similar.		textbox	13		FALSE	FALSE	FALSE	FALSE	FALSE	FALSE		socialscience_zh
+	actionsToMinimizeLoss_zh	损失最小化措施	Summary of actions taken to minimize data loss. Include information on actions such as follow-up visits, supervisory checks, historical matching, estimation, and so on.		text	14		FALSE	FALSE	FALSE	FALSE	FALSE	FALSE		socialscience_zh
+	controlOperations_zh	控制性操作的方法	Control OperationsMethods to facilitate data control performed by the primary investigator or by the data archive.		text	15		FALSE	FALSE	FALSE	FALSE	FALSE	FALSE		socialscience_zh
+	weighting_zh	权重	The use of sampling procedures might make it necessary to apply weights to produce accurate statistical results. Describes the criteria for using weights in analysis of a collection. If a weighting formula or coefficient was developed, the formula is provided, its elements are defined, and it is indicated how the formula was applied to the data.		textbox	16		FALSE	FALSE	FALSE	FALSE	FALSE	FALSE		socialscience_zh
+	cleaningOperations_zh	清理性操作	Methods used to clean the data collection, such as consistency checking, wildcode checking, or other.		text	17		FALSE	FALSE	FALSE	FALSE	FALSE	FALSE		socialscience_zh
+	datasetLevelErrorNotes_zh	数据集层级的错误备忘	Note element used for any information annotating or clarifying the methodology and processing of the study. 		text	18		FALSE	FALSE	FALSE	FALSE	FALSE	FALSE		socialscience_zh
+	responseRate_zh	应答率	Percentage of sample members who provided information.		textbox	19		TRUE	FALSE	FALSE	TRUE	FALSE	FALSE		socialscience_zh
+	samplingErrorEstimates_zh	抽样误差估计	Measure of how precisely one can estimate a population value from a given sample.		text	20		FALSE	FALSE	FALSE	FALSE	FALSE	FALSE		socialscience_zh
+	otherDataAppraisal_zh	其它形式的数据评价	Other issues pertaining to the data appraisal. Describe issues such as response variance, nonresponse rate  and testing for bias, interviewer and response bias, confidence levels, question bias, or similar.		text	21		FALSE	FALSE	FALSE	FALSE	FALSE	FALSE		socialscience_zh
+	socialScienceNotes_zh	备注	General notes about this Dataset.		none	22		FALSE	FALSE	FALSE	FALSE	FALSE	FALSE		socialscience_zh
+	socialScienceNotesType_zh	备注类型	Type of note.		text	23		FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	socialScienceNotes_zh	socialscience_zh
+	socialScienceNotesSubject_zh	备注学科	Note subject.		text	24		FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	socialScienceNotes_zh	socialscience_zh
+	socialScienceNotesText_zh	备注文本	Text for this note.		textbox	25		FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	socialScienceNotes_zh	socialscience_zh
+

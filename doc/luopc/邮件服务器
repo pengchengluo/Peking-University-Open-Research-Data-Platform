@@ -1,0 +1,17 @@
+在glassfish的JavaMail Sessions中进行配置
+Mail Host为邮件服务器地址=mail.lib.pku.edu.cn
+Default User为默认用户=opendata
+Default Sender Address为系统发送者邮件地址=opendata@lib.pku.edu.cn
+Additional Properties中配置
+mail.smtp.auth=true
+mail.smtp.user=opendata
+mail.smtp.password=XXXX
+分别指定是否认证（true或者false）用户名、密码
+
+
+重置密码时，需要用到SystemEmail，需要在数据库setting表中
+设置name=:SystemEmail,content=opendata@lib.pku.edu.cn
+还需要修改JVM设置dataverse.fqdn，例如：-Ddataverse.fqdn=162.105.134.237
+
+需要添加修改JVM设置dataverse.siteUrl，以便请求加入用户组时URL正确，例如
+-Ddataverse.siteUrl=http://162.105.134.237

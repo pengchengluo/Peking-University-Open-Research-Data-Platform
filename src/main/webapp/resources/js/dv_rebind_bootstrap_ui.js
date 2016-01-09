@@ -1,0 +1,255 @@
+/*
+ * Rebind bootstrap UI components after Primefaces ajax calls
+ */
+function bind_bsui_components(){
+    // Breadcrumb Tree Keep Open
+    $(document).on('click', '.dropdown-menu', function (e) {
+        $(this).hasClass('keep-open'),
+        e.stopPropagation();
+    });
+    // Collapse Header Icons
+    $('div[id^="panelCollapse"]').on('shown.bs.collapse', function () {
+      $(this).siblings('div.panel-heading').children('span.glyphicon').removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
+    });
+
+    $('div[id^="panelCollapse"]').on('hidden.bs.collapse', function () {
+      $(this).siblings('div.panel-heading').children('span.glyphicon').removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
+    });
+
+    // Tooltip + popover functionality
+    bind_tooltip_popover();
+
+    // Disabled
+    disabledLinks();
+    
+    // Sharrre
+    sharrre();
+    
+    // Custom Popover with HTML code snippet -- from dataverse_template
+    popoverHTML();
+    
+    //Metrics
+    metricsTabs();
+
+}
+
+function dataverseuser_page_rebind(){
+    bind_bsui_components();
+    // rebind for dropdown menus on dataverseuser.xhtml
+    $('.dropdown-toggle').dropdown();
+
+}
+
+function bind_tooltip_popover(){
+    // rebind tooltips and popover to all necessary elements
+    $(".bootstrap-button-tooltip, [data-toggle='tooltip'], #citation span.glyphicon").tooltip({container: 'body'});
+    $("span[data-toggle='popover']").popover();
+}
+
+function toggle_dropdown(){
+    $('.btn-group.open').removeClass('open');
+}
+
+function disabledLinks(){
+    $('ul.pagination li').on('click', 'a', function (e) {
+        if ($(this).parent().hasClass('disabled')){
+            e.preventDefault();
+        }
+    });
+}
+
+/*
+ * Hide notification message
+ */
+function hide_info_msg(){
+    if ($('div.messagePanel').length > 0){
+        $('div.messagePanel').html('');
+    }
+}
+
+/*
+ * Show notification message
+ */
+function show_info_msg(mtitle, mtext){
+   if ($('div.messagePanel').length > 0){
+       edit_msg = '<div class="alert alert-dismissable alert-info"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>'
+                       + '<span class="glyphicon glyphicon-info-sign"/>'
+                       + '<strong> ' + mtitle + '</strong> &#150; ' + mtext + '</div>';
+       $('div.messagePanel').html(edit_msg );
+   }else{
+     //console.log('message panel does not exist');
+   }
+}
+
+
+/*
+ * Called after "Edit Dataverse" - "General Information"
+ */
+function post_edit_dv_general_info(){
+    show_info_msg('Edit Dataverse', 'Edit your dataverse and click Save Changes. Asterisks indicate required fields.');
+    hide_search_panels();
+    bind_bsui_components();
+}
+
+/*
+ * Used after cancelling "Edit Dataverse"
+ */
+function post_cancel_edit_dv(){
+   show_search_panels()
+   hide_info_msg();
+   bind_bsui_components();
+   initCarousel();
+}
+
+/*
+ * Hide search panels when editing a dv
+ */
+function hide_search_panels(){
+    if($(".panelSerchForm").length>0){
+       $(".panelSerchForm").hide();
+        if($(".panelSerchForm").next().length>0){
+            $(".panelSerchForm").next().hide();
+        }
+   }
+}
+
+/*
+ * Show search panels when cancel a dv edit
+ */
+
+function show_search_panels(){
+    if($(".panelSerchForm").length>0){
+        if($(".panelSerchForm").next().length>0){
+            $(".panelSerchForm").next().show();
+        }
+       $(".panelSerchForm").show();
+   }
+}
+
+/*
+ * Called after "Upload + Edit Files"
+ */
+function post_edit_files(){
+   bind_bsui_components();
+}
+
+/*
+ * Called after "Edit Metadta"
+ */
+function post_edit_metadata(){
+   bind_bsui_components();
+}
+
+/*
+ * Called after "Edit Terms"
+ */
+
+function post_edit_terms(){
+   bind_bsui_components();
+}
+
+/*
+ *  Used when cancelling either "Upload + Edit Files" or "Edit Metadata"
+ */
+function post_cancel_edit_files_or_metadata(){
+   bind_bsui_components();
+}
+
+/*
+ * Dialog Height-Scrollable
+ */
+function post_differences(){
+       var dialogHeight = $('div[id$="detailsBlocks"].ui-dialog').outerHeight();
+       var dialogHeader = $('div[id$="detailsBlocks"] .ui-dialog-titlebar').outerHeight();
+       var dialogScroll = dialogHeight - dialogHeader;
+       $('div[id$="detailsBlocks"] .ui-dialog-content').css('height', dialogScroll);
+}
+
+/*
+ * Sharrre
+ */
+function sharrre(){
+    $('#sharrre-widget').sharrre({
+        share: {
+            facebook: true,
+            twitter: true,
+            googlePlus: true
+        },
+        template: '<div id="sharrre-block" class="clearfix">\n\
+                    <input type="hidden" id="sharrre-total" name="sharrre-total" value="{total}"/> \n\
+                    <a href="#" class="sharrre-facebook"><span class="socicon socicon-facebook"/></a> \n\
+                    <a href="#" class="sharrre-twitter"><span class="socicon socicon-twitter"/></a> \n\
+                    <a href="#" class="sharrre-google"><span class="socicon socicon-google"/></a>\n\
+                    </div>',
+        enableHover: false,
+        enableTracking: true,
+        urlCurl: '',
+        render: function(api, options){
+            $(api.element).on('click', '.sharrre-twitter', function() {
+                api.openPopup('twitter');
+            });
+            $(api.element).on('click', '.sharrre-facebook', function() {
+                api.openPopup('facebook');
+            });
+            $(api.element).on('click', '.sharrre-google', function() {
+                api.openPopup('googlePlus');
+            });
+            
+            // Count not working... Coming soon...
+            // var sharrrecount = $('#sharrre-total').val();
+            // $('#sharrre-count').prepend(sharrrecount);
+        }
+    });
+}
+
+/*
+ * Metrics Tabs
+ */
+function metricsTabs() {
+    $('#metrics-tabs a[data-toggle="tab"]').on('shown', function (e) {
+        e.target // activated tab
+        e.relatedTarget // previous tab
+    });
+    $('#metrics-tabs a[data-toggle="tab"]').mouseover(function(){
+        $(this).click();
+    });
+    $('#metrics-tabs a.first[data-toggle="tab"]').tab('show');
+}
+
+function handleResizeDialog(dialog) {
+        var el = $('div[id$="' + dialog + '"]');
+        var doc = $('body');
+        var win = $(window);
+        var elPos = '';
+        var bodyHeight = '';
+        var bodyWidth = '';
+        // position:fixed is maybe cool, but it makes the dialog not scrollable on browser level, even if document is big enough
+        if (el.height() > win.height()) {
+            bodyHeight = el.height() + 'px';
+            elPos = 'absolute';
+        }
+        if (el.width() > win.width()) {
+            bodyWidth = el.width() + 'px';
+            elPos = 'absolute';
+        }
+        el.css('position', elPos);
+        doc.css('width', bodyWidth);
+        doc.css('height', bodyHeight);
+        var pos = el.offset();
+        if (pos.top + el.height() > doc.height())
+            pos.top = doc.height() - el.height();
+        if (pos.left + el.width() > doc.width())
+            pos.left = doc.width() - el.width();
+        var offsetX = 0;
+        var offsetY = 0;
+        if (elPos != 'absolute') {
+            offsetX = $(window).scrollLeft();
+            offsetY = $(window).scrollTop();
+        }
+        // scroll fix for position fixed
+        if (pos.left < offsetX)
+            pos.left = offsetX;
+        if (pos.top < offsetY)
+            pos.top = offsetY;
+        el.offset(pos);
+}

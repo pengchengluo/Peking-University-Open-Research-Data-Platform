@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+    </h:head>
+
+    <h:body>
+        <f:metadata>
+            <f:viewParam name="token" value="#{PKUIAAALoginPage.token}"/>
+            <f:viewParam name="rand" value="#{PKUIAAALoginPage.rand}"/>
+        </f:metadata>
+        <ui:composition template="/dataverse_template.xhtml">
+            <ui:param name="pageTitle" value="#{bundle.login} - #{dataverseServiceBean.findRootDataverse().name} #{bundle.dataverse}"/>
+            <ui:param name="showDataverseHeader" value="false"/>
+            <ui:param name="showBreadcrumbs" value="false"/>
+            <ui:param name="showMessagePanel" value="#{true}"/>
+            <ui:param name="loginRedirectPage" value="dataverse.xhtml"/>
+            <ui:define name="body">
+                <div>
+                    <p style="margin:50px auto; width:60px; color: #d58512">验证登录</p>
+                    <h:form id="loginForm" styleClass="form-horizontal" style="display:none">
+                        <p:commandButton id="login" action="#{PKUIAAALoginPage.login}"/>
+                    </h:form>
+                </div>
+                <script type="text/javascript" language="javascript">
+                    setTimeout("document.getElementById('loginForm:login').click();",500);
+                </script>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

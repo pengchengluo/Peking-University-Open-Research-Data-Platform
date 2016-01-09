@@ -1,0 +1,20 @@
+nb-configuration.xml
+target
+nbactions.xml
+michael-local
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+.vagrant
+*.pyc
+scripts/api/py_api_wrapper/demo-data/*
+scripts/api/py_api_wrapper/test_data/*
+scripts/api/py_api_wrapper/local-data/*
+doc/sphinx-guides/build
+faces-config.NavData

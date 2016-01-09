@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:iqbs="http://xmlns.jcp.org/jsf/composite/iqbs"
+      lang="en">
+
+    <h:head>
+        <title><h:outputText value="#{pageTitle}"/></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta http-equiv="Content-Language" content="en"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <link type="image/png" rel="icon" href="/resources/images/favicondataverse.png"/>
+        <h:outputStylesheet library="bs" name="css/bootstrap.css" />
+        <h:outputStylesheet library="bs" name="css/bootstrap-theme.min.css" />
+        <h:outputStylesheet library="css" name="ie-compat.css" />
+        <h:outputStylesheet library="css" name="owl.carousel.css" />
+        <h:outputStylesheet library="css" name="fontcustom.css"/>
+        <h:outputStylesheet library="css" name="structure.css"/>
+    </h:head>
+
+    <h:body>
+        <f:metadata>
+            <f:viewParam name="editMode" value="#{DataverseUserPage.editMode}"/>
+            <f:viewParam name="registerUserType" value="#{DataverseUserPage.registerUserType}"/>
+            <f:viewParam name="joinGroupId" value="#{DataverseUserPage.joinGroupId}"/>
+            <f:viewAction action="#{DataverseUserPage.init}" />
+        </f:metadata>
+        <div>
+            <p:fragment id="messagePanel">
+                <div class="container messagePanel">
+                    <iqbs:messages id="messages" collapsible="true" />
+                </div>
+            </p:fragment>
+        </div>
+        <!-- Content Panel -->
+        <p:fragment id="dataverseUserForm">
+            <h:form rendered="#{not empty DataverseUserPage.editMode}">
+                <ui:include src="builtinuser.xhtml"/>
+                <div class="form-group col-sm-12 margin-top">
+                    <div class="col-sm-2 col-sm-offset-4">
+                        <p:commandButton id="save" tabindex="9" value="#{DataverseUserPage.editMode == 'CREATE' ? bundle['user.createBtn']:bundle.saveChanges}" action="#{DataverseUserPage.save}" update="@form,:messagePanel,:dataverseUserForm" />
+                    </div>
+                    <div class="col-sm-2">
+                        <p:commandButton id="cancel" tabindex="10" value="#{bundle.cancel}" process="@this" update="@form">
+                            <p:resetInput target="@form" />
+                        </p:commandButton>
+                    </div>
+                </div>
+            </h:form>
+        </p:fragment>
+        <p:ajaxStatus id="ajaxStatusPanel">
+            <f:facet name="start">
+                <h:graphicImage value="/resources/images/ajax-loading.gif" />
+            </f:facet>
+            <f:facet name="complete">
+                <!-- DO NOTHING -->
+            </f:facet>
+        </p:ajaxStatus>
+        <h:outputScript library="bs" name="js/bootstrap.min.js" />
+        <h:outputScript library="bs" name="js/bootstrap-hover-dropdown.min.js" />
+    </h:body>
+</html>

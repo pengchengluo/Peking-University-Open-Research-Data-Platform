@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:p="http://primefaces.org/ui">
+    <f:view locale="#{dataverseLocale.locale.language}">
+        <f:metadata>
+            <f:viewAction action="#{indexPage.init}"/>
+        </f:metadata>
+        <h:head>
+            <title><h:outputText value="#{bundle['indexPage.platform.name']}"/></title>
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+            <meta http-equiv="Content-Language" content="en"/>
+            <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <meta name="description" content="#{bundle['head.meta.description']}"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <link type="image/png" rel="icon" href="/resources/images/favicondataverse.png"/>
+            <link type="image/png" rel="image_src" href="/resources/images/dataverseproject.png"/>
+        </h:head>
+        <h:body>
+            <f:facet name="last">
+                <h:outputStylesheet library="bs" name="css/bootstrap.css" />
+                <h:outputStylesheet library="bs" name="css/bootstrap-theme.min.css" />
+                <h:outputStylesheet library="css" name="structure.css" />
+                <h:outputStylesheet library="home_css" name="main.css" />
+            </f:facet>
+            <f:loadBundle basename="Bundle" var="bundle"/>
+
+            <ui:include src="dataverse_header.xhtml">
+                <ui:param name="dataverse" value="#{indexPage.rootDataverse}"/>
+            </ui:include>
+            
+            <p:ajaxStatus id="ajaxStatusPanel">
+                <f:facet name="start">
+                    <h:graphicImage value="/resources/images/ajax-loading.gif" />
+                </f:facet>
+                <f:facet name="complete">
+                <!-- DO NOTHING -->
+                </f:facet>
+            </p:ajaxStatus>
+
+            <ui:include src="contactFormFragment.xhtml">
+                <ui:param name="formTitle" value="#{bundle['contact.header']}"/>
+                <ui:param name="formTo" value="#{bundle['contact.to']}"/>
+            </ui:include>
+                   
+            <!-- Main jumbotron for a primary marketing message or call to action -->
+            <div class="jumbotron">
+                <div class="container jumbotron">
+                    <h1>#{bundle['indexPage.platform.name']}</h1>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="bg-placeholder"></div>
+
+                        </div>
+                        <div class="col-md-5">
+                            <img src="/resources/home_images/slogan1.png" class="slogan1" jsf:rendered="#{dataverseLocale.localeZh}"/>
+                            <img src="/resources/home_images/slogan_eng_1.png" class="slogan1" jsf:rendered="#{not dataverseLocale.localeZh}"/>
+                            <img src="/resources/home_images/slogan2.png" class="slogan2" jsf:rendered="#{dataverseLocale.localeZh}"/>
+                            <img src="/resources/home_images/slogan_eng_2.png" class="slogan2" jsf:rendered="#{not dataverseLocale.localeZh}"/>
+                            <p id="cta-area"><a class="btn btn-primary btn-lg" id="create-my-space" href="dataverse.xhtml?ownerId=1" role="button">#{bundle['indexPage.create.dataverse']}</a><span class="or-text">#{bundle['indexPage.or']}</span><a class="or-link" href="dataverse.xhtml"><span style="margin-right: 5px;" class="glyphicon glyphicon-list" aria-hidden="true"></span>#{bundle['indexPage.dataset.explore']}</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="jumbosearch">
+                <div class="container">
+                    <div class="get-started-now text-center">#{bundle['indexPage.search.nowbegin']}</div>
+                    <div class="tagline text-center">
+                        <h:outputFormat value="#{bundle['indexPage.search']}" escape="false">
+                            <f:param value="#{indexPage.dataverseCount}"/>
+                            <f:param value="#{indexPage.datasetCount}"/>
+                        </h:outputFormat>
+                    </div>
+                    <div class="triangle text-center"><img src="/resources/home_images/searcharrow.png"/></div>
+                    <div class="search-box">
+                        <form action="dataverse/#{indexPage.rootDataverse.alias}">
+                            <div class="form-group">
+                                <input name="q" type="text" class="form-control" id="primary-search" placeholder="#{bundle['indexPage.search.tip']}"/>
+                            </div>
+                        </form>    
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="featured-data" class="container">
+                <h2><img src="/resources/home_images/iconblue.jpg" class="icon"/>#{bundle['indexPage.dataverse.hq']}</h2>
+                <ui:repeat value="#{indexPage.hqDataverse}" var="hqDvs">
+                    <div class="row">
+                        <ui:repeat value="#{hqDvs}" var="hqDv">
+                            <div class="col-md-3" style="text-align: center;">
+                                <h:outputLink value="dataverse/#{hqDv.dataverse.alias}" title="#{dataverseLocale.localeZh ? hqDv.dataverse.nameZh : hqDv.dataverse.name} #{bundle.dataverse}">
+                                    <img src="/logos/#{hqDv.dataverse.logoOwnerId}/#{hqDv.dataverse.dataverseTheme.logo}" jsf:rendered="#{!empty hqDv.dataverse.dataverseTheme.logo}"/>
+                                    <img src="/resources/home_images/default_logo.jpg" jsf:rendered="#{empty hqDv.dataverse.dataverseTheme.logo}"/>
+                                </h:outputLink>
+                                <h3>
+                                    <h:outputText value="#{hqDv.dataverse.nameZh}" rendered="#{dataverseLocale.localeZh}"/>
+                                    <h:outputText value="#{hqDv.dataverse.name}" rendered="#{not dataverseLocale.localeZh}"/>
+                                </h3>
+                            </div>
+                        </ui:repeat>
+                    </div>
+                </ui:repeat>
+                <hr/>
+
+                <footer>
+                    <div class="row">
+                        <div class="col-md-8" id="footer-links">
+                            <a href="#">#{bundle['indexPage.home']}</a>
+                            <a href="#">#{bundle['indexPage.policyStatements']}</a>
+                            <a href="http://lib.pku.edu.cn">#{bundle['indexPage.pku.library']}</a>
+                            <a href="http://ir.pku.edu.cn">#{bundle['indexPage.pku.ir']}</a>
+                            <a href="http://scholar.pku.edu.cn/">#{bundle['indexPage.pku.scholar']}</a>
+                        </div>
+                        <div class="col-md-4" id="footer-social">
+                            <a><img src="/resources/home_images/email.png"/></a>
+                            <a><img src="/resources/home_images/phone.png"/></a>
+                            <a><img src="/resources/home_images/qq.png"/></a>
+                            <a><img src="/resources/home_images/wechat.png"/></a>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+            <h:outputScript library="bs" name="js/bootstrap.min.js" />
+            <h:outputScript library="js" name="dv_rebind_bootstrap_ui.js" />
+            <h:outputScript library="js" name="jquery.sharrre.js" />
+            <script>
+
+                $(document).ready(function () {
+                    // Navbar Search Toggle
+                    $(document).on('click', '#navbar-search-toggle', function (e) {
+                        $(this).parent("li").hide();
+                        $("form.navbar-form[role='search']").show();
+                    });
+                    $('body').click(function (e) {
+                        if (!$(e.target).closest("form.navbar-form[role='search']").length) {
+                            $("form.navbar-form[role='search']").hide();
+                            $("#navbar-search-toggle").parent("li").show();
+                        }
+                        ;
+                    });
+
+                    // Rebind bootstrap UI components
+                    bind_bsui_components();
+                });
+
+                /*
+                 * Custom Popover with HTML code snippet
+                 */
+                function popoverHTML() {
+                    var popoverTemplateHTML = ['<div class="popover">',
+                        '<div class="arrow"></div>',
+                        '<h3 class="popover-title"></h3>',
+                        '<div class="popover-content">',
+                        '</div>',
+                        '</div>'].join('');
+
+                    var popoverContentHTML = ['<code>',
+                        '<h:outputText value="#{bundle.htmlAllowedTags}" escape="true"/>',
+                        '</code>'].join('');
+
+                    $('body').popover({
+                        selector: 'span.popoverHTML',
+                        title: '<h:outputText value="#{bundle.htmlAllowedTitle}"/>',
+                        trigger: 'hover',
+                        content: popoverContentHTML,
+                        template: popoverTemplateHTML,
+                        placement: "bottom",
+                        container: "#content",
+                        html: true
+                    });
+                }
+            </script>
+        </h:body>
+    </f:view>
+</html>

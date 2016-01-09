@@ -1,0 +1,170 @@
+
+
+/* ==========================================================================
+   yue's custom styles
+   ========================================================================== */
+
+#pku-logo{
+	display: block;
+}
+
+
+.jumbotron{
+		background-color: #0D6DAD;
+		padding-bottom: 0;
+}
+
+.jumbotron .bg-placeholder{
+	height: 440px;
+	margin-top: -100px;
+	background-image: url('/resources/home_images/lionking.png');
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+
+.jumbotron h1{
+	font-size: 36px;
+	color: white;
+	font-weight: 100;
+	text-align: right;
+	margin-top: 5px;
+}
+
+.jumbotron .slogan1{
+	margin: 30px 0;
+	display: block;
+}
+
+.jumbotron .slogan2{
+	margin-bottom: 30px;
+	display: block;
+}
+
+.jumbotron p{
+	color: white;
+	font-size: 14px;
+}
+
+#cta-area .or-text{
+margin: 0 15px;	
+opacity: .6;
+}
+
+#cta-area a.or-link{
+	color: white;
+	opacity: .9;
+}
+
+#create-my-space{
+	border-radius: 30px;
+	padding-left: 30px;
+	padding-right: 30px;
+	background-image: linear-gradient(to bottom,#429ED5 0,#378ACD 100%);
+	box-shadow: 0 4px 4px rgba(0,0,0,.3);
+}
+
+#create-my-space:hover{
+	background-image: linear-gradient(to bottom, #2a85b9 0%, #1676c4 100%);
+	background-position: 0 0;
+}
+
+#jumbosearch{
+	background-color: #eee;
+	margin-top: -30px;
+	padding: 30px 0;
+}
+
+
+#jumbosearch .get-started-now{
+	font-size: 28px;
+	margin-bottom: 4px;
+}
+
+#jumbosearch .tagline{
+	font-size: 16px;
+	margin-bottom: 10px;
+}
+
+#jumbosearch .triangle{
+	margin-bottom: 20px;
+}
+
+#primary-search{
+	border-radius: 17px;
+	padding-left: 22px;
+}
+
+
+#featured-data{
+	padding-top: 30px;
+}
+
+#featured-data h2{
+	font-size: 22px;
+	margin-bottom: 30px;
+	line-height: 22px;
+}
+
+#featured-data h2 img.icon{
+	height: 20px;
+	width: 20px;
+	margin-bottom: 2px;
+	margin-right: 15px;
+	display: inline-block;
+	box-shadow: none;
+	padding: 0;
+}
+
+#featured-data h3{
+	font-size: 18px;
+	text-align: center;
+	margin: 20px 0;
+}
+
+#featured-data a:hover{
+	opacity: .8;
+	transition: ease-in-out all .2s;
+}
+
+#featured-data img{
+	padding: 3px;
+	box-shadow: 0px 0px 3px rgba(0,0,0,.25);
+	box-sizing: border-box;
+	width: 100%;
+        max-height:154px;
+        max-width:216px;
+}
+
+#footer-links{
+	margin-top: 5px;
+}
+
+#footer-links a{
+	color: #888;
+	padding: 0 10px;
+	border-right: 1px #ddd solid;
+}
+
+#footer-links a:first-child{
+padding-left: 0;
+}
+#footer-links a:last-child{
+border-right: none;
+}
+
+#footer-social a{
+	float: right;
+	margin-left: 10px;
+}
+
+#footer-social img{
+	border: none;
+	box-shadow: none;
+}
+
+
+.clearfix{
+	clear: both;
+}
+
+#navbarFixed{border-bottom-width:0px}

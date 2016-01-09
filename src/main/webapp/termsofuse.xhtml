@@ -1,0 +1,26 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui">
+    
+    <div class="form-group col-sm-11">
+        <label for="position" class="col-sm-2 control-label">
+            <span data-toggle="tooltip" data-placement="auto right" class="tooltiplabel text-info" data-original-title="#{bundle['user.acccountterms.tip']}">
+                #{bundle['user.acccountterms']} <span class="glyphicon glyphicon-asterisk text-danger" title="#{bundle.requiredField}"/>
+            </span>
+        </label>
+        <div class="col-sm-9">
+            <div id="terms-agreement-block" class="well">
+                <h:outputText value="#{systemConfig.applicationTermsOfUse}" escape="false"/>
+            </div>
+            <div class="checkbox">
+              <p:selectBooleanCheckbox id="terms" required="true" requiredMessage="#{bundle['user.acccountterms.required']}">
+                <f:validator validatorId="requiredCheckboxValidator"/>
+              </p:selectBooleanCheckbox>
+              <h:outputText value=" #{bundle['user.acccountterms.iagree']}"/>
+              <p:message for="terms" display="text" />
+            </div>
+        </div>
+    </div>
+</ui:composition>

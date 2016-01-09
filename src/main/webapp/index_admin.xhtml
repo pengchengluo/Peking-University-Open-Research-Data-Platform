@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:iqbs="http://xmlns.jcp.org/jsf/composite/iqbs">
+    <h:head>
+    </h:head>
+
+    <h:body>
+        <ui:fragment rendered="#{dataverseSession.user.superuser}">
+            <ui:composition template="/dataverse_template.xhtml">
+                <ui:param name="pageTitle" value="#{bundle['indexAdminPage.title']}"/>
+                <ui:param name="hideDataverseHeader" value="true"/>
+                <ui:define name="body">
+                    <f:metadata>
+                        <f:viewAction action="#{indexAdminPage.init}"/>
+                    </f:metadata>
+                    <div class="panel panel-default">
+                        <div data-toggle="collapse" data-target="#panelCollapseSearchDataverse" class="panel-heading text-info">
+                            #{bundle['indexAdminPage.dataverse.search.title']}<span class="glyphicon glyphicon-chevron-up"/>
+                        </div>
+                        <div id="panelCollapseSearchDataverse" class="collapse in">
+                            <div class="panel-body">
+                                <div>
+                                    <p:fragment id="groupMessages">
+                                        <div class="messagePanel">
+                                            <iqbs:messages  collapsible="true"/>
+                                        </div>
+                                    </p:fragment>
+                                    <h:form>
+                                        <p:panelGrid columns="2">
+                                            <p:inputText value="#{indexAdminPage.query}" placeholder="#{bundle['indexAdminPage.dataverse.search.tip']}"  styleClass="form-control"/>
+                                            <p:commandButton value="#{bundle['search']}" actionListener="#{indexAdminPage.searchDataverseByName}"
+                                                             update=":#{p:component('dataverseList')} :#{p:component('totalInfo')}"/>  
+                                        </p:panelGrid>
+                                    </h:form>
+                                    <h:outputFormat id="totalInfo" value="#{bundle['indexAdminPage.dataverse.search.result.info']}">
+                                        <f:param value="#{indexAdminPage.searchResults.total}"/>
+                                    </h:outputFormat>
+                                    <p:dataTable value="#{indexAdminPage.searchResults.results}" var="dataverse" id="dataverseList">
+                                        <p:column width="20%" headerText="#{bundle['indexAdminPage.dataverse.header.name']}" class="text-center">
+                                            <h:outputText value="#{dataverse.nameZh}" rendered="#{dataverseLocale.localeZh}"/>
+                                            <h:outputText value="#{dataverse.name}" rendered="#{not dataverseLocale.localeZh}"/>
+                                        </p:column>
+                                        <p:column width="20%" headerText="#{bundle['indexAdminPage.dataverse.header.affiliation']}" class="text-center">
+                                            <h:outputText value="#{dataverse.affiliationZh}" rendered="#{dataverseLocale.localeZh}"/>
+                                            <h:outputText value="#{dataverse.affiliation}" rendered="#{not dataverseLocale.localeZh}"/>
+                                        </p:column>
+                                        <p:column width="20%" headerText="#{bundle['indexAdminPage.dataverse.header.description']}" class="text-center">
+                                            <h:outputText value="#{fn:substring(dataverse.descriptionZh,0,50)}" rendered="#{dataverseLocale.localeZh}"/>
+                                            <h:outputText value="#{fn:substring(dataverse.description,0,50)}" rendered="#{not dataverseLocale.localeZh}"/>
+                                        </p:column>
+                                        <p:column width="20%" headerText="#{bundle['indexAdminPage.dataverse.header.action']}" class="text-center">
+                                            <h:form>
+                                                <p:commandButton value="#{bundle['indexAdminPage.dataverse.markAsHQ']}" actionListener="#{indexAdminPage.addHighQualityDataverse(dataverse.id)}"
+                                                                 update=":#{p:component('groupMessages')} :#{p:component('hgDvList')}"/>
+                                            </h:form>
+                                        </p:column>
+                                    </p:dataTable>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div data-toggle="collapse" data-target="#panelCollapseHQDataverse" class="panel-heading text-info">
+                            #{bundle['indexAdminPage.dataverse.hq.title']}<span class="glyphicon glyphicon-chevron-up"/>
+                        </div>
+                        <div id="panelCollapseHQDataverse" class="collapse in">
+                            <div class="panel-body">
+                                <div>
+                                    <p:fragment id="groupMessagesHQ">
+                                        <div class="messagePanel">
+                                            <iqbs:messages  collapsible="true"/>
+                                        </div>
+                                    </p:fragment>
+                                    <p:dataTable value="#{indexAdminPage.highQualityDataverses}" var="hqDv" id="hgDvList">
+                                        <p:column width="20%" headerText="#{bundle['indexAdminPage.dataverse.header.name']}" class="text-center">
+                                            <h:outputText value="#{hqDv.dataverse.nameZh}" rendered="#{dataverseLocale.localeZh}"/>
+                                            <h:outputText value="#{hqDv.dataverse.name}" rendered="#{not dataverseLocale.localeZh}"/>
+                                        </p:column>
+                                        <p:column width="20%" headerText="#{bundle['indexAdminPage.dataverse.header.affiliation']}" class="text-center">
+                                            <h:outputText value="#{hqDv.dataverse.affiliationZh}" rendered="#{dataverseLocale.localeZh}"/>
+                                            <h:outputText value="#{hqDv.dataverse.affiliation}" rendered="#{not dataverseLocale.localeZh}"/>
+                                        </p:column>
+                                        <p:column width="20%" headerText="#{bundle['indexAdminPage.dataverse.header.description']}" class="text-center">
+                                            <h:outputText value="#{fn:substring(hqDv.dataverse.descriptionZh,0,50)}" rendered="#{dataverseLocale.localeZh}"/>
+                                            <h:outputText value="#{fn:substring(hqDv.dataverse.description,0,50)}" rendered="#{not dataverseLocale.localeZh}"/>
+                                        </p:column>
+                                        <p:column width="20%" headerText="#{bundle['indexAdminPage.dataverse.header.action']}" class="text-center">
+                                            <h:form>
+                                                <p:commandButton value="#{bundle['remove']}" actionListener="#{indexAdminPage.removeHighQualityDataverse(hqDv)}"
+                                                                 update=":#{p:component('groupMessagesHQ')} :#{p:component('hgDvList')}"/>
+                                            </h:form>
+                                        </p:column>
+                                    </p:dataTable>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ui:define>
+            </ui:composition>
+        </ui:fragment>
+    </h:body>
+</html>
